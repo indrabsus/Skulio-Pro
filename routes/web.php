@@ -23,6 +23,7 @@ Route::get('logout',[AuthController::class,'logout'])->name('logout');
 Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['cekrole:admin']], function(){
         Route::get('admin', [AdminController::class,'index'])->name('indexadmin');
+        Route::post('admin/prosesabsen', [AdminController::class,'absen'])->name('absen');
     });
     Route::group(['middleware' => ['cekrole:karyawan']], function(){
         Route::get('karyawan', [KaryawanController::class,'index'])->name('indexkaryawan');

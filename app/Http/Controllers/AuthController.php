@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function index(){
-        return view('login');
+        return view('loginui');
     }
     public function login(Request $request){
         $auth = $request->validate([
