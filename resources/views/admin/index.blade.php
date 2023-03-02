@@ -31,6 +31,7 @@
                             <option value="hadir">Hadir</option>
                             <option value="izin">Izin</option>
                             <option value="sakit">Sakit</option>
+                            <option value="nojadwal">Tidak ada jadwal</option>
                         </select>
                         <div class="text-danger">
                             @error('ket')

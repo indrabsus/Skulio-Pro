@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\HitungAbsen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,30 +27,48 @@ class AdminController extends Controller
         $lat2 = $data->lat;
         $long2 = $data->long;
 
-    $theta = $long1 - $long2;
-    $miles = (sin(deg2rad($lat1))) * sin(deg2rad($lat2)) + (cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)));
-    $miles = acos($miles);
-    $miles = rad2deg($miles);
-    $result['miles'] = $miles * 60 * 1.1515;
-    $result['feet'] = $result['miles']*5280;
-    $result['yards'] = $result['feet']/3;
-    $result['kilometers'] = $result['miles']*1.609344;
-    $result['meters'] = $result['kilometers']*1000;
+    $cek = $this->cekDuplikat('absens', 'id_user', $request->id_user);
+    if($cek['absen']>999){
+        return redirect()->route('indexadmin')->with('gagal', 'Anda Sudah Absen Hari ini');
+        } elseif(date('l', strtotime(now())) == 'Sunday' || date('l', strtotime(now())) == 'Saturday'){
+            return redirect()->route('indexadmin')->with('gagal', 'Tidak bisa Absen dihari Libur');
+        }
 
-    $cek = DB::table('absens')->where('id_user', $request->id_user)->where('tanggal', date('Y/m/d', strtotime(now())))->count();
-        if($cek < 1){
-    $insert = Absen::create([
-        'id_user' => $request->id_user,
-        'tanggal' => date('Y/m/d'),
-        'waktu' => date('h:i:s'),
-        'lat' => $request->lat,
-        'long' => $request->long,
-        'ket' => $request->ket
-    ]);
-    return redirect()->route('indexadmin')->with('sukses', 'Berhasil Absen');
-} else {
-    return redirect()->route('indexadmin')->with('gagal', 'Anda Sudah Absen Hari ini');
-}
+        else {
+            $insert = Absen::create([
+                'id_user' => $request->id_user,
+                'tanggal' => date('Y/m/d'),
+                'waktu' => date('h:i:s'),
+                'lat' => $request->lat,
+                'long' => $request->long,
+                'ket' => $request->ket,
+                'selisih' => $this->jarak($lat1,$long1,$lat2,$long2),
+            ]);
+            DB::table('hitung_absens')->updateOrInsert(
+            ['bulan' => date('F Y'), 'id_user' => $request->id_user],
+            [
+                'hadir' => Absen::where('id_user',$request->id_user)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'hadir')->count(),
+                'kegiatan' => Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'kegiatan')->count(),
+                'sakit' => Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'sakit')->count(),
+                'izin' => Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'izin')->count(),
+                'nojadwal' => Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'nojadwal')->count(),
+
+            ]
+        );
+
+        return redirect()->route('indexadmin')->with('sukses', 'Berhasil Absen');
+
+        }
 
     }
 

@@ -7,7 +7,7 @@
   <link rel="icon" type="image/x-icon" href="{{asset('image/polri.png')}}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <title>Halaman {{ ucwords(Auth::user()->nama) }}</title>
+  <title>Halaman {{ ucwords(Auth::user()->name) }}</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
