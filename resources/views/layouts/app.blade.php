@@ -5,8 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="{{asset('image/polri.png')}}">
+  @livewireStyles
   <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="{{asset('adminv')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{asset('adminv')}}/plugins/toastr/toastr.min.css">
   <title>Halaman {{ ucwords(Auth::user()->name) }}</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -82,7 +86,7 @@
 
 
       <!-- Sidebar Menu -->
-      @include('admin.layouts.menu')
+      @include('layouts.menu')
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -140,7 +144,8 @@
 <!-- Bootstrap 4 -->
 <script src="{{asset('adminv')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-
+<script src="{{asset('adminv')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{asset('adminv')}}/plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminv')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -150,5 +155,6 @@
 
 
 
+@livewireScripts
 </body>
 </html>

@@ -11,6 +11,14 @@
           </p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
+          <i class="nav-icon fas fa-user"></i>
+          <p>
+            User Management
+          </p>
+        </a>
+      </li>
 
     @endif
 

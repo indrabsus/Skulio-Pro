@@ -20,8 +20,8 @@ class AuthController extends Controller
             if(Auth::user()->level == 'admin'){
                 return redirect()->route('indexadmin');
             }
-            elseif(Auth::user()->level == 'karyawan'){
-                return redirect()->route('indexkaryawan');
+            elseif(Auth::user()->level == 'user'){
+                return redirect()->route('indexuser');
             }
 
         }

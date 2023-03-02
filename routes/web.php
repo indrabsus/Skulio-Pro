@@ -3,6 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\UserController;
+use App\Http\Livewire\AbsenAll;
+use App\Http\Livewire\UserMgmt;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +25,11 @@ Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['cekrole:admin']], function(){
-        Route::get('admin', [AdminController::class,'index'])->name('indexadmin');
         Route::post('admin/prosesabsen', [AdminController::class,'absen'])->name('absen');
+        Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
+        Route::get('admin', AbsenAll::class)->name('indexadmin');
     });
-    Route::group(['middleware' => ['cekrole:karyawan']], function(){
-        Route::get('karyawan', [KaryawanController::class,'index'])->name('indexkaryawan');
+    Route::group(['middleware' => ['cekrole:user']], function(){
+        Route::get('user', [UserController::class,'index'])->name('indexuser');
     });
 });
