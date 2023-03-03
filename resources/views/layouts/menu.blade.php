@@ -19,6 +19,14 @@
           </p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{route('persentase')}}" class="nav-link {{ Route::currentRouteName() == 'persentase' ? 'active':''}}">
+          <i class="nav-icon fa fa-calculator"></i>
+          <p>
+            Persentase
+          </p>
+        </a>
+      </li>
 
     @endif
 

@@ -22,9 +22,9 @@
               </div>
             @endif
 
-            <form action="{{ route('absen') }}" method="post">
+            <form action="{{ route('ayoabsen') }}" method="post">
                 @csrf
-                <input type="text" name="long" value="{{ Auth::user()->id }}" hidden>
+                <input type="text" name="id_user" value="{{ Auth::user()->id }}" hidden>
                 <div class="form-group">
                     <label for="">Lokasi saya</label>
                     <div class="row">
