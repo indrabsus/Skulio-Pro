@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\AbsenAll;
+use App\Http\Livewire\Admin\History;
 use App\Http\Livewire\Admin\Persentase;
 use App\Http\Livewire\Admin\UserMgmt;
 use Illuminate\Support\Facades\Route;
@@ -25,11 +26,13 @@ Route::get('logout',[AuthController::class,'logout'])->name('logout');
 Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['cekrole:admin']], function(){
         Route::get('admin/persentase', Persentase::class)->name('persentase');
+        Route::get('admin/history', History::class)->name('history');
         Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
         Route::get('admin', AbsenAll::class)->name('indexadmin');
     });
     Route::group(['middleware' => ['cekrole:user']], function(){
         Route::get('user', [UserController::class,'index'])->name('indexuser');
-        Route::post('admin/ayoabsen', [UserController::class,'ayoAbsen'])->name('ayoabsen');
+        Route::post('user/ayoabsen', [UserController::class,'ayoAbsen'])->name('ayoabsen');
+        Route::get('user/history', History::class)->name('userhistory');
     });
 });

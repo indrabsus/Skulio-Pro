@@ -26,6 +26,20 @@
                     {{ session('gagal') }}
                   </div>
                 @endif
+                <div class="form-group">
+                        <label for="">Nama :</label>
+                        <select wire:model="id_user" class="form-control">
+                            <option value="">Pilih Nama</option>
+                            @foreach ($nama as $d)
+                                <option value="{{ $d->id }}">{{ $d->name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="text-danger">
+                            @error('id_user')
+                                {{$message}}
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="">Keterangan :</label>
                         <select wire:model="ket" class="form-control">
@@ -41,20 +55,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Nama :</label>
-                        <select wire:model="id_user" class="form-control">
-                            <option value="">Pilih Nama</option>
-                            @foreach ($nama as $d)
-                                <option value="{{ $d->id }}">{{ $d->name }}</option>
-                            @endforeach
-                        </select>
-                        <div class="text-danger">
-                            @error('id_user')
-                                {{$message}}
-                            @enderror
-                        </div>
-                    </div>
+
                         <button class="btn btn-primary btn-sm ml-auto" wire:click="absen()">Absen</button>
 
             </div>
