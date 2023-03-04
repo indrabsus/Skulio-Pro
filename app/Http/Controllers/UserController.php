@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Absen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function index(){
-        $nama = DB::table('users')->get();
-        return view('user.index', compact('nama'));
+
+        return view('user.index');
     }
     public function ayoAbsen(Request $request){
-        $data = DB::table('configs')->first();
+        $data = DB::table('configs')
+        ->where('id_config', Auth::user()->id_config)
+        ->first();
 
         $lat1 = $request->lat;
         $long1 = $request->long;
@@ -61,9 +64,8 @@ class UserController extends Controller
 
             ]
         );
-
         return redirect()->route('indexuser')->with('sukses', 'Berhasil Absen');
-
         }
     }
+
 }

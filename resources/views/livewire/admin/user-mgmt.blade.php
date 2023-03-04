@@ -51,7 +51,7 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ $d->name }}</td>
                 <td>{{ $d->username }}</td>
-                <td>{{ $d->jabatan }}</td>
+                <td>{{ ucwords($d->jabatan) }}</td>
                 <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id }})"><i class="fa fa-edit"></i></a>
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id }})"><i class="fa fa-trash"></i></a>
                     <a class="btn btn-dark btn-sm mb-1" data-toggle="modal" data-target="#k_reset" wire:click="k_reset({{ $d->id }})"><i class="fa fa-cogs"></i> Reset</a>

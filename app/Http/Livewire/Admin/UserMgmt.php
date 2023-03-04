@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,9 +21,10 @@ class UserMgmt extends Component
         $data = User::where('level', 'user')
         ->where('name', 'like','%'.$this->cari.'%')
         ->where('jabatan', 'like','%'.$this->role.'%')
+        ->where('id_config', Auth::user()->id_config)
         ->orderBy('id', 'desc')
         ->paginate($this->result);
-        return view('livewire.user-mgmt', compact('data'))
+        return view('livewire.admin.user-mgmt', compact('data'))
         ->extends('layouts.app')
         ->section('content');
     }
@@ -36,14 +38,20 @@ class UserMgmt extends Component
             'name' => 'required',
             'username' => 'required|alpha_dash|unique:users',
             'jabatan' => 'required'
+        ],[
+            'name.required' => 'Nama tidak boleh kosong!',
+            'username.required' => 'Username tidak boleh kosong!',
+            'username.alpha_dash' => 'Username hanya boleh huruf dan angka',
+            'username.unique' => 'Username sudah digunakan',
+            'jabatan.required' => 'Jabatan tidak boleh kosong'
         ]);
         User::create([
-            'name' => $this->name,
+            'name' => ucwords($this->name),
             'username' => $this->username,
             'password' => bcrypt('rahasia'),
             'level' => 'user',
             'jabatan' => $this->jabatan,
-            'id_config' => 1
+            'id_config' => Auth::user()->id_config
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
@@ -61,9 +69,12 @@ class UserMgmt extends Component
         $this->validate([
             'name' => 'required',
             'jabatan' => 'required'
+        ],[
+            'name.required' => 'Nama tidak boleh kosong!',
+            'jabatan.required' => 'Jabatan tidak boleh kosong'
         ]);
         User::where('id', $this->ids)->update([
-            'name' => $this->name,
+            'name' => ucwords($this->name),
             'username' => $this->username,
             'jabatan' => $this->jabatan,
         ]);

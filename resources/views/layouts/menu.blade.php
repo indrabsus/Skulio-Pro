@@ -29,6 +29,16 @@
       </li>
 
     @endif
+    @if (Auth::user()->level == 'user')
+    <li class="nav-item">
+        <a href="{{route('indexuser')}}" class="nav-link {{ Route::currentRouteName() == 'indexuser' ? 'active':''}}">
+          <i class="nav-icon fas fa-home"></i>
+          <p>
+            Dashboard
+          </p>
+        </a>
+      </li>
+      @endif
 
 
     <li class="nav-item">

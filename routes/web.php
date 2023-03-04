@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\AbsenAll;
-use App\Http\Livewire\Persentase;
-use App\Http\Livewire\UserMgmt;
+use App\Http\Livewire\Admin\AbsenAll;
+use App\Http\Livewire\Admin\Persentase;
+use App\Http\Livewire\Admin\UserMgmt;
 use Illuminate\Support\Facades\Route;
 
 /*
