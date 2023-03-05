@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absen;
-use App\Models\HitungAbsen;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
+use App\Exports\PersentaseExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
-
+    public function export($bln, $jbtn)
+    {
+        return Excel::download(new PersentaseExport($bln, $jbtn), 'persentase-'.$jbtn.'-'.$bln.'.xlsx');
+    }
 }

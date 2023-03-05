@@ -72,6 +72,19 @@
               </button>
             </div>
             <div class="modal-body">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Kode</label>
+                        <input type="number" wire:model="kode" class="form-control">
+                        <div class="text-danger">
+                            @error('kode')
+                                {{$message}}
+                            @enderror
+                        </div>
+                      </div>
+                </div>
+            </div>
               <div class="form-group">
                 <label for="">Nama Lengkap</label>
                 <input type="text" wire:model="name" class="form-control">

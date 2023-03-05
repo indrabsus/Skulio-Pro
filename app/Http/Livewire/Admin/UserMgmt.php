@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 
 class UserMgmt extends Component
 {
-    public $name, $username, $jabatan, $ids;
+    public $name, $username, $jabatan, $ids, $kode;
     use WithPagination;
     public $cari = '';
     public $result = 10;
@@ -32,18 +32,21 @@ class UserMgmt extends Component
         $this->name = '';
         $this->username = '';
         $this->jabatan = '';
+        $this->kode = '';
     }
     public function insert(){
         $this->validate([
             'name' => 'required',
             'username' => 'required|alpha_dash|unique:users',
-            'jabatan' => 'required'
+            'jabatan' => 'required',
+            'kode' => 'required'
         ],[
             'name.required' => 'Nama tidak boleh kosong!',
             'username.required' => 'Username tidak boleh kosong!',
-            'username.alpha_dash' => 'Username hanya boleh huruf dan angka',
-            'username.unique' => 'Username sudah digunakan',
-            'jabatan.required' => 'Jabatan tidak boleh kosong'
+            'username.alpha_dash' => 'Username hanya boleh huruf dan angka!',
+            'username.unique' => 'Username sudah digunakan!',
+            'jabatan.required' => 'Jabatan tidak boleh kosong!',
+            'kode.required' => 'Kode tidak boleh kosong!'
         ]);
         User::create([
             'name' => ucwords($this->name),
@@ -51,7 +54,8 @@ class UserMgmt extends Component
             'password' => bcrypt('rahasia'),
             'level' => 'user',
             'jabatan' => $this->jabatan,
-            'id_config' => Auth::user()->id_config
+            'id_config' => Auth::user()->id_config,
+            'kode' => $this->kode
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
@@ -64,19 +68,23 @@ class UserMgmt extends Component
         $this->name = $data->name;
         $this->username = $data->username;
         $this->jabatan = $data->jabatan;
+        $this->kode = $data->kode;
     }
     public function update(){
         $this->validate([
             'name' => 'required',
-            'jabatan' => 'required'
+            'jabatan' => 'required',
+            'kode' => 'required'
         ],[
             'name.required' => 'Nama tidak boleh kosong!',
-            'jabatan.required' => 'Jabatan tidak boleh kosong'
+            'jabatan.required' => 'Jabatan tidak boleh kosong',
+            'kode.required' => 'Kode tidak boleh kosong!'
         ]);
         User::where('id', $this->ids)->update([
             'name' => ucwords($this->name),
             'username' => $this->username,
             'jabatan' => $this->jabatan,
+            'kode' => $this->kode
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');

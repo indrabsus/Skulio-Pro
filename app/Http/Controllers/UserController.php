@@ -61,6 +61,16 @@ class UserController extends Controller
                 'nojadwal' => Absen::where('id_user',$request->id_user)
                 ->where('tanggal', 'like', '%'.date('Y-m').'%')
                 ->where('ket', 'nojadwal')->count(),
+                'total' => Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'hadir')->count() +
+                            Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'kegiatan')->count() +
+                            Absen::where('id_user',$request->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'nojadwal')->count(),
+
 
             ]
         );

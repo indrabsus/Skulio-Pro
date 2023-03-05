@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="{{asset('adminv')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminv')}}/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{asset('adminv')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('adminv')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
   <!-- jQuery -->
 
@@ -150,6 +152,7 @@
 <script src="{{asset('adminv')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('adminv')}}/dist/js/demo.js"></script>
+<script src="{{asset('adminv')}}/plugins/select2/js/select2.full.min.js"></script>
 
 
 

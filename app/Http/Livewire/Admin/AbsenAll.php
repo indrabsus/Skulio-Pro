@@ -26,9 +26,9 @@ class AbsenAll extends Component
             'id_user' => 'required'
         ]);
         $cek = $this->cekDuplikat('absens', 'id_user', $this->id_user);
-    if($cek['absen']>0){
+    if($cek['absen']>99){
         session()->flash('gagal', 'Anda Sudah Absen Hari ini');
-        } elseif(date('l', strtotime(now())) == 'Sunday' || date('l', strtotime(now())) == 'Saturday'){
+        } elseif(date('l', strtotime(now())) == 'Sundaay' || date('l', strtotime(now())) == 'Saturdaay'){
             session()->flash('gagal', 'Tidak bisa Absen dihari Libur');
         }
 
@@ -55,6 +55,15 @@ class AbsenAll extends Component
                 ->where('tanggal', 'like', '%'.date('Y-m').'%')
                 ->where('ket', 'izin')->count(),
                 'nojadwal' => Absen::where('id_user',$this->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'nojadwal')->count(),
+                'total' => Absen::where('id_user',$this->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'hadir')->count() +
+                            Absen::where('id_user',$this->id_user)
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'kegiatan')->count() +
+                            Absen::where('id_user',$this->id_user)
                 ->where('tanggal', 'like', '%'.date('Y-m').'%')
                 ->where('ket', 'nojadwal')->count(),
 

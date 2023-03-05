@@ -10,6 +10,8 @@ use Livewire\WithPagination;
 class Persentase extends Component
 {
     use WithPagination;
+    public $bln = 'March 2023';
+    public $jbtn = 'guru';
     public $cari = '';
     public $result = 10;
     public $role = '';

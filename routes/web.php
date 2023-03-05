@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\AbsenAll;
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/history', History::class)->name('history');
         Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
         Route::get('admin', AbsenAll::class)->name('indexadmin');
+        Route::get('admin/export/{bln?}/{jbtn?}', [AdminController::class, 'export'])->name('export');
     });
     Route::group(['middleware' => ['cekrole:user']], function(){
         Route::get('user', [UserController::class,'index'])->name('indexuser');
