@@ -12,8 +12,9 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <select wire:model="jbtn" class="form-control">
-                        <option value="guru">Guru</option>
-                        <option value="tendik">Tendik</option>
+                    @foreach ($jbtan as $d)
+                        <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                    @endforeach
                     </select>
                   </div>
                 <input type="text" class="form-control" placeholder="March 2023" wire:model="bln">
@@ -32,10 +33,9 @@
             </div>
             <div class="col-lg-2 mb-1">
                 <select wire:model='role' class="form-control">
-                    <option value="">Pilih Jabatan</option>
-                    <option value="guru">Guru</option>
-                    <option value="tendik">Tendik</option>
-                    <option value="siswa">Siswa</option>
+                @foreach ($jbtan as $d)
+                        <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                    @endforeach
                 </select>
             </div>
 

@@ -12,6 +12,14 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{route('rolemgmt')}}" class="nav-link {{ Route::currentRouteName() == 'rolemgmt' ? 'active':''}}">
+          <i class="nav-icon fas fa-users"></i>
+          <p>
+            Role Management
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
           <i class="nav-icon fas fa-user"></i>
           <p>

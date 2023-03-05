@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Jabatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -26,7 +27,8 @@ class Persentase extends Component
         ->where('jabatan', 'like','%'.$this->role.'%')
         ->where('bulan', 'like','%'.$this->bulan.'%')
         ->paginate($this->result);
-        return view('livewire.admin.persentase',compact('data'))
+        $jbtan = Jabatan::where('id_config', Auth::user()->id_config)->get();
+        return view('livewire.admin.persentase',compact('data','jbtan'))
         ->extends('layouts.app')
         ->section('content');
     }

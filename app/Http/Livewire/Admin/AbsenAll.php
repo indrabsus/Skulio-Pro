@@ -26,9 +26,9 @@ class AbsenAll extends Component
             'id_user' => 'required'
         ]);
         $cek = $this->cekDuplikat('absens', 'id_user', $this->id_user);
-    if($cek['absen']>99){
+    if($cek['absen']>0){
         session()->flash('gagal', 'Anda Sudah Absen Hari ini');
-        } elseif(date('l', strtotime(now())) == 'Sundaay' || date('l', strtotime(now())) == 'Saturdaay'){
+        } elseif(date('l', strtotime(now())) == 'Sunday' || date('l', strtotime(now())) == 'Saturday'){
             session()->flash('gagal', 'Tidak bisa Absen dihari Libur');
         }
 

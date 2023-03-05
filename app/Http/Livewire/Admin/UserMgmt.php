@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Jabatan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -24,7 +25,8 @@ class UserMgmt extends Component
         ->where('id_config', Auth::user()->id_config)
         ->orderBy('id', 'desc')
         ->paginate($this->result);
-        return view('livewire.admin.user-mgmt', compact('data'))
+        $jbtn = Jabatan::where('id_config', Auth::user()->id_config)->get();
+        return view('livewire.admin.user-mgmt', compact('data', 'jbtn'))
         ->extends('layouts.app')
         ->section('content');
     }
