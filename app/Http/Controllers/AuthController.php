@@ -23,7 +23,13 @@ class AuthController extends Controller
             elseif(Auth::user()->level == 'user'){
                 return redirect()->route('indexuser');
             }
+            else {
+                return redirect()->route('index');
+            }
 
+        }
+        else {
+            return redirect()->route('index');
         }
     }
     public function logout(){
