@@ -1,7 +1,5 @@
 <div>
-    <div class="col-lg-2">
-        <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#pass" wire:click="k_ubah({{ Auth::user()->id }})"><i class="fa fa-puzzle-piece" aria-hidden="true"> Ubah Password</i></a>
-    </div>
+    
     @if (session('sukses'))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -17,6 +15,9 @@
                   </div>
                 @endif
         <div class="row justify-content-end">
+        <div class="col-lg-3 mb-1">
+        <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#pass" wire:click="k_ubah({{ Auth::user()->id }})"><i class="fa fa-puzzle-piece" aria-hidden="true"> Ubah Password</i></a>
+    </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="2023-24-02" wire:model="tanggal">
