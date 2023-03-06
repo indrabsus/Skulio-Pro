@@ -24,6 +24,7 @@ class AuthController extends Controller
                 return redirect()->route('indexuser');
             }
             else {
+                Auth::logout();
                 return redirect()->route('index');
             }
 
