@@ -32,7 +32,7 @@ class UserController extends Controller
         }
 
         elseif($jarak >= 200){
-            return redirect()->route('indexuser')->with('gagal', 'Diluar radius yang ditentukan!');
+            return redirect()->route('indexuser')->with('gagal', 'Diluar radius yang ditentukan! Selisih : '.round($jarak).' m');
         }  else {
             $insert = Absen::create([
                 'id_user' => $request->id_user,
@@ -74,7 +74,7 @@ class UserController extends Controller
 
             ]
         );
-        return redirect()->route('indexuser')->with('sukses', 'Berhasil Absen');
+        return redirect()->route('indexuser')->with('sukses', 'Berhasil Absen, Selisih: '.round($jarak).' m');
         }
     }
 
