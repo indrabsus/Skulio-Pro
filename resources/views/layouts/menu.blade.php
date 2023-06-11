@@ -4,6 +4,15 @@
          with font-awesome or any other icon font library -->
     @if (Auth::user()->level == 'admin')
     <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Absen Lokasi
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
         <a href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
           <i class="nav-icon fas fa-home"></i>
           <p>
@@ -11,6 +20,7 @@
           </p>
         </a>
       </li>
+
       <li class="nav-item">
         <a href="{{route('rolemgmt')}}" class="nav-link {{ Route::currentRouteName() == 'rolemgmt' ? 'active':''}}">
           <i class="nav-icon fas fa-users"></i>
@@ -43,6 +53,9 @@
           </p>
         </a>
       </li>
+            </ul>
+          </li>
+    
 
     @endif
     @if (Auth::user()->level == 'user')
