@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Piket;
 
 use App\Models\Absen;
 use App\Models\User;
@@ -14,6 +14,7 @@ class AbsenAll extends Component
     public $ket, $id_user, $oldPass, $password, $k_password, $ids, $name, $hash;
     public function render()
     {
+
         $config = DB::table('configs')->where('id_config', Auth::user()->id_config)->first();
         $nama = DB::table('users')->where('level', 'user')->where('id_config', Auth::user()->id_config)->get();
         return view('livewire.admin.absen-all', compact('config','nama'))

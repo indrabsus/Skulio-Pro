@@ -3,9 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\Admin\AbsenAll;
-use App\Http\Livewire\Admin\History;
-use App\Http\Livewire\Admin\Persentase;
+use App\Http\Livewire\Piket\AbsenAll;
+use App\Http\Livewire\Piket\History;
+use App\Http\Livewire\Piket\Persentase;
 use App\Http\Livewire\Admin\RoleMgmt;
 use App\Http\Livewire\Admin\UserMgmt;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +33,13 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/rolemgmt', RoleMgmt::class)->name('rolemgmt');
         Route::get('admin', AbsenAll::class)->name('indexadmin');
         Route::get('admin/export/{bln?}/{jbtn?}', [AdminController::class, 'export'])->name('export');
+    });
+    Route::group(['middleware' => ['cekrole:piket']], function(){
+        Route::get('piket', AbsenAll::class)->name('indexpiket');
+        Route::get('piket/usermgmt', UserMgmt::class)->name('usermgmtpiket');
+        Route::get('piket/history', History::class)->name('historypiket');
+        Route::get('piket/persentase', Persentase::class)->name('persentasepiket');
+        Route::get('piket/export/{bln?}/{jbtn?}', [AdminController::class, 'export'])->name('exportpiket');
     });
     Route::group(['middleware' => ['cekrole:user']], function(){
         Route::get('user', [UserController::class,'index'])->name('indexuser');

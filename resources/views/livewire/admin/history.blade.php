@@ -30,9 +30,10 @@
             <div class="col-lg-2 mb-1">
                 <select wire:model='role' class="form-control">
                     <option value="">Pilih Jabatan</option>
-                    <option value="guru">Guru</option>
-                    <option value="tendik">Tendik</option>
-                    <option value="siswa">Siswa</option>
+                   @foreach ($jbtan as $d)
+                   <option value="{{$d->jabatan}}">{{$d->jabatan}}</option>
+                   @endforeach
+                    
                 </select>
             </div>
             @endif

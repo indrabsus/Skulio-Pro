@@ -10,7 +10,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Araya? - Aplikasi Absensi Online GPS Tracker</title>
+  <title>Skulio - Sistem Informasi Sekolah</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,7 +26,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{ url('/') }}" class="h1"><b>¿Ar</b>aya?</a>
+      <a href="{{ url('/') }}" class="h1">Skulio<b> PRO</b></a>
     </div>
     <div class="card-body">
         @if (session('status'))
@@ -34,6 +34,13 @@
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fas fa-check"></i> Berhasil!</h5>
             {{ session('status') }}
+          </div>
+    @endif
+        @if (session('gagal'))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-times"></i> Gagal!</h5>
+            {{ session('gagal') }}
           </div>
     @endif
 

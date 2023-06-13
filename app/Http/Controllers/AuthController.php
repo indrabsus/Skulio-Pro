@@ -17,19 +17,12 @@ class AuthController extends Controller
         ]);
         if(Auth::attempt($auth)){
             Auth::user();
-            if(Auth::user()->level == 'admin'){
-                return redirect()->route('indexadmin');
-            }
-            elseif(Auth::user()->level == 'user'){
-                return redirect()->route('indexuser');
-            }
-            else {
-                return redirect()->route('index');
-            }
+            $role = Auth::user()->level;
+            return redirect()->route('index'.$role);
 
         }
         else {
-            return redirect()->route('index');
+            return redirect()->route('index')->with('gagal', 'Username dan Password Salah!');
         }
     }
     public function logout(){

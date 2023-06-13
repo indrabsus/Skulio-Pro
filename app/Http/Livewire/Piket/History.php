@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Piket;
 
+use App\Models\Jabatan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class History extends Component
     public $tanggal = '';
     public function render()
     {
+        $jbtan = Jabatan::where('id_config', Auth::user()->id_config)->get();
         if(Auth::user()->level == 'admin'){
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
@@ -34,7 +36,7 @@ class History extends Component
             ->where('tanggal', 'like','%'.$this->tanggal.'%')
             ->paginate($this->result);
         }
-        return view('livewire.admin.history', compact('data'))
+        return view('livewire.admin.history', compact('data','jbtan'))
         ->extends('layouts.app')
         ->section('content');
     }

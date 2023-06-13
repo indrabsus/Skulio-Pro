@@ -68,7 +68,7 @@
         <div class="container">
         <a href="" class="brand-link">
             <img src="{{ asset('adminv/assets/img/logo.png') }}" width="50px">
-          <span class="brand-text font-weight-light">Araya Absen App</span>
+          <span class="brand-text font-weight-light">Skulio <strong>PRO</strong></span>
         </a>
     </div>
 

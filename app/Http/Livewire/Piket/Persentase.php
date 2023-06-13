@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Piket;
 
 use App\Models\Jabatan;
 use Illuminate\Support\Facades\Auth;
