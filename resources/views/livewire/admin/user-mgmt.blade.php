@@ -39,7 +39,7 @@
     </div>
     <table class="table table-striped">
         <tr>
-            <th>No</th>
+            <th>Kode</th>
             <th>Nama Lengkap</th>
             <th>Username</th>
             <th>Jabatan</th>
@@ -48,7 +48,7 @@
         <?php $no=1;?>
         @foreach ($data as $d)
             <tr>
-                <td>{{ $no++ }}</td>
+                <td>{{ $d->kode }}</td>
                 <td>{{ $d->name }}</td>
                 <td>{{ $d->username }}</td>
                 <td>{{ ucwords($d->jabatan) }}</td>
@@ -105,14 +105,14 @@
               </div>
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <select wire:model="jabatan" class="form-control">
+                <select wire:model="id_jabatan" class="form-control">
                     <option value="">Pilih Jabatan</option>
                     @foreach ($jbtn as $d)
-                        <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                        <option value="{{ $d->id_jabatan }}">{{ $d->jabatan }}</option>
                     @endforeach
                 </select>
                 <div class="text-danger">
-                    @error('jabatan')
+                    @error('id_jabatan')
                         {{$message}}
                     @enderror
                 </div>
@@ -160,14 +160,14 @@
               </div>
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <select wire:model="jabatan" class="form-control">
+                <select wire:model="id_jabatan" class="form-control">
                   <option value="">Pilih Jabatan</option>
                   @foreach ($jbtn as $d)
-                      <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                      <option value="{{ $d->id_jabatan }}">{{ $d->jabatan }}</option>
                   @endforeach
                 </select>
                 <div class="text-danger">
-                    @error('jabatan')
+                    @error('id_jabatan')
                         {{$message}}
                     @enderror
                 </div>

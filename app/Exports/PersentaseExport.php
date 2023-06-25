@@ -22,13 +22,15 @@ class PersentaseExport implements FromView
         return view('exports.persentase', [
             'data' => DB::table('hitung_absens')
                     ->leftJoin('users','users.id','hitung_absens.id_user')
-                    ->where('id_config', Auth::user()->id_config)
+                    ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+                    ->where('users.id_config', Auth::user()->id_config)
                     ->where('bulan', $this->bln)
                     ->where('jabatan', $this->jbtn)
                     ->get(),
             'max' => DB::table('hitung_absens')
             ->leftJoin('users','users.id','hitung_absens.id_user')
-            ->where('id_config', Auth::user()->id_config)
+            ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+            ->where('users.id_config', Auth::user()->id_config)
             ->where('bulan', $this->bln)
             ->where('jabatan',  $this->jbtn)
             ->max('total')

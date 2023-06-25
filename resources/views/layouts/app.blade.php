@@ -131,7 +131,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}">Araya Absen</a>.</strong> Created by Indra Batara, S.Pd
+    <strong>Copyright &copy; {{ date('Y') }} - <a href="{{ url('/') }}">Skulio <strong>PRO</strong></a>.</strong> Created by Indra Batara, S.Pd
   </footer>
 
   <!-- Control Sidebar -->

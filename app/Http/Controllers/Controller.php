@@ -28,4 +28,11 @@ class Controller extends BaseController
         $hitung['absen'] = DB::table($table)->where($key, $value)->where('tanggal', date('Y/m/d', strtotime(now())))->count();
         return $hitung;
     }
+
+    public function config(){
+        $data['nama_instansi'] = 'SMK Sangkuriang 1 Cimahi';
+        $data['long'] = 107.540232;
+        $data['lat'] = -6.865116;
+        return $data;
+    }
 }

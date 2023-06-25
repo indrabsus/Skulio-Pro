@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 
 class RoleMgmt extends Component
 {
-    public $id_config, $ids, $jabatan;
+    public $ids, $jabatan, $kode_jabatan;
     use WithPagination;
     public $cari = '';
     public $result = 10;
@@ -17,9 +17,8 @@ class RoleMgmt extends Component
 
     public function render()
     {
-        $data = Jabatan::where('id_config', Auth::user()->id_config)
-        ->where('jabatan', 'like','%'.$this->cari.'%')
-        ->orderBy('id_jabatan', 'desc')
+        $data = Jabatan::where('jabatan', 'like','%'.$this->cari.'%')
+        ->orderBy('kode_jabatan', 'asc')
         ->paginate($this->result);
         return view('livewire.admin.role-mgmt', compact('data'))
         ->extends('layouts.app')
@@ -27,17 +26,20 @@ class RoleMgmt extends Component
     }
     public function clearForm(){
         $this->jabatan = '';
+        $this->kode_jabatan= '';
     }
     public function insert(){
         $this->validate([
-            'jabatan' => 'required'
+            'jabatan' => 'required',
+            'kode_jabatan' => 'required'
         ],[
             'jabatan.required' => 'Jabatan tidak boleh kosong',
+            'kode_jabatan.required' => 'Kode Jabatan tidak boleh kosong',
         ]);
 
         Jabatan::create([
             'jabatan' => ucwords($this->jabatan),
-            'id_config' => Auth::user()->id_config
+            'kode_jabatan' => $this->kode_jabatan,
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
@@ -48,15 +50,20 @@ class RoleMgmt extends Component
 
         $this->ids = $data->id_jabatan;
         $this->jabatan = $data->jabatan;
+        $this->kode_jabatan = $data->kode_jabatan;
     }
     public function update(){
         $this->validate([
             'jabatan' => 'required',
+            'kode_jabatan' => 'required'
         ],[
             'jabatan.required' => 'Jabatan tidak boleh kosong',
+            'kode_jabatan.required' => 'Kode Jabatan tidak boleh kosong',
         ]);
+
         $isi = Jabatan::where('id_jabatan', $this->ids)->update([
-            'jabatan' => ucwords($this->jabatan)
+            'jabatan' => ucwords($this->jabatan),
+            'kode_jabatan' => $this->kode_jabatan,
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');

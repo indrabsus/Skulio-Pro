@@ -5,9 +5,9 @@
     @if (Auth::user()->level == 'admin')
     <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                Presensi
+                User Management
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -25,10 +25,23 @@
         <a href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
           <i class="nav-icon fas fa-user"></i>
           <p>
-            User Management
+            Staff Management
           </p>
         </a>
       </li>
+
+            </ul>
+          </li>
+    <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Presensi
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
             <li class="nav-item">
         <a href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
           <i class="nav-icon fas fa-table"></i>
@@ -57,6 +70,39 @@
         </a>
       </li>
 
+
+            </ul>
+          </li>
+
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Kurikulum
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('groupmgmt')}}" class="nav-link {{ Route::currentRouteName() == 'groupmgmt' ? 'active':''}}">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Kelas
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('agendamgmt')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmt' ? 'active':''}}">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Agenda
+                </p>
+              </a>
+            </li>
+
+            
 
             </ul>
           </li>
@@ -91,8 +137,19 @@
           </p>
         </a>
       </li>
+      
             </ul>
           </li>
+          @if (Auth::user()->id_jabatan == 3)
+          <li class="nav-item">
+            <a href="{{route('agendamgmtguru')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmtguru' ? 'active':''}}">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Agenda
+              </p>
+            </a>
+          </li>
+          @endif
 
 
     
@@ -125,6 +182,26 @@
       </li> 
 
 
+    
+      @endif
+    @if (Auth::user()->level == 'kurikulum')
+    <li class="nav-item">
+      <a href="{{route('indexkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'indexkurikulum' ? 'active':''}}">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+          Agenda
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('groupmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'groupmgmtkurikulum' ? 'active':''}}">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+          Kelas
+        </p>
+      </a>
+    </li>
+     
     
       @endif
 

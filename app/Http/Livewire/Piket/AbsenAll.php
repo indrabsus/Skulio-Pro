@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use App\Http\Controllers\Controller;
 
 class AbsenAll extends Component
 {
@@ -14,10 +15,14 @@ class AbsenAll extends Component
     public $ket, $id_user, $oldPass, $password, $k_password, $ids, $name, $hash;
     public function render()
     {
-
-        $config = DB::table('configs')->where('id_config', Auth::user()->id_config)->first();
-        $nama = DB::table('users')->where('level', 'user')->where('id_config', Auth::user()->id_config)->get();
-        return view('livewire.admin.absen-all', compact('config','nama'))
+        $set = new Controller;
+        $konfig = $set->config();
+        // $config = DB::table('configs')->where('id_config', Auth::user()->id_config)->first();
+        $nama = DB::table('users')
+        ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+        ->where('kode_jabatan', 2)
+        ->get();
+        return view('livewire.piket.absen-all', compact('konfig','nama'))
         ->extends('layouts.app')
         ->section('content');
     }

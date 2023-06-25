@@ -5,12 +5,13 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Jabatan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserMgmt extends Component
 {
-    public $name, $username, $jabatan, $ids, $kode;
+    public $name, $username, $id_jabatan, $ids, $kode;
     use WithPagination;
     public $cari = '';
     public $result = 10;
@@ -19,13 +20,15 @@ class UserMgmt extends Component
     public function render()
     {
 
-        $data = User::where('level', 'user')
+        $data = DB::table('users')
+        ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+        ->where('level','user')
         ->where('name', 'like','%'.$this->cari.'%')
         ->where('jabatan', 'like','%'.$this->role.'%')
-        ->where('id_config', Auth::user()->id_config)
-        ->orderBy('id', 'desc')
+        ->orderBy('kode', 'asc')
         ->paginate($this->result);
-        $jbtn = Jabatan::where('id_config', Auth::user()->id_config)->get();
+        $jbtn = Jabatan::where('kode_jabatan', 2)
+        ->get();
         return view('livewire.admin.user-mgmt', compact('data', 'jbtn'))
         ->extends('layouts.app')
         ->section('content');
@@ -33,21 +36,21 @@ class UserMgmt extends Component
     public function clearForm(){
         $this->name = '';
         $this->username = '';
-        $this->jabatan = '';
+        $this->id_jabatan = '';
         $this->kode = '';
     }
     public function insert(){
         $this->validate([
             'name' => 'required',
             'username' => 'required|alpha_dash|unique:users',
-            'jabatan' => 'required',
-            'kode' => 'required'
+            'id_jabatan' => 'required',
+            'kode' => 'required|unique:users'
         ],[
             'name.required' => 'Nama tidak boleh kosong!',
             'username.required' => 'Username tidak boleh kosong!',
             'username.alpha_dash' => 'Username hanya boleh huruf dan angka!',
             'username.unique' => 'Username sudah digunakan!',
-            'jabatan.required' => 'Jabatan tidak boleh kosong!',
+            'id_jabatan.required' => 'Jabatan tidak boleh kosong!',
             'kode.required' => 'Kode tidak boleh kosong!'
         ]);
         User::create([
@@ -55,8 +58,7 @@ class UserMgmt extends Component
             'username' => $this->username,
             'password' => bcrypt('rahasia'),
             'level' => 'user',
-            'jabatan' => $this->jabatan,
-            'id_config' => Auth::user()->id_config,
+            'id_jabatan' => $this->id_jabatan,
             'kode' => $this->kode
         ]);
         $this->clearForm();
@@ -69,23 +71,23 @@ class UserMgmt extends Component
         $this->ids = $data->id;
         $this->name = $data->name;
         $this->username = $data->username;
-        $this->jabatan = $data->jabatan;
+        $this->id_jabatan = $data->id_jabatan;
         $this->kode = $data->kode;
     }
     public function update(){
         $this->validate([
             'name' => 'required',
-            'jabatan' => 'required',
+            'id_jabatan' => 'required',
             'kode' => 'required'
         ],[
             'name.required' => 'Nama tidak boleh kosong!',
-            'jabatan.required' => 'Jabatan tidak boleh kosong',
+            'id_jabatan.required' => 'Jabatan tidak boleh kosong',
             'kode.required' => 'Kode tidak boleh kosong!'
         ]);
         User::where('id', $this->ids)->update([
             'name' => ucwords($this->name),
             'username' => $this->username,
-            'jabatan' => $this->jabatan,
+            'id_jabatan' => $this->id_jabatan,
             'kode' => $this->kode
         ]);
         $this->clearForm();

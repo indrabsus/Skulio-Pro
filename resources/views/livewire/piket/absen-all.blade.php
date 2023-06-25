@@ -65,23 +65,23 @@
             <tr>
                 <td>Nama Instansi</td>
                 <td>:</td>
-                <td>{{ $config->nama_instansi }}</td>
+                <td>{{ $konfig['nama_instansi'] }}</td>
             </tr>
             <tr>
                 <td>Latitude</td>
                 <td>:</td>
-                <td>{{ $config->lat }}</td>
+                <td>{{ $konfig['lat'] }}</td>
             </tr>
             <tr>
                 <td>Longitude</td>
                 <td>:</td>
-                <td>{{ $config->long }}</td>
+                <td>{{ $konfig['long'] }}</td>
             </tr>
         </table>
     </div>
     <div class="col-lg-6">
 
-        <iframe src="https://maps.google.com/maps?q={{ $config->lat }},{{ $config->long }}&z=15&output=embed" width="450px" height="300px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://maps.google.com/maps?q={{ $konfig['lat'] }},{{ $konfig['long'] }}&z=15&output=embed" width="450px" height="300px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </div>
 

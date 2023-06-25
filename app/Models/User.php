@@ -22,7 +22,7 @@ class User extends Authenticatable
         'username',
         'password',
         'level',
-        'jabatan',
+        'id_jabatan',
         'id_config',
         'kode'
     ];

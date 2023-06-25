@@ -19,11 +19,8 @@
         <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#pass" wire:click="k_ubah({{ Auth::user()->id }})"><i class="fa fa-puzzle-piece" aria-hidden="true"> Ubah Password</i></a>
     </div>
             <div class="col-lg-3 mb-1">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="2023-24-02" wire:model="tanggal">
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    </div>
+                <div class="input mb-3">
+                    <input type="date" class="form-control" wire:model="caritgl">
                   </div>
             </div>
             @if (Auth::user()->level == 'admin')
@@ -76,7 +73,7 @@
                 @if (Auth::user()->level == 'admin')
                 <td>{{ ucwords($d->jabatan) }}</td>
                 @endif
-                <td>{{ $d->tanggal }}</td>
+                <td>{{ date('l, d M Y', strtotime($d->tanggal)) }}</td>
                 <td>{{ $d->waktu }}</td>
                 <td>{{ ucwords($d->ket) }}</td>
                 <td>{{ $d->selisih != null ? $d->selisih." meter" : "Absen disekolah"}}</td>

@@ -17,7 +17,7 @@
                     @endforeach
                     </select>
                   </div>
-                <input type="text" class="form-control" placeholder="March 2023" wire:model="bln">
+                <input type="text" class="form-control" placeholder="{{date('M Y', strtotime(now()))}}" wire:model="bln">
                 <div class="input-group-append">
                   <span class="input-group-text"><a href="{{ route('export',['bln' => $bln, 'jbtn' => $jbtn]) }}"><i class="fas fa-print"></i></a></span>
                 </div>
@@ -25,7 +25,7 @@
         </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="January 2023" wire:model="bulan">
+                    <input type="text" class="form-control" placeholder="{{date('M Y', strtotime(now()))}}" wire:model="bulan">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -50,7 +50,7 @@
         </div>
     <table class="table table-striped table-responsive-sm">
         <tr>
-            <th>No</th>
+            <th>Kode</th>
             <th>Nama Guru</th>
             <th>Hadir</th>
             <th>Kegiatan</th>
@@ -61,10 +61,9 @@
             <th>Bulan</th>
             <th>Jabatan</th>
         </tr>
-        <?php $no=1; ?>
         @foreach ($data as $d)
             <tr>
-                <td>{{ $no++ }}</td>
+                <td>{{ $d->kode }}</td>
                 <td>{{ $d->name }}</td>
                 <td>{{ $d->hadir }}</td>
                 <td>{{ $d->kegiatan }}</td>

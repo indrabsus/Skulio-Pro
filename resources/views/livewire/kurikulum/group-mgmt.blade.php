@@ -21,7 +21,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" wire:model="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -32,18 +32,16 @@
     <table class="table table-striped">
         <tr>
             <th>No</th>
-            <th>Jabatan</th>
-            <th>Kode</th>
+            <th>Nama Kelas</th>
             <th>Aksi</th>
         </tr>
         <?php $no=1;?>
         @foreach ($data as $d)
             <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ ucwords($d->jabatan) }}</td>
-                <td>{{$d->kode_jabatan}}</td>
-                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_jabatan }})"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_jabatan }})"><i class="fa fa-trash"></i></a>
+                <td>{{ ucwords($d->nama_kelas) }}</td>
+                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_kelas }})"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_kelas }})"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -62,19 +60,10 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="">Jabatan</label>
-                <input type="text" wire:model="jabatan" class="form-control">
+                <label for="">Nama Kelas</label>
+                <input type="text" wire:model="nama_kelas" class="form-control">
                 <div class="text-danger">
-                    @error('jabatan')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">Kode</label>
-                <input type="number" wire:model="kode_jabatan" class="form-control">
-                <div class="text-danger">
-                    @error('kode_jabatan')
+                    @error('nama_kelas')
                         {{$message}}
                     @enderror
                 </div>
@@ -102,20 +91,11 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="form-group">
-                <label for="">Role Name</label>
-                <input type="text" wire:model="jabatan" class="form-control">
+            <div class="form-group">
+                <label for="">Nama Kelas</label>
+                <input type="text" wire:model="nama_kelas" class="form-control">
                 <div class="text-danger">
-                    @error('jabatan')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">Kode</label>
-                <input type="number" wire:model="kode_jabatan" class="form-control">
-                <div class="text-danger">
-                    @error('kode_jabatan')
+                    @error('nama_kelas')
                         {{$message}}
                     @enderror
                 </div>

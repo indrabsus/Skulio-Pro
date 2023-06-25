@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Piket;
 
 use App\Models\Jabatan;
 use App\Models\User;
+use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -16,27 +17,29 @@ class History extends Component
     public $cari = '';
     public $result = 10;
     public $role = '';
-    public $tanggal = '';
+    public $caritgl = '';
     public function render()
     {
-        $jbtan = Jabatan::where('id_config', Auth::user()->id_config)->get();
-        if(Auth::user()->level == 'admin'){
+        $jbtan = Jabatan::where('kode_jabatan',2)->get();
+        if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket'){
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
+            ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
             ->where('users.level', 'user')
-            ->where('id_config', Auth::user()->id_config)
             ->where('name', 'like','%'.$this->cari.'%')
             ->where('jabatan', 'like','%'.$this->role.'%')
-            ->where('tanggal', 'like','%'.$this->tanggal.'%')
+            ->where('tanggal', 'like','%'.$this->caritgl.'%')
             ->paginate($this->result);
         } else {
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
+            ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
             ->where('users.id', Auth::user()->id)
-            ->where('tanggal', 'like','%'.$this->tanggal.'%')
+            ->where('tanggal', 'like','%'.$this->caritgl.'%')
             ->paginate($this->result);
         }
-        return view('livewire.admin.history', compact('data','jbtan'))
+        
+        return view('livewire.piket.history', compact('data','jbtan'))
         ->extends('layouts.app')
         ->section('content');
     }

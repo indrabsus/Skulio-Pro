@@ -36,10 +36,6 @@
                     <label for="">Nama Lengkap</label>
                     <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control" readonly>
                 </div>
-                <div class="form-group">
-                    <label for="">Jabatan</label>
-                    <input type="text" name="jabatan" value="{{ ucwords(Auth::user()->jabatan) }}" class="form-control" readonly>
-                </div>
                 <div class="row">
                     <div class="col">
                         <button class="btn btn-primary btn-block">Absen</button>

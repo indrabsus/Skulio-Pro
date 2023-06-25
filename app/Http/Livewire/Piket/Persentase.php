@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 class Persentase extends Component
 {
     use WithPagination;
-    public $bln = 'March 2023';
+    public $bln = '';
     public $jbtn = 'guru';
     public $cari = '';
     public $result = 10;
@@ -21,14 +21,16 @@ class Persentase extends Component
     {
         $data = DB::table('hitung_absens')
         ->leftJoin('users','users.id','hitung_absens.id_user')
+        ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
         ->where('users.level', 'user')
-        ->where('id_config', Auth::user()->id_config)
         ->where('name', 'like','%'.$this->cari.'%')
         ->where('jabatan', 'like','%'.$this->role.'%')
         ->where('bulan', 'like','%'.$this->bulan.'%')
+        ->orderBy('kode','asc')
         ->paginate($this->result);
-        $jbtan = Jabatan::where('id_config', Auth::user()->id_config)->get();
-        return view('livewire.admin.persentase',compact('data','jbtan'))
+        $jbtan = Jabatan::where('kode_jabatan', 2)
+        ->get();
+        return view('livewire.piket.persentase',compact('data','jbtan'))
         ->extends('layouts.app')
         ->section('content');
     }
