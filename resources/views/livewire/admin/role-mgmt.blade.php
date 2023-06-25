@@ -31,7 +31,7 @@
     </div>
     <table class="table table-striped">
         <tr>
-            <th>No</th>
+            <th>Id Jabatan</th>
             <th>Jabatan</th>
             <th>Kode</th>
             <th>Aksi</th>
@@ -39,7 +39,7 @@
         <?php $no=1;?>
         @foreach ($data as $d)
             <tr>
-                <td>{{ $no++ }}</td>
+                <td>{{ $d->id_jabatan }}</td>
                 <td>{{ ucwords($d->jabatan) }}</td>
                 <td>{{$d->kode_jabatan}}</td>
                 <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_jabatan }})"><i class="fa fa-edit"></i></a>
