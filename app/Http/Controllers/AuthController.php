@@ -18,7 +18,13 @@ class AuthController extends Controller
         if(Auth::attempt($auth)){
             Auth::user();
             $role = Auth::user()->level;
-            return redirect()->route('index'.$role);
+            if(Auth::user()->acc == 'n'){
+                return redirect()->route('index')->with('gagal', 'Akun anda belum diaktivasi, silakan hubungi Admin!');
+                Auth::logout();
+            } else {
+                return redirect()->route('index'.$role);
+            }
+            
 
         }
         else {

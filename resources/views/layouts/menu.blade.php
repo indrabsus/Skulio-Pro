@@ -4,8 +4,16 @@
          with font-awesome or any other icon font library -->
     @if (Auth::user()->level == 'admin')
     <li class="nav-item">
+      <a href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
+      <i class="fa-solid fa-house"></i>
+        <p>
+          Dashboard
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+            <i class="fa-solid fa-people-roof"></i>
               <p>
                 User Management
                 <i class="fas fa-angle-left right"></i>
@@ -14,37 +22,45 @@
             <ul class="nav nav-treeview">
             <li class="nav-item">
         <a href="{{route('rolemgmt')}}" class="nav-link {{ Route::currentRouteName() == 'rolemgmt' ? 'active':''}}">
-          <i class="nav-icon fas fa-users"></i>
+        <i class="fa-solid fa-diagram-project"></i>
           <p>
             Role Management
           </p>
         </a>
       </li>
-
-            <li class="nav-item">
+      
+      <li class="nav-item">
         <a href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
-          <i class="nav-icon fas fa-user"></i>
+        <i class="fa-solid fa-briefcase"></i>
           <p>
             Staff Management
           </p>
         </a>
       </li>
-
-            </ul>
+      
+      <li class="nav-item">
+  <a href="{{route('datasiswa')}}" class="nav-link {{ Route::currentRouteName() == 'datasiswa' ? 'active':''}}">
+  <i class="fa-solid fa-children"></i>
+    <p>
+      Data Siswa
+    </p>
+  </a>
+  </li>
+    </ul>
           </li>
     <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
+            <i class="fa-solid fa-fingerprint"></i>
               <p>
-                Presensi
+                Presensi Karyawan
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
             
             <li class="nav-item">
-        <a href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
-          <i class="nav-icon fas fa-table"></i>
+        <a href="{{route('absenkaryawan')}}" class="nav-link {{ Route::currentRouteName() == 'absenkaryawan' ? 'active':''}}">
+        <i class="fa-solid fa-file-pen"></i>
           <p>
             Absen
           </p>
@@ -55,7 +71,7 @@
       
       <li class="nav-item">
         <a href="{{route('history')}}" class="nav-link {{ Route::currentRouteName() == 'history' ? 'active':''}}">
-          <i class="nav-icon fa fa-history"></i>
+        <i class="fa-solid fa-clock-rotate-left"></i>
           <p>
             History
           </p>
@@ -63,9 +79,50 @@
       </li>
       <li class="nav-item">
         <a href="{{route('persentase')}}" class="nav-link {{ Route::currentRouteName() == 'persentase' ? 'active':''}}">
-          <i class="nav-icon fa fa-calculator"></i>
+        <i class="fa-solid fa-chart-line"></i>
           <p>
             Persentase
+          </p>
+        </a>
+      </li>
+
+
+            </ul>
+          </li>
+    <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fa-solid fa-users-viewfinder"></i>
+              <p>
+                Presensi Siswa
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+            <li class="nav-item">
+        <a href="{{route('absen')}}" class="nav-link {{ Route::currentRouteName() == 'absen' ? 'active':''}}">
+        <i class="fa-solid fa-file-pen"></i>
+          <p>
+            Absen Siswa
+          </p>
+        </a>
+      </li>
+
+      
+      
+      <li class="nav-item">
+        <a href="{{route('historysiswa')}}" class="nav-link {{ Route::currentRouteName() == 'historysiswa' ? 'active':''}}">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+          <p>
+            History Siswa
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('persentasesiswa')}}" class="nav-link {{ Route::currentRouteName() == 'persentasesiswa' ? 'active':''}}">
+        <i class="fa-solid fa-chart-line"></i>
+          <p>
+            Persentase Siswa
           </p>
         </a>
       </li>
@@ -78,7 +135,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+            <i class="fa-solid fa-school"></i>
               <p>
                 Kurikulum
                 <i class="fas fa-angle-left right"></i>
@@ -87,7 +144,7 @@
             <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{route('groupmgmt')}}" class="nav-link {{ Route::currentRouteName() == 'groupmgmt' ? 'active':''}}">
-                <i class="nav-icon fas fa-users"></i>
+              <i class="fa-solid fa-landmark"></i>
                 <p>
                   Kelas
                 </p>
@@ -95,7 +152,7 @@
             </li>
             <li class="nav-item">
               <a href="{{route('agendamgmt')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmt' ? 'active':''}}">
-                <i class="nav-icon fas fa-users"></i>
+              <i class="fa-solid fa-calendar-days"></i>
                 <p>
                   Agenda
                 </p>
@@ -108,13 +165,14 @@
           </li>
 
 
+
             
 
     @endif
     @if (Auth::user()->level == 'user')
     <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+            <i class="fa-solid fa-fingerprint"></i>
               <p>
                 Presensi
                 <i class="fas fa-angle-left right"></i>
@@ -123,7 +181,7 @@
             <ul class="nav nav-treeview">
             <li class="nav-item">
         <a href="{{route('indexuser')}}" class="nav-link {{ Route::currentRouteName() == 'indexuser' ? 'active':''}}">
-          <i class="nav-icon fas fa-home"></i>
+        <i class="fa-solid fa-file-pen"></i>
           <p>
             Absen
           </p>
@@ -131,7 +189,7 @@
       </li>
       <li class="nav-item">
         <a href="{{route('userhistory')}}" class="nav-link {{ Route::currentRouteName() == 'userhistory' ? 'active':''}}">
-          <i class="nav-icon fa fa-history"></i>
+        <i class="fa-solid fa-clock-rotate-left"></i>
           <p>
             History
           </p>
@@ -140,10 +198,10 @@
       
             </ul>
           </li>
-          @if (Auth::user()->id_jabatan == 3)
+          @if (Auth::user()->id_grup == 6)
           <li class="nav-item">
             <a href="{{route('agendamgmtguru')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmtguru' ? 'active':''}}">
-              <i class="nav-icon fas fa-users"></i>
+            <i class="fa-solid fa-calendar-days"></i>
               <p>
                 Agenda
               </p>
@@ -155,31 +213,95 @@
     
       @endif
     @if (Auth::user()->level == 'piket')
-    
-     <li class="nav-item">
+    <li class="nav-item">
         <a href="{{route('indexpiket')}}" class="nav-link {{ Route::currentRouteName() == 'indexpiket' ? 'active':''}}">
-          <i class="nav-icon fas fa-home"></i>
+        <i class="fa-solid fa-fingerprint"></i>
           <p>
-            Absen
+            Absen Karyawan
           </p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('historypiket')}}" class="nav-link {{ Route::currentRouteName() == 'historypiket' ? 'active':''}}">
-          <i class="nav-icon fa fa-history"></i>
+        <a href="{{route('absensiswapiket')}}" class="nav-link {{ Route::currentRouteName() == 'absensiswapiket' ? 'active':''}}">
+        <i class="fa-solid fa-file-pen"></i>
           <p>
-            History
+            Absen Siswa
+          </p>
+        </a>
+      </li>
+    <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fa-solid fa-table"></i>
+              <p>
+                Data Karyawan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+            <li class="nav-item">
+        <a href="{{route('historypiket')}}" class="nav-link {{ Route::currentRouteName() == 'historypiket' ? 'active':''}}">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+          <p>
+            History Karyawan
           </p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{route('persentasepiket')}}" class="nav-link {{ Route::currentRouteName() == 'persentasepiket' ? 'active':''}}">
-          <i class="nav-icon fa fa-calculator"></i>
+        <i class="fa-solid fa-chart-line"></i>
           <p>
-            Persentase
+            Persentase Karyawan
           </p>
         </a>
       </li> 
+      
+            </ul>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fa-solid fa-users-viewfinder"></i>
+              <p>
+                Data Siswa
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+            
+
+  <li class="nav-item">
+  <a href="{{route('datasiswapiket')}}" class="nav-link {{ Route::currentRouteName() == 'datasiswapiket' ? 'active':''}}">
+  <i class="fa-solid fa-children"></i>
+    <p>
+      Data Siswa
+    </p>
+  </a>
+  </li>
+  <li class="nav-item">
+        <a href="{{route('historysiswapiket')}}" class="nav-link {{ Route::currentRouteName() == 'historysiswapiket' ? 'active':''}}">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+          <p>
+            History Siswa
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('persentasesiswapiket')}}" class="nav-link {{ Route::currentRouteName() == 'persentasesiswapiket' ? 'active':''}}">
+        <i class="fa-solid fa-chart-line"></i>
+          <p>
+            Persentase Siswa
+          </p>
+        </a>
+      </li>
+
+            </ul>
+          </li>
+    
+     
+      
 
 
     
@@ -187,7 +309,7 @@
     @if (Auth::user()->level == 'kurikulum')
     <li class="nav-item">
       <a href="{{route('indexkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'indexkurikulum' ? 'active':''}}">
-        <i class="nav-icon fas fa-users"></i>
+      <i class="fa-solid fa-calendar-days"></i>
         <p>
           Agenda
         </p>
@@ -195,17 +317,33 @@
     </li>
     <li class="nav-item">
       <a href="{{route('groupmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'groupmgmtkurikulum' ? 'active':''}}">
-        <i class="nav-icon fas fa-users"></i>
+      <i class="fa-solid fa-landmark"></i>
         <p>
           Kelas
         </p>
       </a>
     </li>
-     
-    
+      @endif
+    @if (Auth::user()->level == 'siswa')
+  
+    <li class="nav-item">
+      <a href="{{route('indexsiswa')}}" class="nav-link {{ Route::currentRouteName() == 'indexsiswa' ? 'active':''}}">
+      <i class="fa-solid fa-house"></i>
+        <p>
+          Dashboard
+        </p>
+      </a>
+    </li>
       @endif
 
-
+<li class="nav-item">
+              <a href="{{route('ubahpassword')}}" class="nav-link {{ Route::currentRouteName() == 'ubahpassword' ? 'active':''}}">
+              <i class="fa-solid fa-key"></i>
+                <p>
+                  Ganti Password
+                </p>
+              </a>
+            </li>
     <li class="nav-item">
       <a href="{{route('logout')}}" class="nav-link">
         <i class="fas fa-sign-out-alt"></i>

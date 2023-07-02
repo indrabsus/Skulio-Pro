@@ -8,14 +8,14 @@
     @endif
     <div class="row justify-content-between">
         <div class="col-lg-3">
-            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Tambah</i></a>
+            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-4 mb-1">
                 <select wire:model='role' class="form-control">
                     <option value="">Pilih Jabatan</option>
                     @foreach ($jbtn as $d)
-                        <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                        <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
                     @endforeach
                 </select>
             </div>
@@ -51,7 +51,7 @@
                 <td>{{ $d->kode }}</td>
                 <td>{{ $d->name }}</td>
                 <td>{{ $d->username }}</td>
-                <td>{{ ucwords($d->jabatan) }}</td>
+                <td>{{ ucwords($d->nama_grup) }}</td>
                 <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id }})"><i class="fa fa-edit"></i></a>
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id }})"><i class="fa fa-trash"></i></a>
                     <a class="btn btn-dark btn-sm mb-1" data-toggle="modal" data-target="#k_reset" wire:click="k_reset({{ $d->id }})"><i class="fa fa-cogs"></i> Reset</a>
@@ -105,14 +105,14 @@
               </div>
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <select wire:model="id_jabatan" class="form-control">
+                <select wire:model="id_grup" class="form-control">
                     <option value="">Pilih Jabatan</option>
                     @foreach ($jbtn as $d)
-                        <option value="{{ $d->id_jabatan }}">{{ $d->jabatan }}</option>
+                        <option value="{{ $d->id_grup }}">{{ $d->nama_grup }}</option>
                     @endforeach
                 </select>
                 <div class="text-danger">
-                    @error('id_jabatan')
+                    @error('id_grup')
                         {{$message}}
                     @enderror
                 </div>
@@ -160,14 +160,14 @@
               </div>
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <select wire:model="id_jabatan" class="form-control">
+                <select wire:model="id_grup" class="form-control">
                   <option value="">Pilih Jabatan</option>
                   @foreach ($jbtn as $d)
-                      <option value="{{ $d->id_jabatan }}">{{ $d->jabatan }}</option>
+                      <option value="{{ $d->id_grup }}">{{ $d->nama_grup }}</option>
                   @endforeach
                 </select>
                 <div class="text-danger">
-                    @error('id_jabatan')
+                    @error('id_grup')
                         {{$message}}
                     @enderror
                 </div>

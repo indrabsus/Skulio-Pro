@@ -8,7 +8,7 @@
     @endif
     <div class="row justify-content-between">
         <div class="col-lg-3">
-            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Tambah</i></a>
+            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
@@ -39,9 +39,9 @@
         @foreach ($data as $d)
             <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ ucwords($d->nama_kelas) }}</td>
-                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_kelas }})"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_kelas }})"><i class="fa fa-trash"></i></a>
+                <td>{{ ucwords($d->nama_grup) }}</td>
+                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_grup }})"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_grup }})"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -61,9 +61,9 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama Kelas</label>
-                <input type="text" wire:model="nama_kelas" class="form-control">
+                <input type="text" wire:model="nama_grup" class="form-control">
                 <div class="text-danger">
-                    @error('nama_kelas')
+                    @error('nama_grup')
                         {{$message}}
                     @enderror
                 </div>
@@ -93,9 +93,9 @@
             <div class="modal-body">
             <div class="form-group">
                 <label for="">Nama Kelas</label>
-                <input type="text" wire:model="nama_kelas" class="form-control">
+                <input type="text" wire:model="nama_grup" class="form-control">
                 <div class="text-danger">
-                    @error('nama_kelas')
+                    @error('nama_grup')
                         {{$message}}
                     @enderror
                 </div>

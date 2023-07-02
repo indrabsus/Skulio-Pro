@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Piket;
 
+use App\Models\Group;
 use App\Models\Jabatan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,7 +13,7 @@ class Persentase extends Component
     use WithPagination;
     public $bln = '';
     public $jbtn = 'guru';
-    public $cari = '';
+    public $cari = ' ';
     public $result = 10;
     public $role = '';
     public $bulan = '';
@@ -21,14 +21,15 @@ class Persentase extends Component
     {
         $data = DB::table('hitung_absens')
         ->leftJoin('users','users.id','hitung_absens.id_user')
-        ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+        ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('users.level', 'user')
         ->where('name', 'like','%'.$this->cari.'%')
-        ->where('jabatan', 'like','%'.$this->role.'%')
+        ->where('nama_grup', 'like','%'.$this->role.'%')
         ->where('bulan', 'like','%'.$this->bulan.'%')
         ->orderBy('kode','asc')
+        ->where('kode_grup', 3)
         ->paginate($this->result);
-        $jbtan = Jabatan::where('kode_jabatan', 2)
+        $jbtan = Group::where('kode_grup', 3)
         ->get();
         return view('livewire.piket.persentase',compact('data','jbtan'))
         ->extends('layouts.app')

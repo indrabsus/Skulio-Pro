@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -34,5 +35,11 @@ class Controller extends BaseController
         $data['long'] = 107.540232;
         $data['lat'] = -6.865116;
         return $data;
+    }
+    public function changePassword($id,$pass){
+        $ganti = User::where('id',$id)->update([
+            'password' => bcrypt($pass)
+        ]);
+        return $ganti;
     }
 }

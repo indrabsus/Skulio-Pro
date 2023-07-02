@@ -3,26 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\Temp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 class UserController extends Controller
 {
     public function index(){
-
-        return view('user.index');
+        $scan = Temp::first();
+        return view('user.index', compact('scan'));
     }
     public function ayoAbsen(Request $request){
-        $data = DB::table('configs')
-        ->where('id_config', Auth::user()->id_config)
-        ->first();
+        $kfg = new Controller;
+        $data = $kfg->config();
+        // $data = DB::table('configs')
+        // ->where('id_config', Auth::user()->id_config)
+        // ->first();
 
         $lat1 = $request->lat;
         $long1 = $request->long;
-        $lat2 = $data->lat;
-        $long2 = $data->long;
+        $lat2 = $data['lat'];
+        $long2 = $data['long'];
 
         $cek = $this->cekDuplikat('absens', 'id_user', $request->id_user);
         $jarak = $this->jarak($lat1,$long1,$lat2,$long2);
@@ -38,7 +42,7 @@ class UserController extends Controller
             $insert = Absen::create([
                 'id_user' => $request->id_user,
                 'tanggal' => date('Y/m/d'),
-                'waktu' => date('h:i:s'),
+                'waktu' => (date('A') == 'PM' ? date('h') + 12 : date('h')).date(':i:s'),
                 'lat' => $request->lat,
                 'long' => $request->long,
                 'ket' => 'hadir',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Piket;
 
+use App\Models\Group;
 use App\Models\Jabatan;
 use App\Models\User;
 use Stevebauman\Location\Facades\Location;
@@ -20,20 +21,20 @@ class History extends Component
     public $caritgl = '';
     public function render()
     {
-        $jbtan = Jabatan::where('kode_jabatan',2)->get();
+        $jbtan = Group::where('kode_grup',3)->get();
         if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket'){
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
-            ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+            ->leftJoin('groups','groups.id_grup','users.id_grup')
             ->where('users.level', 'user')
             ->where('name', 'like','%'.$this->cari.'%')
-            ->where('jabatan', 'like','%'.$this->role.'%')
+            ->where('nama_grup', 'like','%'.$this->role.'%')
             ->where('tanggal', 'like','%'.$this->caritgl.'%')
             ->paginate($this->result);
         } else {
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
-            ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
+            ->leftJoin('groups','groups.id_grup','users.id_grup')
             ->where('users.id', Auth::user()->id)
             ->where('tanggal', 'like','%'.$this->caritgl.'%')
             ->paginate($this->result);

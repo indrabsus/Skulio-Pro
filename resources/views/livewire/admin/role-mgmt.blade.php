@@ -8,7 +8,7 @@
     @endif
     <div class="row justify-content-between">
         <div class="col-lg-3">
-            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Tambah</i></a>
+            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
@@ -31,19 +31,19 @@
     </div>
     <table class="table table-striped">
         <tr>
-            <th>Id Jabatan</th>
-            <th>Jabatan</th>
+            <th>Id Grup</th>
+            <th>Grup</th>
             <th>Kode</th>
             <th>Aksi</th>
         </tr>
         <?php $no=1;?>
         @foreach ($data as $d)
             <tr>
-                <td>{{ $d->id_jabatan }}</td>
-                <td>{{ ucwords($d->jabatan) }}</td>
-                <td>{{$d->kode_jabatan}}</td>
-                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_jabatan }})"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_jabatan }})"><i class="fa fa-trash"></i></a>
+                <td>{{ $d->id_grup }}</td>
+                <td>{{ ucwords($d->nama_grup) }}</td>
+                <td>{{$d->kode_grup}}</td>
+                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_grup }})"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_grup }})"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -63,18 +63,18 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <input type="text" wire:model="jabatan" class="form-control">
+                <input type="text" wire:model="nama_grup" class="form-control">
                 <div class="text-danger">
-                    @error('jabatan')
+                    @error('nama_grup')
                         {{$message}}
                     @enderror
                 </div>
               </div>
               <div class="form-group">
                 <label for="">Kode</label>
-                <input type="number" wire:model="kode_jabatan" class="form-control">
+                <input type="number" wire:model="kode_grup" class="form-control">
                 <div class="text-danger">
-                    @error('kode_jabatan')
+                    @error('kode_grup')
                         {{$message}}
                     @enderror
                 </div>
@@ -103,19 +103,19 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="">Role Name</label>
-                <input type="text" wire:model="jabatan" class="form-control">
+                <label for="">Jabatan</label>
+                <input type="text" wire:model="nama_grup" class="form-control">
                 <div class="text-danger">
-                    @error('jabatan')
+                    @error('nama_grup')
                         {{$message}}
                     @enderror
                 </div>
               </div>
               <div class="form-group">
                 <label for="">Kode</label>
-                <input type="number" wire:model="kode_jabatan" class="form-control">
+                <input type="number" wire:model="kode_grup" class="form-control">
                 <div class="text-danger">
-                    @error('kode_jabatan')
+                    @error('kode_grup')
                         {{$message}}
                     @enderror
                 </div>

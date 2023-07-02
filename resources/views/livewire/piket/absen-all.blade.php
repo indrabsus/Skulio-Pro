@@ -3,9 +3,6 @@
     <div class="col">
         <h1 class="display">Dashboard</h1>
     </div>
-    <div class="col-lg-2">
-        <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#pass" wire:click="k_ubah({{ Auth::user()->id }})"><i class="fa fa-puzzle-piece" aria-hidden="true"> Ubah Password</i></a>
-    </div>
 </div>
 <hr>
 <div class="row">
@@ -27,6 +24,15 @@
                   </div>
                 @endif
 
+                <div class="form-group">
+                        <label for="">Kategori :</label>
+                        <select wire:model="kategoris" class="form-control">
+                            <option value="">Semua Kategori</option>
+                            @foreach ($kategori as $d)
+                                <option value="{{ $d->kode_grup }}">{{ $d->nama_grup }}</option>
+                            @endforeach
+                            </select>
+                    </div>
                 <div class="form-group">
                         <label for="">Nama :</label>
                         <select wire:model="id_user" class="form-control">
@@ -85,54 +91,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="pass" wire:ignore.self>
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Ubah Password</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="">Password Saat ini</label>
-            <input type="password" wire:model="oldPass" class="form-control">
-            <div class="text-danger">
-                @error('oldPass')
-                    {{$message}}
-                @enderror
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="">Password Baru</label>
-            <input type="password" wire:model="password" class="form-control">
-            <div class="text-danger">
-                @error('password')
-                    {{$message}}
-                @enderror
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="">Konfirmasi Password</label>
-            <input type="password" wire:model="k_password" class="form-control">
-            <div class="text-danger">
-                @error('k_password')
-                    {{$message}}
-                @enderror
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary suksestambah" wire:click="ubah()">Save changes</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
   <script>
     window.addEventListener('closeModal', event => {
         $('#pass').modal('hide');

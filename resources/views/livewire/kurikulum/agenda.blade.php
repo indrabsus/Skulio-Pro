@@ -14,9 +14,9 @@
     </div>
     @endif
     <div class="row">
-        @if (Auth::user()->id_jabatan == 3)
+        @if (Auth::user()->id_grup == 6)
         <div class="col-lg-3">
-            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Tambah</i></a>
+            <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
         </div>
         @endif
         <div class="col-lg-1 mb-1">
@@ -47,7 +47,7 @@
             <th>Guru</th>
             <th>Jam ke</th>
             <th>Tanggal</th>
-            @if (Auth::user()->id_jabatan == 3)
+            @if (Auth::user()->id_grup == 6)
             <th>Aksi</th>
             @endif
         </tr>
@@ -56,11 +56,11 @@
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $d->materi }}</td>
-                <td>{{ $d->nama_kelas }}</td>
+                <td>{{ $d->nama_grup }}</td>
                 <td>{{ $d->name }}</td>
                 <td>{{ $d->jam_awal }} - {{ $d->jam_akhir }}</td>
                 <td>{{date('l, d M Y - h:i A', strtotime($d->created_at))}}</td>
-                @if (Auth::user()->id_jabatan == 3)
+                @if (Auth::user()->id_grup == 6)
                 <td>
                     <a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_agenda }})"><i class="fa fa-edit"></i></a>
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_agenda }})"><i class="fa fa-trash"></i></a>
@@ -94,14 +94,14 @@
             
               <div class="form-group">
                 <label for="">Kelas</label>
-                <select wire:model="id_kelas" class="form-control">
+                <select wire:model="id_grup" class="form-control">
                     <option value="">Pilih Kelas</option>
                     @foreach ($kelas as $k)
-                        <option value="{{$k->id_kelas}}">{{$k->nama_kelas}}</option>
+                        <option value="{{$k->id_grup}}">{{$k->nama_grup}}</option>
                     @endforeach
                 </select>
                 <div class="text-danger">
-                    @error('id_kelas')
+                    @error('id_grup')
                         {{$message}}
                     @enderror
                 </div>
@@ -165,19 +165,19 @@
                 </div>
               
                 <div class="form-group">
-                  <label for="">Kelas</label>
-                  <select wire:model="id_kelas" class="form-control">
-                      <option value="">Pilih Kelas</option>
-                      @foreach ($kelas as $k)
-                          <option value="{{$k->id_kelas}}">{{$k->nama_kelas}}</option>
-                      @endforeach
-                  </select>
-                  <div class="text-danger">
-                      @error('id_kelas')
-                          {{$message}}
-                      @enderror
-                  </div>
+                <label for="">Kelas</label>
+                <select wire:model="id_grup" class="form-control">
+                    <option value="">Pilih Kelas</option>
+                    @foreach ($kelas as $k)
+                        <option value="{{$k->id_grup}}">{{$k->nama_grup}}</option>
+                    @endforeach
+                </select>
+                <div class="text-danger">
+                    @error('id_grup')
+                        {{$message}}
+                    @enderror
                 </div>
+              </div>
               <div class="row">
                   <div class="col-lg-6">
                           <div class="form-group">

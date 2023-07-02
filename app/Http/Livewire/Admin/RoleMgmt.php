@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Group;
 use App\Models\Jabatan;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -9,7 +10,7 @@ use Livewire\WithPagination;
 
 class RoleMgmt extends Component
 {
-    public $ids, $jabatan, $kode_jabatan;
+    public $ids, $nama_grup, $kode_grup;
     use WithPagination;
     public $cari = '';
     public $result = 10;
@@ -17,64 +18,64 @@ class RoleMgmt extends Component
 
     public function render()
     {
-        $data = Jabatan::where('jabatan', 'like','%'.$this->cari.'%')
-        ->orderBy('kode_jabatan', 'asc')
+        $data = Group::where('nama_grup', 'like','%'.$this->cari.'%')
+        ->orderBy('kode_grup', 'asc')
         ->paginate($this->result);
         return view('livewire.admin.role-mgmt', compact('data'))
         ->extends('layouts.app')
         ->section('content');
     }
     public function clearForm(){
-        $this->jabatan = '';
-        $this->kode_jabatan= '';
+        $this->nama_grup = '';
+        $this->kode_grup= '';
     }
     public function insert(){
         $this->validate([
-            'jabatan' => 'required',
-            'kode_jabatan' => 'required'
+            'nama_grup' => 'required',
+            'kode_grup' => 'required'
         ],[
-            'jabatan.required' => 'Jabatan tidak boleh kosong',
-            'kode_jabatan.required' => 'Kode Jabatan tidak boleh kosong',
+            'nama_grup.required' => 'Jabatan tidak boleh kosong',
+            'kode_grup.required' => 'Kode Jabatan tidak boleh kosong',
         ]);
 
         Jabatan::create([
-            'jabatan' => ucwords($this->jabatan),
-            'kode_jabatan' => $this->kode_jabatan,
+            'nama_grup' => ucwords($this->nama_grup),
+            'kode_grup' => $this->kode_grup,
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
         $this->dispatchBrowserEvent('closeModal');
     }
     public function edit($id){
-        $data = Jabatan::where('id_jabatan',$id)->first();
+        $data = Group::where('id_grup',$id)->first();
 
-        $this->ids = $data->id_jabatan;
-        $this->jabatan = $data->jabatan;
-        $this->kode_jabatan = $data->kode_jabatan;
+        $this->ids = $data->id_grup;
+        $this->nama_grup = $data->nama_grup;
+        $this->kode_grup = $data->kode_grup;
     }
     public function update(){
         $this->validate([
-            'jabatan' => 'required',
-            'kode_jabatan' => 'required'
+            'nama_grup' => 'required',
+            'kode_grup' => 'required'
         ],[
-            'jabatan.required' => 'Jabatan tidak boleh kosong',
-            'kode_jabatan.required' => 'Kode Jabatan tidak boleh kosong',
+            'nama_grup.required' => 'Jabatan tidak boleh kosong',
+            'kode_grup.required' => 'Kode Jabatan tidak boleh kosong',
         ]);
 
-        $isi = Jabatan::where('id_jabatan', $this->ids)->update([
-            'jabatan' => ucwords($this->jabatan),
-            'kode_jabatan' => $this->kode_jabatan,
+        $isi = Group::where('id_grup', $this->ids)->update([
+            'nama_grup' => ucwords($this->nama_grup),
+            'kode_grup' => $this->kode_grup,
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');
         $this->dispatchBrowserEvent('closeModal');
     }
     public function k_hapus($id){
-        $data = Jabatan::where('id_jabatan',$id)->first();
-        $this->ids = $data->id_jabatan;
+        $data = Group::where('id_grup',$id)->first();
+        $this->ids = $data->id_grup;
     }
     public function delete(){
-        Jabatan::where('id_jabatan', $this->ids)->delete();
+        Group::where('id_grup', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
         $this->dispatchBrowserEvent('closeModal');
     }

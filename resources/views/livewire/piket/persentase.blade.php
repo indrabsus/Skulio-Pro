@@ -13,11 +13,11 @@
                 <div class="input-group-prepend">
                     <select wire:model="jbtn" class="form-control">
                     @foreach ($jbtan as $d)
-                        <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                        <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
                     @endforeach
                     </select>
                   </div>
-                <input type="text" class="form-control" placeholder="{{date('M Y', strtotime(now()))}}" wire:model="bln">
+                <input type="text" class="form-control" placeholder="{{date('F Y', strtotime(now()))}}" wire:model="bln">
                 <div class="input-group-append">
                   <span class="input-group-text"><a href="{{ route('export',['bln' => $bln, 'jbtn' => $jbtn]) }}"><i class="fas fa-print"></i></a></span>
                 </div>
@@ -25,7 +25,7 @@
         </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="{{date('M Y', strtotime(now()))}}" wire:model="bulan">
+                    <input type="text" class="form-control" placeholder="{{date('F Y', strtotime(now()))}}" wire:model="bulan">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -34,7 +34,7 @@
             <div class="col-lg-2 mb-1">
                 <select wire:model='role' class="form-control">
                 @foreach ($jbtan as $d)
-                        <option value="{{ $d->jabatan }}">{{ $d->jabatan }}</option>
+                        <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
                     @endforeach
                 </select>
             </div>
@@ -72,7 +72,7 @@
                 <td>{{ $d->nojadwal }}</td>
                 <td>{{ $d->hadir + $d->kegiatan + $d->nojadwal}}</td>
                 <td>{{ $d->bulan }}</td>
-                <td>{{ ucwords($d->jabatan) }}</td>
+                <td>{{ ucwords($d->nama_grup) }}</td>
             </tr>
         @endforeach
     </table>

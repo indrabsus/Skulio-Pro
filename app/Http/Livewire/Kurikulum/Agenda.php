@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 
 class Agenda extends Component
 {
-    public $ids, $materi, $id_kelas, $jam_awal, $jam_akhir;
+    public $ids, $materi, $id_grup, $jam_awal, $jam_akhir;
     use WithPagination;
     public $cari = '';
     public $caritgl = '';
@@ -19,14 +19,15 @@ class Agenda extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $kelas = Group::all();
+        $kelas = Group::where('kode_grup', 1000)->get();
         $data = DB::table('agendas')
-        ->leftJoin('groups','groups.id_kelas','agendas.id_kelas')
+        ->leftJoin('groups','groups.id_grup','agendas.id_grup')
         ->leftJoin('users','users.id','agendas.id_user')
-        ->where('nama_kelas', 'like','%'.$this->cari.'%')
+        ->where('nama_grup', 'like','%'.$this->cari.'%')
         ->where('agendas.created_at', 'like','%'.$this->caritgl.'%')
         ->orderBy('id_agenda', 'desc')
-        ->select('materi','nama_kelas','name','jam_awal','jam_akhir','agendas.created_at','id_agenda')
+        ->select('materi','nama_grup','name','jam_awal','jam_akhir','agendas.created_at','id_agenda')
+        ->where('groups.kode_grup',1000)
         ->paginate($this->result);
         return view('livewire.kurikulum.agenda', compact('data','kelas'))
         ->extends('layouts.app')
@@ -34,14 +35,14 @@ class Agenda extends Component
     }
     public function clearForm(){
         $this->materi = '';
-        $this->id_kelas = '';
+        $this->id_grup = '';
         $this->jam_awal = '';
         $this->jam_akhir = '';
     }
     public function insert(){
         $this->validate([
             'materi' => 'required',
-            'id_kelas' => 'required',
+            'id_grup' => 'required',
             'jam_awal' => 'required',
             'jam_akhir' => 'required',
         ]);
@@ -52,7 +53,7 @@ class Agenda extends Component
         } else {
             ModelsAgenda::create([
                 'materi' => $this->materi,
-                'id_kelas' => $this->id_kelas,
+                'id_grup' => $this->id_grup,
                 'jam_awal' => $this->jam_awal,
                 'jam_akhir' => $this->jam_akhir,
                 'id_user' => Auth::user()->id,
@@ -67,21 +68,21 @@ class Agenda extends Component
 
         $this->ids = $data->id_agenda;
         $this->materi = $data->materi;
-        $this->id_kelas = $data->id_kelas;
+        $this->id_grup = $data->id_grup;
         $this->jam_awal = $data->jam_awal;
         $this->jam_akhir = $data->jam_akhir;
     }
     public function update(){
         $this->validate([
             'materi' => 'required',
-            'id_kelas' => 'required',
+            'id_grup' => 'required',
             'jam_awal' => 'required',
             'jam_akhir' => 'required',
         ]);
 
         $isi = ModelsAgenda::where('id_agenda', $this->ids)->update([
             'materi' => $this->materi,
-            'id_kelas' => $this->id_kelas,
+            'id_grup' => $this->id_grup,
             'jam_awal' => $this->jam_awal,
             'jam_akhir' => $this->jam_akhir,
         ]);

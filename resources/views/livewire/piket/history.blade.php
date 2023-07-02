@@ -15,9 +15,6 @@
                   </div>
                 @endif
         <div class="row justify-content-end">
-        <div class="col-lg-3 mb-1">
-        <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#pass" wire:click="k_ubah({{ Auth::user()->id }})"><i class="fa fa-puzzle-piece" aria-hidden="true"> Ubah Password</i></a>
-    </div>
             <div class="col-lg-3 mb-1">
                 <div class="input mb-3">
                     <input type="date" class="form-control" wire:model="caritgl">
@@ -28,7 +25,7 @@
                 <select wire:model='role' class="form-control">
                     <option value="">Pilih Jabatan</option>
                    @foreach ($jbtan as $d)
-                   <option value="{{$d->jabatan}}">{{$d->jabatan}}</option>
+                   <option value="{{$d->nama_grup}}">{{$d->nama_grup}}</option>
                    @endforeach
                     
                 </select>
@@ -71,7 +68,7 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ $d->name }}</td>
                 @if (Auth::user()->level == 'admin')
-                <td>{{ ucwords($d->jabatan) }}</td>
+                <td>{{ ucwords($d->nama_grup) }}</td>
                 @endif
                 <td>{{ date('l, d M Y', strtotime($d->tanggal)) }}</td>
                 <td>{{ $d->waktu }}</td>
@@ -81,54 +78,7 @@
         @endforeach
     </table>
 
-    <div class="modal fade" id="pass" wire:ignore.self>
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Ubah Password</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="">Password Saat ini</label>
-                <input type="password" wire:model="oldPass" class="form-control">
-                <div class="text-danger">
-                    @error('oldPass')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">Password Baru</label>
-                <input type="password" wire:model="password" class="form-control">
-                <div class="text-danger">
-                    @error('password')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">Konfirmasi Password</label>
-                <input type="password" wire:model="k_password" class="form-control">
-                <div class="text-danger">
-                    @error('k_password')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary suksestambah" wire:click="ubah()">Save changes</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+
 
       <script>
         window.addEventListener('closeModal', event => {

@@ -21,12 +21,14 @@
                 {{ session('gagal') }}
               </div>
             @endif
-
+            
             <form action="{{ route('ayoabsen') }}" method="post">
                 @csrf
                 <input type="text" name="id_user" value="{{ Auth::user()->id }}" hidden>
+                
                 <div class="form-group">
                     <label for="">Lokasi saya</label>
+                    
                     <div class="row">
                         <div class="col-6"><input type="text" name="lat" id="lat" class="form-control" readonly></div>
                         <div class="col-6"><input type="text" name="long" id="long" class="form-control" readonly></div>
@@ -68,8 +70,6 @@
 			document.getElementById('myFrame').src = url
     }
 
-
-
-
 </script>
+
 @endsection

@@ -8,21 +8,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Http\Controllers\Controller;
+use App\Models\Group;
+
 
 class AbsenAll extends Component
 {
 
     public $ket, $id_user, $oldPass, $password, $k_password, $ids, $name, $hash;
+    public $kategoris = '';
     public function render()
     {
         $set = new Controller;
-        $konfig = $set->config();
-        // $config = DB::table('configs')->where('id_config', Auth::user()->id_config)->first();
-        $nama = DB::table('users')
-        ->leftJoin('jabatans','jabatans.id_jabatan','users.id_jabatan')
-        ->where('kode_jabatan', 2)
+        $kategori = Group::where('kode_grup', '!=', 1)
+        ->where('kode_grup', '!=', 2)
+        ->where('kode_grup', '!=', 1000)
         ->get();
-        return view('livewire.piket.absen-all', compact('konfig','nama'))
+        $konfig = $set->config();
+        $nama = DB::table('users')
+        ->leftJoin('groups','groups.id_grup','users.id_grup')
+        ->where('kode_grup', '!=', 1)
+        ->where('kode_grup', '!=', 2)
+        ->where('kode_grup', '!=', 1000)
+        ->where('kode_grup', 'like','%'.$this->kategoris.'%')
+        ->get();
+        return view('livewire.piket.absen-all', compact('konfig','nama','kategori'))
         ->extends('layouts.app')
         ->section('content');
     }
@@ -42,7 +51,7 @@ class AbsenAll extends Component
             $insert = Absen::create([
                 'id_user' => $this->id_user,
                 'tanggal' => date('Y/m/d'),
-                'waktu' => date('h:i:s'),
+                'waktu' => (date('A') == 'PM' ? date('h') + 12 : date('h')).date(':i:s'),
                 'ket' => $this->ket,
             ]);
             DB::table('hitung_absens')->updateOrInsert(
