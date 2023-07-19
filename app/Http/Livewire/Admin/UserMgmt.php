@@ -28,7 +28,7 @@ class UserMgmt extends Component
         ->paginate($this->result);
         $jbtn = Group::where('kode_grup', '!=', 1)
         ->where('kode_grup', '!=', 2)
-        ->where('kode_grup', '!=', 1000)
+        ->where('kode_grup', '<', 1000)
         ->get();
         return view('livewire.admin.user-mgmt', compact('data', 'jbtn'))
         ->extends('layouts.app')

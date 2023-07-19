@@ -19,7 +19,8 @@ class Agenda extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $kelas = Group::where('kode_grup', 1000)->get();
+        $kelas = Group::where('kode_grup','>=', 1000)
+        ->where('kode_grup','<', 2000)->get();
         $data = DB::table('agendas')
         ->leftJoin('groups','groups.id_grup','agendas.id_grup')
         ->leftJoin('users','users.id','agendas.id_user')
@@ -27,7 +28,7 @@ class Agenda extends Component
         ->where('agendas.created_at', 'like','%'.$this->caritgl.'%')
         ->orderBy('id_agenda', 'desc')
         ->select('materi','nama_grup','name','jam_awal','jam_akhir','agendas.created_at','id_agenda')
-        ->where('groups.kode_grup',1000)
+        ->where('groups.kode_grup','>=',1000)
         ->paginate($this->result);
         return view('livewire.kurikulum.agenda', compact('data','kelas'))
         ->extends('layouts.app')

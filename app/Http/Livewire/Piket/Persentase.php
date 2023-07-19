@@ -12,7 +12,7 @@ class Persentase extends Component
 {
     use WithPagination;
     public $bln = '';
-    public $jbtn = 'guru';
+    public $jbtn = '';
     public $cari = ' ';
     public $result = 10;
     public $role = '';
@@ -27,9 +27,11 @@ class Persentase extends Component
         ->where('nama_grup', 'like','%'.$this->role.'%')
         ->where('bulan', 'like','%'.$this->bulan.'%')
         ->orderBy('kode','asc')
-        ->where('kode_grup', 3)
+        ->where('kode_grup','>', 2)
+        ->where('kode_grup','<', 1000)
         ->paginate($this->result);
-        $jbtan = Group::where('kode_grup', 3)
+        $jbtan = Group::where('kode_grup','>', 2)
+        ->where('kode_grup','<', 1000)
         ->get();
         return view('livewire.piket.persentase',compact('data','jbtan'))
         ->extends('layouts.app')

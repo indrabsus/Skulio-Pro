@@ -25,7 +25,8 @@ class DataSiswa extends Component
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->leftJoin('saldos','saldos.id_user','users.id')
         ->leftJoin('poin_sikaps','poin_sikaps.id_user','users.id')
-        ->where('kode_grup', 1000)
+        ->where('kode_grup','>=', 1000)
+        ->where('kode_grup','<', 2000)
         ->where('name', 'like','%'.$this->cari.'%')
         ->orderBy('id', 'desc')
         ->paginate($this->result);

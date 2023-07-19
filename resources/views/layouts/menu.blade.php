@@ -98,15 +98,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            
-            <li class="nav-item">
-        <a href="{{route('absen')}}" class="nav-link {{ Route::currentRouteName() == 'absen' ? 'active':''}}">
-        <i class="fa-solid fa-file-pen"></i>
-          <p>
-            Absen Siswa
-          </p>
-        </a>
-      </li>
 
       
       
@@ -130,6 +121,46 @@
 
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-brands fa-nfc-directional"></i>
+              <p>
+                RFID
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('poin')}}" class="nav-link {{ Route::currentRouteName() == 'poin' ? 'active':''}}">
+                  <i class="fa-solid fa-star-half-stroke"></i>
+                  <p>
+                    Poin Siswa
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('topupform')}}" class="nav-link {{ Route::currentRouteName() == 'topupform' ? 'active':''}}">
+                  <i class="fa-regular fa-money-bill-1"></i>
+                  <p>
+                    Top Up
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('log')}}" class="nav-link {{ Route::currentRouteName() == 'log' ? 'active':''}}">
+                  <i class="fa-solid fa-timeline"></i>
+                  <p>
+                    Log
+                  </p>
+                </a>
+              </li>
+
+            
+
+            </ul>
+          </li>
 
 
 
@@ -142,14 +173,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('groupmgmt')}}" class="nav-link {{ Route::currentRouteName() == 'groupmgmt' ? 'active':''}}">
-              <i class="fa-solid fa-landmark"></i>
-                <p>
-                  Kelas
-                </p>
-              </a>
-            </li>
             <li class="nav-item">
               <a href="{{route('agendamgmt')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmt' ? 'active':''}}">
               <i class="fa-solid fa-calendar-days"></i>
@@ -315,15 +338,8 @@
         </p>
       </a>
     </li>
-    <li class="nav-item">
-      <a href="{{route('groupmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'groupmgmtkurikulum' ? 'active':''}}">
-      <i class="fa-solid fa-landmark"></i>
-        <p>
-          Kelas
-        </p>
-      </a>
-    </li>
       @endif
+      
     @if (Auth::user()->level == 'siswa')
   
     <li class="nav-item">

@@ -21,14 +21,14 @@ class AbsenAll extends Component
         $set = new Controller;
         $kategori = Group::where('kode_grup', '!=', 1)
         ->where('kode_grup', '!=', 2)
-        ->where('kode_grup', '!=', 1000)
+        ->where('kode_grup', '<', 1000)
         ->get();
         $konfig = $set->config();
         $nama = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('kode_grup', '!=', 1)
         ->where('kode_grup', '!=', 2)
-        ->where('kode_grup', '!=', 1000)
+        ->where('kode_grup', '<', 1000)
         ->where('kode_grup', 'like','%'.$this->kategoris.'%')
         ->get();
         return view('livewire.piket.absen-all', compact('konfig','nama','kategori'))

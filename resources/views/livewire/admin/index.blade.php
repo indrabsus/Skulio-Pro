@@ -2,7 +2,7 @@
     <h3>Dashboard</h3>
     <hr>
 <div class="row">
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -20,9 +20,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>{{$guru}}</h3>
+                <h3>{{$karyawan}}</h3>
 
-                <p>Guru</p>
+                <p>Karyawan</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -30,19 +30,6 @@
               </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>{{$tendik}}</h3>
-
-                <p>Tendik</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-               </div>
-          </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->

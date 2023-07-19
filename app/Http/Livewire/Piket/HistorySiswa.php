@@ -21,7 +21,7 @@ class HistorySiswa extends Component
     public $caritgl = '';
     public function render()
     {
-        $jbtan = Group::where('kode_grup',1000)->get();
+        $jbtan = Group::where('kode_grup','>=',1000)->get();
         if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket'){
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')

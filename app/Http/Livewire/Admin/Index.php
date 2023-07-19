@@ -10,19 +10,15 @@ class Index extends Component
 {
     public function render()
     {
-        $guru = DB::table('users')
+        $karyawan = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
-        ->where('kode_grup', 3)
-        ->count();
-        $tendik = DB::table('users')
-        ->leftJoin('groups','groups.id_grup','users.id_grup')
-        ->where('kode_grup', 4)
+        ->where('level', 'user')
         ->count();
         $saldo = DB::table('users')
         ->leftJoin('saldos','saldos.id_user','users.id')
         ->sum('saldo');
         $siswa = User::where('level', 'siswa')->count();
-        return view('livewire.admin.index',compact('guru','tendik','saldo','siswa'))
+        return view('livewire.admin.index',compact('karyawan','saldo','siswa'))
         ->extends('layouts.app')
         ->section('content');
     }

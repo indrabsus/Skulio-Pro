@@ -12,8 +12,6 @@
                 <div class="row">
                 <div class="col-lg-6">
                 <div id="cekkartu"></div>
-                    
-                    <div id="cekkartu"></div>
                 <div class="form-group">
                     <label for="">Nama Lengkap</label>
                     <input type="text" name="name" class="form-control" placeholder="Masukan Nama Lengkap">

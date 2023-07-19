@@ -7,22 +7,27 @@
             {{ session('gagal') }}
           </div>
     @endif
+ 
+    <a class="btn btn-primary" id="switch"><i class="fa-solid fa-repeat"></i></i> Switch Mode</a>
+    
 <div class="row justify-content-center">
     <div class="col-lg-6">
-    <form action="{{route('insertsiswa')}}" method="post">
-@csrf
-               
-                <div id="cekkartu"></div>
-                
-                 
-</form>
+    <div id="cekkartu"></div>
     </div>
 </div>
 <script>
                 $(document).ready(function(){
                     setInterval(function(){
-                        $("#cekkartu").load("{{route('absenscan')}}")
+                        $("#cekkartu").load("{{route('poinscan')}}")
                     },1000)
                 })
             </script>
+
+<script>
+    $("#switch").click(function(){
+  $.get("{{route('ubahmode')}}", function(data, status){
+    console.log('sukses')
+  });
+});
+</script>
 @endsection

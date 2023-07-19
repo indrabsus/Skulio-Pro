@@ -27,9 +27,9 @@ class PersentaseSiswa extends Component
         ->where('nama_grup', 'like','%'.$this->role.'%')
         ->where('bulan', 'like','%'.$this->bulan.'%')
         ->orderBy('kode','asc')
-        ->where('kode_grup', 1000)
+        ->where('kode_grup','>=', 1000)
         ->paginate($this->result);
-        $jbtan = Group::where('kode_grup', 1000)
+        $jbtan = Group::where('kode_grup','>=', 1000)
         ->get();
         return view('livewire.piket.persentase-siswa',compact('data','jbtan'))
         ->extends('layouts.app')

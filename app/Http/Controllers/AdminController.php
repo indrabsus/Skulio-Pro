@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Absen;
+use App\Models\Log;
+use App\Models\PoinTemp;
+use App\Models\TopupTemp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +30,7 @@ class AdminController extends Controller
     }
     public function addSiswa(){
         Temp::truncate();
-        $kelas = Group::where('kode_grup', 1000)->get();
+        $kelas = Group::where('kode_grup','>=', 1000)->get();
         return view('admin.addsiswa', compact('kelas'));
     }
     public function insertSiswa(Request $request){
@@ -66,15 +70,27 @@ class AdminController extends Controller
         }
     }
 
-    public function sendrfid($norfid){
-        $mode = Mode::first();
-        $simpan = Temp::create(['norfid' => $norfid, 'status' => $mode->mode]);
+    public function inputrfid($norfid){
+        $simpan = Temp::create(['norfid' => $norfid]);
         if($simpan){
             echo "Berhasil";
         } else {
             echo "Gagal";
         }
     }
+    public function inputformrfid(){
+        $neww = Temp::orderBy('created_at','desc')->first();
+    if($neww){
+        $print = $neww->norfid;
+    } else {
+        $print = '';
+    }
+    
+    return view('load.inputscan', [
+        'scan' => $print
+    ]);
+    }
+
     public function editSiswa($id){
         Temp::truncate();
         $data = DB::table('users')
@@ -152,18 +168,179 @@ class AdminController extends Controller
             return redirect()->route('ubahpassword')->with('sukses', 'Pastikan akan mencatat password baru anda!');
         }
         public function ubahmode(){
-            $status = Mode::where('id_mode',1)->first();
-            if($status->mode > 1){
-                Mode::where('id_mode',1)->update([
-                    'mode' => 1
-                ]);
-                echo "kembali ke 1";
+            $status = Mode::where('id',1)->first();
+            if($status->mode == 1){
+                Mode::where('id', 1)->update(['mode' => 0]);
             } else {
-                Mode::where('id_mode',1)->update([
-                    'mode' => $status->mode +1
-                ]);
-                echo "mode berubah";
+                Mode::where('id', 1)->update(['mode' => 1]);
             }
+        }
+        public function absenSiswa($norfid){
+                $set = new Controller;
+                $user = User::where('kode',$norfid)->first();
+
+                if($user){
+                    if(date('l', strtotime(now())) == 'Sunday' || date('l', strtotime(now())) == 'Saturday'){
+                        return "Gagal, Absen dihari libur";
+                    } else {
+                        $cek = $set->cekDuplikat('absens','id_user',$user->id);
+                    if($cek['absen'] > 0){
+                        return "Anda Sudah Absen";
+                    } else {
+                        Absen::create([
+                            'id_user' => $user->id,
+                            'tanggal' => date('Y/m/d'),
+                            'waktu' => (date('A') == 'PM' ? date('h') + 12 : date('h')).date(':i:s'),
+                            'ket' => 'hadir'
+                        ]);
+                        DB::table('hitung_absens')->updateOrInsert(
+                            ['bulan' => date('F Y'), 'id_user' => $user->id],
+                            [
+                                'hadir' => Absen::where('id_user',$user->id)
+                                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                                ->where('ket', 'hadir')->count(),
+                                'kegiatan' => Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'kegiatan')->count(),
+                                'sakit' => Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'sakit')->count(),
+                                'izin' => Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'izin')->count(),
+                                'nojadwal' => Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'nojadwal')->count(),
+                                'total' => Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'hadir')->count() +
+                                            Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'kegiatan')->count() +
+                                            Absen::where('id_user',$user->id)
+                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                                ->where('ket', 'nojadwal')->count(),
+                            ]
+                        );
+                        return "sukses";
+                    }
+                    }   
+                } else {
+                    return "Gagal";
+                }
+        }
+        public function poinrfid($norfid){
+            $cek = DB::table('poin_sikaps')->leftJoin('users','users.id','poin_sikaps.id_user')->where('kode', $norfid)->count();
+            
+            if($cek > 0){
+                PoinTemp::create(['norfid' => $norfid]);
+                return "sukses";
+            } else {
+                return "gagal";
+            }
+            
+        }
+        public function poinscan(){
+            //PoinTemp::truncate();
+            $ket = '';
+            $hitung = PoinTemp::count();
+            $poin = PoinTemp::orderBy('created_at', 'desc')->first();
+            $mode = Mode::orderBy('created_at', 'desc')->first();
+            $sikap = [];
+            
+            if($mode->mode == 1){
+                $status = 'plus';
+            } else {
+                $status = 'minus';
+            }
+            if($hitung > 0){
+                $sikap = DB::table('poin_sikaps')->leftJoin('users','users.id','poin_sikaps.id_user')->where('kode', $poin->norfid)->first();
+                $terdata = DB::table('poin_sikaps')->leftJoin('users','users.id','poin_sikaps.id_user')->where('kode', $poin->norfid)->count();
+                
+                if($terdata > 0){
+                    if($status == 'plus'){
+                        PoinSikap::where('id_user', $sikap->id_user)->update(['poin' => $sikap->poin + 1]);
+                        PoinTemp::truncate();
+                        $ket = $sikap->name." Menambah +1 poin = ".$sikap->poin + 1;
+                    } else {
+                        PoinSikap::where('id_user', $sikap->id_user)->update(['poin' => $sikap->poin - 1]);
+                        PoinTemp::truncate();
+                        $ket = $sikap->name." Berkurang -1 poin = ".$sikap->poin - 1;
+                    }
+                } else {
+                    $ket = 'User tidak ditemukan';
+                    PoinTemp::truncate();
+                }
+                
+            }
+
+            return view('load.poinscan', compact('status','hitung','ket'));
+        }
+        public function poin(){
+            return view('admin.poin');
+        }
+
+        public function topuprfid($norfid){
+            $cek = User::where('kode', $norfid)->count();
+
+            if($cek > 0){
+                TopupTemp::create(['norfid' => $norfid]);
+                return "sukses";
+            } else {
+                return "gagal";
+            }
+        }
+
+        public function topup(){
+            $neww = TopupTemp::orderBy('created_at','desc')->first();
+            $saldo = 0;
+            if($neww){
+                $data = DB::table('saldos')->leftJoin('users','users.id','saldos.id_user')->where('kode', $neww->norfid)->first();
+                $print = $data->kode;
+                $nama = $data->name;
+                $saldo = $data->saldo;
+                $noref = 'TO'.date('dmyhi').$data->id;
+            } else {
+                $print = '';
+                $nama = '';
+                $saldo = '';
+                $noref = '';
+            }
+            
+            return view('load.topupinput', [
+                'scan' => $print,
+                'nama' => $nama,
+                'saldo' => $saldo,
+                'noref' => $noref
+            ]);
+        }
+
+        public function topupform(){
+            TopupTemp::truncate();
+            return view('admin.topup');
+        }
+
+        public function topupProses(Request $request){
+            $duplikat = Log::where('no_ref', $request->no_ref)->count();
+            $request->validate([
+                'saldo' => 'required',
+                'name' => 'required',
+                // 'no_ref' => 'required|unique:logs'
+            ]);
+            if($duplikat > 0){
+                return redirect()->route('topupform')->with('gagal', 'Terlalu sering melakukan transaksi!');
+            } else {
+                $user = User::where('kode', $request->kode)->first();
+            Saldo::where('id_user', $user->id)->update(['saldo' => $request->saldos + $request->saldo]);
+            Log::create([
+                'id_user' => $user->id,
+                'status' => 'topup',
+                'no_ref' => $request->no_ref,
+                'total' => $request->saldo
+            ]);
+            return redirect()->route('topupform')->with('sukses', 'Berhasil Update Saldo');
+            }
+            
         }
 
 }

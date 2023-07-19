@@ -38,7 +38,7 @@ class RoleMgmt extends Component
             'kode_grup.required' => 'Kode Jabatan tidak boleh kosong',
         ]);
 
-        Jabatan::create([
+        Group::create([
             'nama_grup' => ucwords($this->nama_grup),
             'kode_grup' => $this->kode_grup,
         ]);
