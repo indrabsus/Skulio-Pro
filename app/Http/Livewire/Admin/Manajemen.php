@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserMgmt extends Component
+class Manajemen extends Component
 {
-    public $name, $username, $id_grup, $ids, $kode;
+    public $name, $username, $ids, $level;
     use WithPagination;
     public $cari = '';
     public $result = 10;
@@ -22,43 +22,35 @@ class UserMgmt extends Component
     {
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
-        ->where('level','user')
+        ->where('level','<>','admin')
+        ->where('level','<>','user')
+        ->where('level','<>','siswa')
         ->where('name', 'like','%'.$this->cari.'%')
         ->where('nama_grup', 'like','%'.$this->role.'%')
         ->orderBy('kode', 'asc')
         ->paginate($this->result);
         $jbtn = Group::where('kode_grup', '>',2)->where('kode_grup','<',1000)->get();
-        return view('livewire.admin.user-mgmt', compact('data', 'jbtn'))
+        return view('livewire.admin.manajemen', compact('data', 'jbtn'))
         ->extends('layouts.app')
         ->section('content');
     }
     public function clearForm(){
         $this->name = '';
         $this->username = '';
-        $this->id_grup = '';
-        $this->kode = '';
+        $this->level = '';
     }
     public function insert(){
         $this->validate([
             'name' => 'required',
             'username' => 'required|alpha_dash|unique:users',
-            'id_grup' => 'required',
-            'kode' => 'required|unique:users'
-        ],[
-            'name.required' => 'Nama tidak boleh kosong!',
-            'username.required' => 'Username tidak boleh kosong!',
-            'username.alpha_dash' => 'Username hanya boleh huruf dan angka!',
-            'username.unique' => 'Username sudah digunakan!',
-            'id_grup.required' => 'Jabatan tidak boleh kosong!',
-            'kode.required' => 'Kode tidak boleh kosong!'
+            'level' => 'required'
         ]);
         User::create([
             'name' => ucwords($this->name),
             'username' => $this->username,
             'password' => bcrypt('rahasia'),
-            'level' => 'user',
-            'id_grup' => $this->id_grup,
-            'kode' => $this->kode
+            'level' => $this->level,
+            'id_grup' => 5,
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
@@ -70,24 +62,20 @@ class UserMgmt extends Component
         $this->ids = $data->id;
         $this->name = $data->name;
         $this->username = $data->username;
-        $this->id_grup = $data->id_grup;
-        $this->kode = $data->kode;
+        $this->level = $data->level;
     }
     public function update(){
         $this->validate([
             'name' => 'required',
-            'id_grup' => 'required',
-            'kode' => 'required'
+            'level' => 'required'
         ],[
             'name.required' => 'Nama tidak boleh kosong!',
-            'id_grup.required' => 'Jabatan tidak boleh kosong',
-            'kode.required' => 'Kode tidak boleh kosong!'
+            'level.required' => 'Level tidak boleh kosong',
         ]);
         User::where('id', $this->ids)->update([
             'name' => ucwords($this->name),
             'username' => $this->username,
-            'id_grup' => $this->id_grup,
-            'kode' => $this->kode
+            'level' => $this->level
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');

@@ -20,14 +20,32 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
-        <a href="{{route('rolemgmt')}}" class="nav-link {{ Route::currentRouteName() == 'rolemgmt' ? 'active':''}}">
+              <li class="nav-item">
+                <a href="{{route('manajemen')}}" class="nav-link {{ Route::currentRouteName() == 'manajemen' ? 'active':''}}">
+                  <i class="fa-brands fa-squarespace"></i>
+                  <p>
+                    Manajemen
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('jurusan')}}" class="nav-link {{ Route::currentRouteName() == 'jurusan' ? 'active':''}}">
+                  <i class="fa-brands fa-squarespace"></i>
+                  <p>
+                    Jurusan
+                  </p>
+                </a>
+              </li>
+      <li class="nav-item">
+        <a href="{{route('kelasmgmt')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmt' ? 'active':''}}">
         <i class="fa-solid fa-diagram-project"></i>
           <p>
-            Role Management
+            Kelas
           </p>
         </a>
       </li>
+
+      
       
       <li class="nav-item">
         <a href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
@@ -157,8 +175,6 @@
                 </a>
               </li>
 
-            
-
             </ul>
           </li>
 
@@ -244,14 +260,6 @@
           </p>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="{{route('absensiswapiket')}}" class="nav-link {{ Route::currentRouteName() == 'absensiswapiket' ? 'active':''}}">
-        <i class="fa-solid fa-file-pen"></i>
-          <p>
-            Absen Siswa
-          </p>
-        </a>
-      </li>
     <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="fa-solid fa-table"></i>
@@ -330,6 +338,22 @@
     
       @endif
     @if (Auth::user()->level == 'kurikulum')
+    <li class="nav-item">
+      <a href="{{route('jurusankurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'jurusankurikulum' ? 'active':''}}">
+        <i class="fa-brands fa-squarespace"></i>
+        <p>
+          Jurusan
+        </p>
+      </a>
+    </li>
+<li class="nav-item">
+<a href="{{route('kelasmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmtkurikulum' ? 'active':''}}">
+<i class="fa-solid fa-diagram-project"></i>
+<p>
+  Kelas
+</p>
+</a>
+</li>
     <li class="nav-item">
       <a href="{{route('indexkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'indexkurikulum' ? 'active':''}}">
       <i class="fa-solid fa-calendar-days"></i>

@@ -31,19 +31,19 @@
     </div>
     <table class="table table-striped">
         <tr>
-            <th>Id Grup</th>
-            <th>Grup</th>
+            <th>No</th>
+            <th>Jurusan</th>
             <th>Kode</th>
             <th>Aksi</th>
         </tr>
         <?php $no=1;?>
         @foreach ($data as $d)
             <tr>
-                <td>{{ $d->id_grup }}</td>
-                <td>{{ ucwords($d->nama_grup) }}</td>
-                <td>{{$d->kode_grup}}</td>
-                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_grup }})"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_grup }})"><i class="fa fa-trash"></i></a>
+                <td>{{ $no++ }}</td>
+                <td>{{ ucwords($d->keterangan) }}</td>
+                <td>{{$d->kode}}</td>
+                <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->kode }})"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->kode }})"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -62,19 +62,19 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <label for="">Keterangan</label>
+                <input type="text" wire:model="keterangan" class="form-control">
                 <div class="text-danger">
-                    @error('nama_grup')
+                    @error('keterangan')
                         {{$message}}
                     @enderror
                 </div>
               </div>
               <div class="form-group">
                 <label for="">Kode</label>
-                <input type="number" wire:model="kode_grup" class="form-control">
+                <input type="number" wire:model="kode" class="form-control">
                 <div class="text-danger">
-                    @error('kode_grup')
+                    @error('kode')
                         {{$message}}
                     @enderror
                 </div>
@@ -103,19 +103,19 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <label for="">Keterangan</label>
+                <input type="text" wire:model="keterangan" class="form-control">
                 <div class="text-danger">
-                    @error('nama_grup')
+                    @error('keterangan')
                         {{$message}}
                     @enderror
                 </div>
               </div>
               <div class="form-group">
                 <label for="">Kode</label>
-                <input type="number" wire:model="kode_grup" class="form-control">
+                <input type="number" wire:model="kode" class="form-control" readonly>
                 <div class="text-danger">
-                    @error('kode_grup')
+                    @error('kode')
                         {{$message}}
                     @enderror
                 </div>

@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Kurikulum;
 
 use App\Models\Group;
 use App\Models\Jabatan;
+use App\Models\Role;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class RoleMgmt extends Component
+class KelasMgmt extends Component
 {
-    public $ids, $nama_grup, $kode_grup;
+    public $ids, $nama_grup, $kode_grup, $roles;
     use WithPagination;
     public $cari = '';
     public $result = 10;
@@ -18,10 +20,14 @@ class RoleMgmt extends Component
 
     public function render()
     {
-        $data = Group::where('nama_grup', 'like','%'.$this->cari.'%')
-        ->orderBy('kode_grup', 'asc')
+        $role = Role::where('kode', '>=', 1000)->get();
+        $data = DB::table('groups')->leftJoin('roles','roles.kode','groups.kode_grup')
+        ->where('nama_grup', 'like','%'.$this->cari.'%')
+        ->where('kode','>=',1000)
+        ->where('kode','<',2000)
+        ->orderBy('kode', 'desc')
         ->paginate($this->result);
-        return view('livewire.admin.role-mgmt', compact('data'))
+        return view('livewire.kurikulum.kelas-mgmt', compact('data','role'))
         ->extends('layouts.app')
         ->section('content');
     }
