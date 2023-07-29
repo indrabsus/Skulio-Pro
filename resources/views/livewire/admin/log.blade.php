@@ -31,6 +31,7 @@
             <th>Status</th>
             <th>Log</th>
             <th>No Ref</th>
+            <th>Ket</th>
             <th>Hapus</th>
         </tr>
         <?php $no=1;?>
@@ -41,7 +42,10 @@
                 <td>{{$d->status}}</td>
                 <td>{{number_format($d->total)}}</td>
                 <td>{{$d->no_ref}}</td>
-                <td><a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_log }})"><i class="fa fa-trash"></i></a>
+                <td>{{$d->keterangan}}</td>
+                <td>
+                  <a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_log }})"><i class="fa fa-edit"></i></a>
+                  <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_log }})"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -49,45 +53,7 @@
 
             {{ $data->links() }}
 
-    <div class="modal fade" id="add" wire:ignore.self>
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add Data</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
-                <div class="text-danger">
-                    @error('nama_grup')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">Kode</label>
-                <input type="number" wire:model="kode_grup" class="form-control">
-                <div class="text-danger">
-                    @error('kode_grup')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary suksestambah" wire:click="insert()">Save changes</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+
 
 
       <div class="modal fade" id="edit" wire:ignore.self>
@@ -100,20 +66,12 @@
               </button>
             </div>
             <div class="modal-body">
+             
               <div class="form-group">
-                <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <label for="">Keterangan</label>
+                <input type="text" wire:model="keterangan" class="form-control">
                 <div class="text-danger">
-                    @error('nama_grup')
-                        {{$message}}
-                    @enderror
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">Kode</label>
-                <input type="number" wire:model="kode_grup" class="form-control">
-                <div class="text-danger">
-                    @error('kode_grup')
+                    @error('keterangan')
                         {{$message}}
                     @enderror
                 </div>

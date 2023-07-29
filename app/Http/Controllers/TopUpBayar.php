@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Log;
+use App\Models\Saldo;
+use App\Models\TopupTemp;
+use App\Models\User;
+use DB;
+use Illuminate\Http\Request;
+
+class TopUpBayar extends Controller
+{
+    public function topuprfid($norfid){
+        $cek = User::where('kode', $norfid)->count();
+
+        if($cek > 0){
+            TopupTemp::create(['norfid' => $norfid]);
+            return "sukses";
+        } else {
+            return "gagal";
+        }
+    }
+
+    public function topup(){
+        $neww = TopupTemp::orderBy('created_at','desc')->first();
+        $saldo = 0;
+        if($neww){
+            $data = DB::table('saldos')->leftJoin('users','users.id','saldos.id_user')->where('kode', $neww->norfid)->first();
+            $print = $data->kode;
+            $nama = $data->name;
+            $saldo = $data->saldo;
+            $noref = 'TO'.date('dmyhi').$data->id;
+        } else {
+            $print = '';
+            $nama = '';
+            $saldo = '';
+            $noref = '';
+        }
+        
+        return view('load.topupinput', [
+            'scan' => $print,
+            'nama' => $nama,
+            'saldo' => $saldo,
+            'noref' => $noref
+        ]);
+    }
+
+    public function topupform(){
+        TopupTemp::truncate();
+        return view('admin.topup');
+    }
+
+    public function topupProses(Request $request){
+        $duplikat = Log::where('no_ref', $request->no_ref)->count();
+        $request->validate([
+            'saldo' => 'required',
+            'name' => 'required',
+            // 'no_ref' => 'required|unique:logs'
+        ]);
+        if($duplikat > 0){
+            return redirect()->route('topupform')->with('gagal', 'Terlalu sering melakukan transaksi!');
+        } else {
+            $user = User::where('kode', $request->kode)->first();
+        Saldo::where('id_user', $user->id)->update(['saldo' => $request->saldos + $request->saldo]);
+        Log::create([
+            'id_user' => $user->id,
+            'status' => 'topup',
+            'no_ref' => $request->no_ref,
+            'total' => $request->saldo,
+            'keterangan' => $user->name.' berhasil top up saldo sebesar Rp.'.number_format($request->saldo)
+        ]);
+        return redirect()->route('topupform')->with('sukses', 'Berhasil Update Saldo');
+        }
+        
+    }
+}

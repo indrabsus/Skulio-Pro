@@ -51,7 +51,7 @@
                 
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-primary btn-block">Absen</button>
+                        <button class="btn btn-primary btn-block">Submit</button>
                     </div>
                 </div>
                     </div>

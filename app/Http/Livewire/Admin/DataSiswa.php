@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Config;
+use App\Models\Spp;
+use App\Models\SppLog;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -13,7 +16,9 @@ use Illuminate\Support\Facades\Auth;
 class DataSiswa extends Component
 {
     use WithPagination;
-    public $ket;
+    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan;
+    public $dll = 0;
+    public $subsidi = 0;
     public $cari = '';
     public $result = 10;
     protected $paginationTheme = 'bootstrap';
@@ -21,6 +26,7 @@ class DataSiswa extends Component
     public function render()
     {
         $set = new Controller;
+        $nom = Config::where('id_config', 1)->first();
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->leftJoin('saldos','saldos.id_user','users.id')
@@ -30,7 +36,7 @@ class DataSiswa extends Component
         ->where('name', 'like','%'.$this->cari.'%')
         ->orderBy('id', 'desc')
         ->paginate($this->result);
-        return view('livewire.admin.data-siswa', compact('data'))
+        return view('livewire.admin.data-siswa', compact('data', 'nom'))
         ->extends('layouts.app')
         ->section('content');
     }
@@ -125,5 +131,19 @@ class DataSiswa extends Component
     public function clearForm()
     {
         $this->ket = '';
+    }
+
+    public function k_reset($id){
+        $data = User::where('id',$id)->first();
+        $this->ids = $data->id;
+    }
+    public function do_reset(){
+        $kon = Config::where('id_config', 1)->first();
+        User::where('id', $this->ids)->update([
+            'password' => bcrypt($kon->default_pass)
+        ]);
+        $this->clearForm();
+        session()->flash('sukses', 'Password berhasil direset');
+        $this->dispatchBrowserEvent('closeModal');
     }
 }

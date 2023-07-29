@@ -19,7 +19,7 @@
                   </div>
                 <input type="text" class="form-control" placeholder="{{date('F Y', strtotime(now()))}}" wire:model="bln">
                 <div class="input-group-append">
-                  <span class="input-group-text"><a href="{{ route('export',['bln' => $bln, 'jbtn' => $jbtn]) }}"><i class="fas fa-print"></i></a></span>
+                  <span class="input-group-text"><a href="{{ route('absen',['bln' => $bln, 'jbtn' => $jbtn]) }}"><i class="fas fa-print"></i></a></span>
                 </div>
               </div>
         </div>

@@ -73,7 +73,9 @@
                   <a class="btn btn-danger btn-sm" wire:click="changeAcc({{$d->id}})"><i class="fa-solid fa-xmark"></i></a>
                   @endif
                 </td>
-                <td><a class="btn btn-success btn-sm mb-1" href="{{route('editsiswa',['id' => $d->id])}}"><i class="fa fa-edit"></i></a>
+                <td>
+                  <a class="btn btn-dark btn-sm mb-1" data-toggle="modal" data-target="#k_reset" wire:click="k_reset({{ $d->id }})"><i class="fa fa-cogs"></i> Reset</a>
+                  <a class="btn btn-success btn-sm mb-1" href="{{route('editsiswa',['id' => $d->id])}}"><i class="fa fa-edit"></i></a>
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id }})"><i class="fa fa-trash"></i></a>
                 </td>
                 @endif
@@ -147,6 +149,31 @@
       </div>
       <!-- /.modal -->
 
+     
+      <div class="modal fade" id="k_reset" wire:ignore.self>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Reset Password</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Dengan me Reset Password, user ini akan menggunakan password "{{$nom->default_pass}}" tanpa tanda kutip</p>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" wire:click="do_reset()">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
 
       <script>
         window.addEventListener('closeModal', event => {
@@ -154,6 +181,9 @@
         })
         window.addEventListener('closeModal', event => {
             $('#k_hapus').modal('hide');
+        })
+        window.addEventListener('closeModal', event => {
+            $('#k_reset').modal('hide');
         })
       </script>
 

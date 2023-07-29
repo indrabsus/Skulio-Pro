@@ -1,11 +1,18 @@
 <?php
 
+use App\Http\Controllers\AbsenSiswa;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CrudSiswa;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\PoinSiswa;
+use App\Http\Controllers\TopUpBayar;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\DataSiswa;
 use App\Http\Livewire\Admin\Index as AdminIndex;
 use App\Http\Livewire\Admin\Manajemen;
+use App\Http\Livewire\Keuangan\DataSpp;
+use App\Http\Livewire\Keuangan\PengajuanSubsidi;
 use App\Http\Livewire\Kurikulum\KelasMgmt;
 use App\Http\Livewire\Admin\Log;
 use App\Http\Livewire\Kurikulum\Jurusan;
@@ -34,23 +41,23 @@ Route::get('/',[AuthController::class,'index'])->name('index');
 Route::any('proseslogin', [AuthController::class,'login'])->name('login');
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
-Route::get('/ubahmode/bataraindra2020',[AdminController::class,'ubahmode'])->name('ubahmode');
-Route::get('export/{bln?}/{jbtn?}', [AdminController::class, 'export'])->name('export');
+Route::get('export/{bln?}/{jbtn?}', [ExcelController::class, 'absen'])->name('absen');
 
 //absen siswa
-Route::get('/absensiswa/{norfid}/bataraindra2020', [AdminController::class, 'absenSiswa'])->name('absensiswafix');
+Route::get('/absensiswa/{norfid}/bataraindra2020', [AbsenSiswa::class, 'absenSiswa'])->name('absensiswafix');
 
 // Input RFID
-Route::get('/inputscan', [AdminController::class, 'inputformrfid'])->name('inputscan');
-Route::get('/inputrfid/{norfid}/bataraindra2020',[AdminController::class,'inputrfid'])->name('inputrfid');
+Route::get('/inputscan', [CrudSiswa::class, 'inputformrfid'])->name('inputscan');
+Route::get('/inputrfid/{norfid}/bataraindra2020',[CrudSiswa::class,'inputrfid'])->name('inputrfid');
 
 //RFID MODE POIN
-Route::get('poin/{norfid}/bataraindra2020', [AdminController::class, 'poinrfid'])->name('poinrfid');
-Route::get('poinscan', [AdminController::class, 'poinscan'])->name('poinscan');
+Route::get('/ubahmode/bataraindra2020',[PoinSiswa::class,'ubahmode'])->name('ubahmode');
+Route::get('poin/{norfid}/bataraindra2020', [PoinSiswa::class, 'poinrfid'])->name('poinrfid');
+Route::get('poinscan', [PoinSiswa::class, 'poinscan'])->name('poinscan');
 
 //RFID Top Up
-Route::get('/topuprfid/{norfid}/bataraindra2020', [AdminController::class, 'topuprfid'])->name('topuprfid');
-Route::get('/topup', [AdminController::class, 'topup'])->name('topup');
+Route::get('/topuprfid/{norfid}/bataraindra2020', [TopUpBayar::class, 'topuprfid'])->name('topuprfid');
+Route::get('/topup', [TopUpBayar::class, 'topup'])->name('topup');
 
 
 Route::group(['middleware' => ['auth']], function(){
@@ -58,30 +65,40 @@ Route::group(['middleware' => ['auth']], function(){
     Route::any('/admin/updatepassword',[AdminController::class,'updatePassword'])->name('updatepassword');
 
     Route::group(['middleware' => ['cekrole:admin']], function(){
+        // Admin Menu
         Route::get('admin', AdminIndex::class)->name('indexadmin');
+        Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
+        Route::get('admin/datasiswa', DataSiswa::class)->name('datasiswa');
+        Route::get('admin/manajemen', Manajemen::class)->name('manajemen');
+
+        // Piket
         Route::get('admin/persentase', Persentase::class)->name('persentase');
         Route::get('admin/persentasesiswa', PersentaseSiswa::class)->name('persentasesiswa');
         Route::get('admin/history', History::class)->name('history');
         Route::get('admin/historysiswa', HistorySiswa::class)->name('historysiswa');
-        Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
+        Route::get('admin/absenkaryawan', AbsenAll::class)->name('absenkaryawan');
+
+        // Kurikulum
         Route::get('admin/kelasmgmt', KelasMgmt::class)->name('kelasmgmt');
         Route::get('admin/jurusan', Jurusan::class)->name('jurusan');
-        Route::get('admin/absenkaryawan', AbsenAll::class)->name('absenkaryawan');
         Route::get('admin/agenda', Agenda::class)->name('agendamgmt');
-        Route::get('admin/datasiswa', DataSiswa::class)->name('datasiswa');
-        Route::get('admin/manajemen', Manajemen::class)->name('manajemen');
+
+        // Keuangan
+        Route::get('admin/dataspp', DataSpp::class)->name('dataspp');
+        Route::get('admin/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidi');
 
         //Top Up RFID
-        Route::get('/admin/topupform',[AdminController::class,'topupform'])->name('topupform');
-        Route::any('/admin/topupproses',[AdminController::class,'topupProses'])->name('topupproses');
+        Route::get('/admin/topupform',[TopUpBayar::class,'topupform'])->name('topupform');
+        Route::any('/admin/topupproses',[TopUpBayar::class,'topupProses'])->name('topupproses');
 
         //controller add siswa
-        Route::get('/admin/addsiswa',[AdminController::class,'addSiswa'])->name('addsiswa');
-        Route::get('/admin/editsiswa/{id}',[AdminController::class,'editSiswa'])->name('editsiswa');
-        Route::any('/admin/insertsiswa',[AdminController::class,'insertSiswa'])->name('insertsiswa');
-        Route::any('/admin/updatesiswa',[AdminController::class,'updateSiswa'])->name('updatesiswa');
+        Route::get('/admin/addsiswa',[CrudSiswa::class,'addSiswa'])->name('addsiswa');
+        Route::get('/admin/editsiswa/{id}',[CrudSiswa::class,'editSiswa'])->name('editsiswa');
+        Route::any('/admin/insertsiswa',[CrudSiswa::class,'insertSiswa'])->name('insertsiswa');
+        Route::any('/admin/updatesiswa',[CrudSiswa::class,'updateSiswa'])->name('updatesiswa');
 
-        Route::get('/admin/poin',[AdminController::class,'poin'])->name('poin');
+        //Poin Siswa
+        Route::get('/admin/poin',[PoinSiswa::class,'poin'])->name('poin');
 
         //Log
         Route::get('admin/log', Log::class)->name('log');
@@ -96,7 +113,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('piket/export/{bln?}/{jbtn?}', [AdminController::class, 'export'])->name('exportpiket');
     
         //Absen RFID
-    Route::get('/piket/absensiswa',[AdminController::class,'absen'])->name('absensiswapiket');
+    Route::get('/piket/absensiswa',[AbsenSiswa::class,'absen'])->name('absensiswapiket');
         //Data Siswa
     Route::get('piket/datasiswa', DataSiswa::class)->name('datasiswapiket');
         //Livewire Absen Siswa

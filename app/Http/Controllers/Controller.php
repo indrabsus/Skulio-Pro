@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -31,9 +32,10 @@ class Controller extends BaseController
     }
 
     public function config(){
-        $data['nama_instansi'] = 'SMK Sangkuriang 1 Cimahi';
-        $data['long'] = 107.540232;
-        $data['lat'] = -6.865116;
+        $con = Config::where('id_config', 1)->first();
+        $data['nama_instansi'] = $con->instansi;
+        $data['long'] = $con->long;
+        $data['lat'] = $con->lat;
         return $data;
     }
     public function changePassword($id,$pass){

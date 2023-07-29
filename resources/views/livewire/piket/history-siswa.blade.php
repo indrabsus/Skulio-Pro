@@ -56,7 +56,7 @@
             <th>No</th>
             <th>Nama Lengkap</th>
             @if (Auth::user()->level == 'admin')
-            <th>Jabatan</th>
+            <th>Kelas</th>
             @endif
             <th>Tanggal</th>
             <th>Waktu</th>
