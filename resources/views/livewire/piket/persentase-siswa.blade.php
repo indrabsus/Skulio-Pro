@@ -11,17 +11,42 @@
         <div class="col-lg-4 mb-1">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <select wire:model="jbtn" class="form-control">
-                        <option value="">Pilih Kelas</option>
+                    <select wire:model="jbtn" class="form-control col-3">
+                        <option value="">Kelas</option>
                     @foreach ($jbtan as $d)
                         <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
                     @endforeach
                     </select>
+
+                    <select wire:model="bln" class="form-control col-4">
+                        <option value="">Bulan</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                    <select wire:model="thn" class="form-control col-lg-3">
+                        <option value="">Thn</option>
+                        <option value="{{date('Y') - 1}}">{{date('Y') -1}}</option>
+                        <option value="{{date('Y')}}">{{date('Y')}}</option>
+                        <option value="{{date('Y') + 1}}">{{date('Y') + 1}}</option>
+    
+                    </select>
+
+                    <div class="input-group-append">
+                        <span class="input-group-text"><a href="{{ route('absen',['bln' => $bln.' '.$thn, 'jbtn' => $jbtn]) }}"><i class="fas fa-print"></i></a></span>
+                      </div>
                   </div>
-                <input type="text" class="form-control" placeholder="{{date('F Y', strtotime(now()))}}" wire:model="bln">
-                <div class="input-group-append">
-                  <span class="input-group-text"><a href="{{ route('absen',['bln' => $bln, 'jbtn' => $jbtn]) }}"><i class="fas fa-print"></i></a></span>
-                </div>
+                  
+                
               </div>
         </div>
             <div class="col-lg-3 mb-1">

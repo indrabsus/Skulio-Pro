@@ -12,8 +12,9 @@ class Persentase extends Component
 {
     use WithPagination;
     public $bln = '';
-    public $jbtn = '';
-    public $cari = ' ';
+    public $thn = '';
+    public $jbtn = 'Guru';
+    public $cari = '';
     public $result = 10;
     public $role = '';
     public $bulan = '';

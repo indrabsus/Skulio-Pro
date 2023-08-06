@@ -5,14 +5,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CrudSiswa;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PoinSiswa;
 use App\Http\Controllers\TopUpBayar;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\DataSiswa;
 use App\Http\Livewire\Admin\Index as AdminIndex;
+use App\Http\Livewire\Admin\LogSaldo;
 use App\Http\Livewire\Admin\Manajemen;
 use App\Http\Livewire\Keuangan\DataSpp;
 use App\Http\Livewire\Keuangan\PengajuanSubsidi;
+use App\Http\Livewire\Keuangan\SppLog;
 use App\Http\Livewire\Kurikulum\KelasMgmt;
 use App\Http\Livewire\Admin\Log;
 use App\Http\Livewire\Kurikulum\Jurusan;
@@ -71,6 +74,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/datasiswa', DataSiswa::class)->name('datasiswa');
         Route::get('admin/manajemen', Manajemen::class)->name('manajemen');
 
+        //pembayaran
+        Route::get('admin/logsaldo', LogSaldo::class)->name('logsaldo');
+
         // Piket
         Route::get('admin/persentase', Persentase::class)->name('persentase');
         Route::get('admin/persentasesiswa', PersentaseSiswa::class)->name('persentasesiswa');
@@ -86,6 +92,7 @@ Route::group(['middleware' => ['auth']], function(){
         // Keuangan
         Route::get('admin/dataspp', DataSpp::class)->name('dataspp');
         Route::get('admin/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidi');
+        Route::get('admin/spplog', SppLog::class)->name('spplog');
 
         //Top Up RFID
         Route::get('/admin/topupform',[TopUpBayar::class,'topupform'])->name('topupform');
@@ -102,6 +109,11 @@ Route::group(['middleware' => ['auth']], function(){
 
         //Log
         Route::get('admin/log', Log::class)->name('log');
+
+        //Print PDF
+        Route::get('/admin/print',[PdfController::class, 'print'])->name('print');
+        Route::get('/admin/invoicepembayaran/{id}',[PdfController::class, 'invoiceSaldo'])->name('invoicesaldo');
+        Route::get('/admin/invoicespp/{id}',[PdfController::class, 'invoiceSpp'])->name('invoicespp');
         
         
     });

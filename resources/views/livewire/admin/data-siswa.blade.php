@@ -98,7 +98,7 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="">Jabatan</label>
+                <label for="">Keterangan</label>
                 <select wire:model="ket" class="form-control">
                   <option value="">Pilih Keterangan</option>
                   <option value="hadir">Hadir</option>

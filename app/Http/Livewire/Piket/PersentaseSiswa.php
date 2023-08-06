@@ -12,8 +12,9 @@ class PersentaseSiswa extends Component
 {
     use WithPagination;
     public $bln = '';
+    public $thn = '';
     public $jbtn = '';
-    public $cari = ' ';
+    public $cari = '';
     public $result = 10;
     public $role = '';
     public $bulan = '';

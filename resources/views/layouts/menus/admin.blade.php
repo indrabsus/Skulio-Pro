@@ -155,6 +155,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{route('logsaldo')}}" class="nav-link {{ Route::currentRouteName() == 'logsaldo' ? 'active':''}}">
+                <i class="fa-solid fa-timeline"></i>
+                <p>
+                  Log Saldo
+                </p>
+              </a>
+            </li>
 
           </ul>
         </li>
@@ -221,6 +229,14 @@
               <i class="fa-solid fa-code-pull-request"></i>
               <p>
                   Pengajuan Subsidi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('spplog')}}" class="nav-link {{ Route::currentRouteName() == 'spplog' ? 'active':''}}">
+              <i class="fa-solid fa-timeline"></i>
+              <p>
+                  Log SPP
               </p>
             </a>
           </li>

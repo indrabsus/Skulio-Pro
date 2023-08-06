@@ -6,7 +6,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>Rp. {{number_format($saldo)}}</h3>
+                <h3>Rp {{number_format($saldo,0,',','.')}}</h3>
 
                 <p>Saldo</p>
               </div>

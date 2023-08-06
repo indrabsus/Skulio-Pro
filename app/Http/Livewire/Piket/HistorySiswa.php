@@ -15,7 +15,7 @@ class HistorySiswa extends Component
 {
     public $hash, $ids, $password, $k_password, $name, $oldPass;
     use WithPagination;
-    public $cari = ' ';
+    public $cari = '';
     public $result = 10;
     public $role = '';
     public $caritgl = '';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\Saldo;
+use App\Models\SaldoLog;
 use App\Models\TopupTemp;
 use App\Models\User;
 use DB;
@@ -30,7 +31,7 @@ class TopUpBayar extends Controller
             $print = $data->kode;
             $nama = $data->name;
             $saldo = $data->saldo;
-            $noref = 'TO'.date('dmyhi').$data->id;
+            $noref = 'TO'.date('dmyh').$data->id;
         } else {
             $print = '';
             $nama = '';
@@ -52,7 +53,7 @@ class TopUpBayar extends Controller
     }
 
     public function topupProses(Request $request){
-        $duplikat = Log::where('no_ref', $request->no_ref)->count();
+        $duplikat = SaldoLog::where('no_ref', $request->no_ref)->count();
         $request->validate([
             'saldo' => 'required',
             'name' => 'required',
@@ -63,12 +64,11 @@ class TopUpBayar extends Controller
         } else {
             $user = User::where('kode', $request->kode)->first();
         Saldo::where('id_user', $user->id)->update(['saldo' => $request->saldos + $request->saldo]);
-        Log::create([
+        SaldoLog::create([
             'id_user' => $user->id,
             'status' => 'topup',
             'no_ref' => $request->no_ref,
             'total' => $request->saldo,
-            'keterangan' => $user->name.' berhasil top up saldo sebesar Rp.'.number_format($request->saldo)
         ]);
         return redirect()->route('topupform')->with('sukses', 'Berhasil Update Saldo');
         }

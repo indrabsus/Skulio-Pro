@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Absen;
 use App\Models\Temp;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -81,5 +82,6 @@ class UserController extends Controller
         return redirect()->route('indexuser')->with('sukses', 'Berhasil Absen, Selisih: '.round($jarak).' m');
         }
     }
+  
 
 }

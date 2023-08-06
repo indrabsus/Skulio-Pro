@@ -5,14 +5,14 @@ namespace App\Http\Livewire\Keuangan;
 use App\Models\Config;
 use App\Models\Month;
 use App\Models\Spp;
-use App\Models\SppLog;
+use App\Models\SppLog as LogSpp;
 use App\Models\SppReq;
 use App\Models\User;
 use DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PengajuanSubsidi extends Component
+class SppLog extends Component
 {
     public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan;
     use WithPagination;
@@ -25,14 +25,14 @@ class PengajuanSubsidi extends Component
     public function render()
     {
         $nom = Config::where('id_config', 1)->first();
-        $data = DB::table('spp_reqs')
-        ->leftJoin('users','users.id','spp_reqs.id_user')
+        $data = DB::table('spp_logs')
+        ->leftJoin('users','users.id','spp_logs.id_user')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('name', 'like','%'.$this->cari.'%')
-        ->orderBy('id_req', 'desc')
-        ->select('id_req','name','nama_grup','subsidi','spp_reqs.updated_at','sts','spp_reqs.created_at')
+        ->orderBy('id_log', 'desc')
+        ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar')
         ->paginate($this->result);
-        return view('livewire.keuangan.pengajuan-subsidi', compact('data','nom'))
+        return view('livewire.keuangan.spp-log', compact('data','nom'))
         ->extends('layouts.app')
         ->section('content');
     }
@@ -48,62 +48,63 @@ class PengajuanSubsidi extends Component
     }
     
 
-    public function k_proses($id){
-        $data = DB::table('spp_reqs')
-        ->leftJoin('users','users.id','spp_reqs.id_user')
-        ->where('id_req', $id)->first();
-        $this->ids = $data->id_req;
+    public function k_edit($id){
+        $data = DB::table('spp_logs')
+        ->leftJoin('users','users.id','spp_logs.id_user')
+        ->where('id_log', $id)->first();
+        $this->ids = $data->id_log;
         $this->id_user = $data->id;
         $this->nama = $data->name;
         $this->noref = 'SPP'.date('dmy').$data->id;
         $this->subsidi = $data->subsidi;
         $this->bayar = $data->bayar;
+        $this->nominal = $data->nominal;
+        $this->dll = $data->dll;
         $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$data->id)->first();
         $this->bulan = $spp->bulan;
         $this->angkatan = $spp->angkatan;
     }
 
     
-    public function proses(){
+    public function update(){
         $this->validate([
             'bayar' => 'required',
-            'ref' => 'required',
+            'subsidi' => 'required',
+            'dll' => 'required',
             'nominal' => 'required',
         ]);
         $user = Spp::where('id_user', $this->id_user)->first();
-        $hitung = SppLog::where('no_ref', $this->noref.$this->ref)->count();
         $max = Month::max('kode');
-        if($hitung > 0){
-            session()->flash('gagal', 'Data Ganda!');
-            $this->dispatchBrowserEvent('closeModal');
-        } else {
-            if($user->kode + $this->bayar > $max) {
+
+        if($user->kode + $this->bayar > $max) {
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
                 $this->dispatchBrowserEvent('closeModal');
             } else {
-                Spp::where('id_user', $this->id_user)->update([
-                    'kode' => $user->kode + $this->bayar
-                ]);
-                SppLog::create([
-                    'id_user' => $this->id_user,
+                
+                $log = LogSpp::where('id_log', $this->ids)->first();
+                // if($this->bayar <> $log->bayar){
+                //     $hasil = $this->bayar - $log->bayar;
+                // } else {
+                //     $hasil = 0;
+                // }
+
+                
+                LogSpp::where('id_log', $this->ids)->update([
                     'nominal' => $this->nominal,
-                    'bayar' => $this->bayar, 
-                    'no_ref' => $this->noref.$this->ref,
+                    'bayar' => $this->bayar ,
                     'dll' => $this->dll,
                     'subsidi' => $this->subsidi,
-                    'keterangan' => $this->nama.' Membayar SPP '.$this->bayar." Bulan dengan nominal perbulan Rp.".number_format($this->nominal)." Total : Rp.".number_format($this->bayar * $this->nominal)." dan biaya lainnya Rp.".number_format($this->dll)." dengan subsidi Rp.".number_format($this->subsidi)." Total Rp.".number_format(($this->bayar * $this->nominal)+$this->dll - $this->subsidi),
+                  ]);
+
+                  Spp::where('id_user', $this->id_user)->update([
+                    'kode' => $user->kode + ($this->bayar - $log->bayar)
                 ]);
-                SppReq::where('id_req', $this->ids)->update([
-                    'bayar' => $this->bayar,
-                    'subsidi' => $this->subsidi,
-                    'sts' => 'y'
-                ]);
+
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatchBrowserEvent('closeModal');
             }
-            
-        } 
+           
     }
     
 }

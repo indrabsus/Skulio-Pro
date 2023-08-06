@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 
 class DataSpp extends Component
 {
-    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan;
+    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan, $kode;
     use WithPagination;
     public $dll = 0;
     public $subsidi = 0;
@@ -67,6 +67,7 @@ class DataSpp extends Component
         $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$id)->first();
         $this->bulan = $spp->bulan;
         $this->angkatan = $spp->angkatan;
+        $this->kode = $spp->kode;
     }
     public function bayar(){
         $this->validate([
@@ -85,16 +86,17 @@ class DataSpp extends Component
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
                 $this->dispatchBrowserEvent('closeModal');
             } else {
-                Spp::where('id_user', $this->ids)->update([
+                $baru = Spp::where('id_user', $this->ids)->update([
                     'kode' => $user->kode + $this->bayar
                 ]);
                 SppLog::create([
                     'id_user' => $this->ids,
-                    'nominal' => $this->bayar * $this->nominal,
+                    'nominal' => $this->nominal,
+                    'bayar' => $this->bayar, 
                     'no_ref' => $this->noref.$this->ref,
                     'dll' => $this->dll,
                     'subsidi' => $this->subsidi,
-                    'keterangan' => $this->nama.' Membayar SPP '.$this->bayar." Bulan dengan nominal perbulan Rp.".number_format($this->nominal)." Total : Rp.".number_format($this->bayar * $this->nominal)." dan biaya lainnya Rp.".number_format($this->dll)." dengan subsidi Rp.".number_format($this->subsidi)." Total Rp.".number_format(($this->bayar * $this->nominal)+$this->dll - $this->subsidi),
+                    'keterangan' => "test",
                 ]);
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
