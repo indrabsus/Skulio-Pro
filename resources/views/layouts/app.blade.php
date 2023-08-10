@@ -7,7 +7,7 @@
   <link rel="icon" type="image/x-icon" href="{{asset('image/polri.png')}}">
   @livewireStyles
   <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{asset('js/jquery.js')}}"></script>
 <link rel="stylesheet" href="{{asset('adminv')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('adminv')}}/plugins/toastr/toastr.min.css">
@@ -68,7 +68,7 @@
         <div class="container">
         <a href="" class="brand-link">
             <img src="{{ asset('adminv/assets/img/logo.png') }}" width="50px">
-          <span class="brand-text font-weight-light">Skulio <strong>PRO</strong></span>
+          <span class="brand-text font-weight-light">Skulio <strong>PRO</strong></span> 
         </a>
     </div>
 

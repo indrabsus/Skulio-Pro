@@ -18,12 +18,12 @@
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-6 text-center">
-        <img src="{{ asset('img/rfid.png') }}" width="250px">
+        <img src="{{ asset('adminv/assets/img/rfid.png') }}" width="250px">
     </div>
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-6 text-center">
-        <img src="{{ asset('img/loading.gif') }}" width="250px">
+        <img src="{{ asset('adminv/assets/img/loading.gif') }}" width="250px">
     </div>
 </div>
 @endif
