@@ -19,6 +19,7 @@ use App\Http\Livewire\Keuangan\SppLog;
 use App\Http\Livewire\Kurikulum\KelasMgmt;
 use App\Http\Livewire\Admin\Log;
 use App\Http\Livewire\Kurikulum\Jurusan;
+use App\Http\Livewire\Kurikulum\Mapel;
 use App\Http\Livewire\Piket\AbsenAll;
 use App\Http\Livewire\Piket\History;
 use App\Http\Livewire\Piket\Persentase;
@@ -88,6 +89,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/kelasmgmt', KelasMgmt::class)->name('kelasmgmt');
         Route::get('admin/jurusan', Jurusan::class)->name('jurusan');
         Route::get('admin/agenda', Agenda::class)->name('agendamgmt');
+        Route::get('admin/mapel', Mapel::class)->name('mapel');
 
         // Keuangan
         Route::get('admin/dataspp', DataSpp::class)->name('dataspp');

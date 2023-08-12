@@ -202,6 +202,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('mapel')}}" class="nav-link {{ Route::currentRouteName() == 'mapel' ? 'active':''}}">
+              <i class="fa-solid fa-book"></i>
+              <p>
+                Mata Pelajaran
+              </p>
+            </a>
+          </li>
 
           
 
