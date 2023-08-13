@@ -114,7 +114,7 @@ class PoinSiswa extends Controller
                     'sts' => $sts,
                     'id_user' => $user->id
                 ]);
-                $status = $user->name.' mendapatkan nilai Plus 1';
+                $status = $user->name.' mendapatkan nilai '.$sts.' 1';
         
                 PoinGrupTemp::truncate();
             }
