@@ -43,7 +43,7 @@
         <tr>
             <th>No</th>
             <th>Materi</th>
-            <th>Kelas</th>
+            <th>Mapel Kelas</th>
             <th>Guru</th>
             <th>Jam ke</th>
             <th>Tanggal</th>
@@ -56,7 +56,7 @@
             <tr>
                 <td>{{ $no++ }}</td>
                 <td>{{ $d->materi }}</td>
-                <td>{{ $d->nama_grup }}</td>
+                <td>{{ $d->nama_grup }} - {{$d->nama_mapel}}</td>
                 <td>{{ $d->name }}</td>
                 <td>{{ $d->jam_awal }} - {{ $d->jam_akhir }}</td>
                 <td>{{date('l, d M Y - h:i A', strtotime($d->created_at))}}</td>
@@ -94,14 +94,14 @@
             
               <div class="form-group">
                 <label for="">Kelas</label>
-                <select wire:model="id_grup" class="form-control">
-                    <option value="">Pilih Kelas</option>
-                    @foreach ($kelas as $k)
-                        <option value="{{$k->id_grup}}">{{$k->nama_grup}}</option>
+                <select wire:model="id_ks" class="form-control">
+                    <option value="">Pilih Mapel Kelas</option>
+                    @foreach ($mapelkelas as $k)
+                        <option value="{{$k->id_ks}}">{{$k->nama_grup}} - {{$k->nama_mapel}}</option>
                     @endforeach
                 </select>
                 <div class="text-danger">
-                    @error('id_grup')
+                    @error('id_ks')
                         {{$message}}
                     @enderror
                 </div>
@@ -165,19 +165,19 @@
                 </div>
               
                 <div class="form-group">
-                <label for="">Kelas</label>
-                <select wire:model="id_grup" class="form-control">
-                    <option value="">Pilih Kelas</option>
-                    @foreach ($kelas as $k)
-                        <option value="{{$k->id_grup}}">{{$k->nama_grup}}</option>
-                    @endforeach
-                </select>
-                <div class="text-danger">
-                    @error('id_grup')
-                        {{$message}}
-                    @enderror
+                  <label for="">Kelas</label>
+                  <select wire:model="id_ks" class="form-control">
+                      <option value="">Pilih Mapel Kelas</option>
+                      @foreach ($mapelkelas as $k)
+                          <option value="{{$k->id_ks}}">{{$k->nama_grup}} - {{$k->nama_mapel}}</option>
+                      @endforeach
+                  </select>
+                  <div class="text-danger">
+                      @error('id_ks')
+                          {{$message}}
+                      @enderror
+                  </div>
                 </div>
-              </div>
               <div class="row">
                   <div class="col-lg-6">
                           <div class="form-group">

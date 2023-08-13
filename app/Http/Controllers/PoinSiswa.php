@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\Mode;
+use App\Models\PoinGroup;
+use App\Models\PoinGrupTemp;
 use App\Models\PoinSikap;
 use App\Models\PoinTemp;
+use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
 
@@ -80,5 +83,44 @@ class PoinSiswa extends Controller
     }
     public function poin(){
         return view('admin.poin');
+    }
+
+    public function poinGroup($id, $sts, $id_kelas){
+        return view('user.poingrup', compact('id','sts', 'id_kelas'));
+    }
+    public function poinGrupRfid($norfid){
+        $cek = User::where('kode', $norfid)->count();
+        if($cek > 0){
+            PoinGrupTemp::create(['norfid' => $norfid]);
+            return "sukses";
+        } else {
+            return "gagal";
+        }
+        
+    }
+    public function poinGrupScan($id, $sts, $id_kelas){
+        $hitung = PoinGrupTemp::count();
+        $kode = PoinGrupTemp::orderBy('created_at', 'desc')->first();
+        $user = [];
+        $status = '';
+        if($hitung > 0){
+            $user = User::where('kode', $kode->norfid)->first();
+            $cek = User::where('kode', $kode->norfid)->where('id_grup', $id_kelas)->count();
+            $status = 'Siswa tidak terdaftar';
+            PoinGrupTemp::truncate();
+            if($cek > 0){
+                PoinGroup::create([
+                    'id_ks' => $id,
+                    'sts' => $sts,
+                    'id_user' => $user->id
+                ]);
+                $status = $user->name.' mendapatkan nilai Plus 1';
+        
+                PoinGrupTemp::truncate();
+            }
+        
+        }
+        return view('load.poingrupscan', compact('id','sts','hitung','status'));
+        
     }
 }

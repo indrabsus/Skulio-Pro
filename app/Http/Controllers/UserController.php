@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\KelasSubject;
+use App\Models\PoinGroup;
 use App\Models\Temp;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,9 +21,6 @@ class UserController extends Controller
     public function ayoAbsen(Request $request){
         $kfg = new Controller;
         $data = $kfg->config();
-        // $data = DB::table('configs')
-        // ->where('id_config', Auth::user()->id_config)
-        // ->first();
 
         $lat1 = $request->lat;
         $long1 = $request->long;
@@ -82,6 +81,38 @@ class UserController extends Controller
         return redirect()->route('indexuser')->with('sukses', 'Berhasil Absen, Selisih: '.round($jarak).' m');
         }
     }
-  
 
+    public function kelas($id_ks){
+        $detail = DB::table('kelas_subjects')
+        ->leftJoin('users','users.id','kelas_subjects.id_user')
+        ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
+        ->leftJoin('subjects','subjects.id_mapel','subjects.id_mapel')
+        ->where('id_ks', $id_ks)->first();
+        $data = DB::table('groups')
+        ->leftJoin('users','users.id_grup','groups.id_grup')
+        ->where('users.id_grup', $detail->id_kelas)
+        ->get();
+        return view('user.kelas', compact('data','detail'));
+    }
+
+    public function detailPoin($id_ks, $id_user){
+        $plus = DB::table('poin_groups')
+        ->where('id_ks', $id_ks)
+        ->where('id_user', $id_user)
+        ->where('sts', 'plus')
+        ->count();
+        $minus = DB::table('poin_groups')
+        ->where('id_ks', $id_ks)
+        ->where('id_user', $id_user)
+        ->where('sts', 'minus')
+        ->count();
+
+        $user = User::where('id', $id_user)->first();
+        $detail = DB::table('kelas_subjects')
+        ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
+        ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
+        ->where('id_ks', $id_ks)
+        ->first();
+        return view('user.detailpoin',compact('plus','minus','user','detail'));
+    }
 }

@@ -210,6 +210,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('mapelkelas')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelas' ? 'active':''}}">
+              <i class="fa-solid fa-swatchbook"></i>
+              <p>
+                Mapel Kelas
+              </p>
+            </a>
+          </li>
 
           
 

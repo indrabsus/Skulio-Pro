@@ -20,6 +20,7 @@ use App\Http\Livewire\Kurikulum\KelasMgmt;
 use App\Http\Livewire\Admin\Log;
 use App\Http\Livewire\Kurikulum\Jurusan;
 use App\Http\Livewire\Kurikulum\Mapel;
+use App\Http\Livewire\Kurikulum\MapelKelas;
 use App\Http\Livewire\Piket\AbsenAll;
 use App\Http\Livewire\Piket\History;
 use App\Http\Livewire\Piket\Persentase;
@@ -53,6 +54,10 @@ Route::get('/absensiswa/{norfid}/bataraindra2020', [AbsenSiswa::class, 'absenSis
 // Input RFID
 Route::get('/inputscan', [CrudSiswa::class, 'inputformrfid'])->name('inputscan');
 Route::get('/inputrfid/{norfid}/bataraindra2020',[CrudSiswa::class,'inputrfid'])->name('inputrfid');
+
+//RFID MODE POIN GRUP
+Route::get('poingrup/{norfid}/bataraindra2020', [PoinSiswa::class, 'poinGrupRfid'])->name('poingruprfid');
+Route::get('poingrupscan/{id_ks}/{sts}/{id_kelas}', [PoinSiswa::class, 'poinGrupScan'])->name('poingrupscan');
 
 //RFID MODE POIN
 Route::get('/ubahmode/bataraindra2020',[PoinSiswa::class,'ubahmode'])->name('ubahmode');
@@ -90,6 +95,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/jurusan', Jurusan::class)->name('jurusan');
         Route::get('admin/agenda', Agenda::class)->name('agendamgmt');
         Route::get('admin/mapel', Mapel::class)->name('mapel');
+        Route::get('admin/mapelkelas', MapelKelas::class)->name('mapelkelas');
 
         // Keuangan
         Route::get('admin/dataspp', DataSpp::class)->name('dataspp');
@@ -137,9 +143,14 @@ Route::group(['middleware' => ['auth']], function(){
     });
     Route::group(['middleware' => ['cekrole:user']], function(){
         Route::get('user', [UserController::class,'index'])->name('indexuser');
+        Route::get('user/kelas/{id_ks}', [UserController::class,'kelas'])->name('kelasguru');
+        Route::get('user/detailpoin/{id_ks}/{id_user}', [UserController::class,'detailpoin'])->name('detailpoin');
+        Route::get('user/poingrup/{id_ks}/{sts}/{id_kelas}', [PoinSiswa::class,'poinGroup'])->name('poingrup');
         Route::post('user/ayoabsen', [UserController::class,'ayoAbsen'])->name('ayoabsen');
         Route::get('user/history', History::class)->name('userhistory');
         Route::get('user/agenda', Agenda::class)->name('agendamgmtguru');
+        Route::get('user/mapelkelas', MapelKelas::class)->name('mapelkelasguru');
+        
     });
     Route::group(['middleware' => ['cekrole:kurikulum']], function(){
         Route::get('kurikulum/kelasmgmt', KelasMgmt::class)->name('kelasmgmtkurikulum');

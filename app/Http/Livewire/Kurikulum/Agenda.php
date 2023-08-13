@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 
 class Agenda extends Component
 {
-    public $ids, $materi, $id_grup, $jam_awal, $jam_akhir;
+    public $ids, $materi, $id_ks, $jam_awal, $jam_akhir;
     use WithPagination;
     public $cari = '';
     public $caritgl = '';
@@ -19,31 +19,35 @@ class Agenda extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $kelas = Group::where('kode_grup','>=', 1000)
-        ->where('kode_grup','<', 2000)->get();
+        $mapelkelas = DB::table('kelas_subjects')
+        ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
+        ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
+        ->where('id_user', Auth::user()->id)->get();
         $data = DB::table('agendas')
-        ->leftJoin('groups','groups.id_grup','agendas.id_grup')
+        ->leftJoin('kelas_subjects','kelas_subjects.id_ks','agendas.id_ks')
+        ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
+        ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
         ->leftJoin('users','users.id','agendas.id_user')
         ->where('nama_grup', 'like','%'.$this->cari.'%')
         ->where('agendas.created_at', 'like','%'.$this->caritgl.'%')
         ->orderBy('id_agenda', 'desc')
-        ->select('materi','nama_grup','name','jam_awal','jam_akhir','agendas.created_at','id_agenda')
+        ->select('materi','nama_grup','name','jam_awal','jam_akhir','agendas.created_at','id_agenda','nama_mapel')
         ->where('groups.kode_grup','>=',1000)
         ->paginate($this->result);
-        return view('livewire.kurikulum.agenda', compact('data','kelas'))
+        return view('livewire.kurikulum.agenda', compact('data','mapelkelas'))
         ->extends('layouts.app')
         ->section('content');
     }
     public function clearForm(){
         $this->materi = '';
-        $this->id_grup = '';
+        $this->id_ks = '';
         $this->jam_awal = '';
         $this->jam_akhir = '';
     }
     public function insert(){
         $this->validate([
             'materi' => 'required',
-            'id_grup' => 'required',
+            'id_ks' => 'required',
             'jam_awal' => 'required',
             'jam_akhir' => 'required',
         ]);
@@ -54,7 +58,7 @@ class Agenda extends Component
         } else {
             ModelsAgenda::create([
                 'materi' => $this->materi,
-                'id_grup' => $this->id_grup,
+                'id_ks' => $this->id_ks,
                 'jam_awal' => $this->jam_awal,
                 'jam_akhir' => $this->jam_akhir,
                 'id_user' => Auth::user()->id,
@@ -69,21 +73,21 @@ class Agenda extends Component
 
         $this->ids = $data->id_agenda;
         $this->materi = $data->materi;
-        $this->id_grup = $data->id_grup;
+        $this->id_ks = $data->id_ks;
         $this->jam_awal = $data->jam_awal;
         $this->jam_akhir = $data->jam_akhir;
     }
     public function update(){
         $this->validate([
             'materi' => 'required',
-            'id_grup' => 'required',
+            'id_ks' => 'required',
             'jam_awal' => 'required',
             'jam_akhir' => 'required',
         ]);
 
         $isi = ModelsAgenda::where('id_agenda', $this->ids)->update([
             'materi' => $this->materi,
-            'id_grup' => $this->id_grup,
+            'id_ks' => $this->id_ks,
             'jam_awal' => $this->jam_awal,
             'jam_akhir' => $this->jam_akhir,
         ]);
