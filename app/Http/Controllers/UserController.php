@@ -51,8 +51,8 @@ class UserController extends Controller
             ['bulan' => date('F Y'), 'id_user' => $request->id_user],
             [
                 'hadir' => Absen::where('id_user',$request->id_user)
-                                ->where('tanggal', 'like', '%'.date('Y-m').'%')
-                                ->where('ket', 'hadir')->count(),
+                ->where('tanggal', 'like', '%'.date('Y-m').'%')
+                ->where('ket', 'hadir')->count(),
                 'kegiatan' => Absen::where('id_user',$request->id_user)
                 ->where('tanggal', 'like', '%'.date('Y-m').'%')
                 ->where('ket', 'kegiatan')->count(),
@@ -84,13 +84,14 @@ class UserController extends Controller
 
     public function kelas($id_ks){
         $detail = DB::table('kelas_subjects')
+        ->leftJoin('poin_groups','poin_groups.id_ks','kelas_subjects.id_ks')
         ->leftJoin('users','users.id','kelas_subjects.id_user')
         ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
-        ->leftJoin('subjects','subjects.id_mapel','subjects.id_mapel')
-        ->where('id_ks', $id_ks)->first();
-        $data = DB::table('groups')
-        ->leftJoin('users','users.id_grup','groups.id_grup')
-        ->where('users.id_grup', $detail->id_kelas)
+        ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
+        ->where('poin_groups.id_ks', $id_ks)->first();
+        $data = DB::table('user_poins')
+        ->leftJoin('users','users.id','user_poins.id_user')
+        ->where('user_poins.id_user', $detail->id_user)
         ->get();
         return view('user.kelas', compact('data','detail'));
     }

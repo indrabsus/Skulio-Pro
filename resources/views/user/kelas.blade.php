@@ -19,15 +19,19 @@
         <tr>
             <th>No</th>
             <th>Nama</th>
-            <th>Aksi</th>
+            <th>Plus</th>
+            <th>Minus</th>
+            <th>Total</th>
         </tr>
         <?php $no=1; ?>
         @foreach ($data as $d)
             <tr>
                 <td>{{$no++}}</td>
             <td>{{$d->name}}</td>
-            <td><a href="{{route('detailpoin',['id_ks' => $detail->id_ks, 'id_user' => $d->id])}}" class="btn btn-primary btn-sm">Lihat Poin</a></td>
-            </tr>
+            <td>{{$d->plus}}</td>
+            <td>{{$d->minus}}</td>
+            <td>{{$d->plus - $d->minus}}</td>
+             </tr>
         @endforeach
     </table>
 @endsection

@@ -117,6 +117,19 @@ class PoinSiswa extends Controller
                 $status = $user->name.' mendapatkan nilai '.$sts.' 1';
         
                 PoinGrupTemp::truncate();
+                $plus = PoinGroup::where('id_ks', $id)
+                ->where('sts', 'plus')
+                ->count();
+                $minus = PoinGroup::where('id_ks', $id)
+                ->where('sts', 'minus')
+                ->count();
+                DB::table('user_poins')->updateOrInsert([
+                    'id_user' => $user->id
+                ],[
+                    'plus' => $plus,
+                    'minus' => $minus
+                ]);
+                
             }
         
         }
