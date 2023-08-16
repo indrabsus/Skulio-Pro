@@ -9,6 +9,7 @@ use App\Models\SppLog as LogSpp;
 use App\Models\SppReq;
 use App\Models\User;
 use DB;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -74,6 +75,7 @@ class SppLog extends Component
             'dll' => 'required',
             'nominal' => 'required',
         ]);
+        $bot = Config::where('id_config', 1)->first();
         $user = Spp::where('id_user', $this->id_user)->first();
         $max = Month::max('kode');
 
@@ -82,11 +84,16 @@ class SppLog extends Component
                 $this->dispatchBrowserEvent('closeModal');
             } else {
                 LogSpp::where('id_log', $this->ids)->update([
-                    'nominal' => $this->nominal,
+                    'nominal' => (int)$this->nominal,
                     'bayar' => 1,
                     'dll' => $this->dll,
                     'subsidi' => $this->subsidi,
                   ]);
+                $new = LogSpp::where('id_log', $this->ids)->first();
+                $nama = User::where('id', $this->id_user)->first();
+                $nomi = $new->nominal + $new->dll - $new->subsidi;
+                $text = 'Edit: '.$nama->name.' sudah membayar SPP bulan '.$new->keterangan.' Rp.'.number_format($new->nominal).' dan biaya lainnya Rp.'.number_format($new->dll).' dan mendapatkan subsidi Rp.'.number_format($new->subsidi).' Total Rp.'.number_format($nomi);
+                Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatchBrowserEvent('closeModal');
@@ -98,11 +105,17 @@ class SppLog extends Component
             $this->id_user = $data->id_user;
         }
         public function delete(){
+            $new = LogSpp::where('id_log', $this->ids)->first();
             $test = LogSpp::where('id_log', $this->ids)->delete();
             $user = Spp::where('id_user', $this->id_user)->first();
             Spp::where('id_user', $this->id_user)->update([
                 'kode' => $user->kode - 1
             ]);
+            $nama = User::where('id', $this->id_user)->first();
+            
+            $bot = Config::where('id_config', 1)->first();
+            $text = 'Hapus: Data pembayaran atas nama: '.$nama->name.' pada bulan '.$new->keterangan;
+            Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
             session()->flash('sukses', 'Data berhasil dihapus!');
             $this->dispatchBrowserEvent('closeModal');
         }

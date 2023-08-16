@@ -47,8 +47,12 @@
                 <td>{{$d->nama_grup}}</td>
                 <td>{{$d->bulan}} ({{$d->angkatan}})</td>
                 <td>
+                    @if (Auth::user()->level == 'admin' || Auth::user()->level == 'keuangan')
                     <a class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#k_bayar" wire:click="k_bayar({{ $d->id_user }})"><i class="fa-solid fa-comment-dollar"></i> Bayar</a>
+                    @endif
+                    @if (Auth::user()->level == 'admin' || Auth::user()->level == 'requester')
                     <a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#k_req" wire:click="k_req({{ $d->id_user }})"><i class="fa-solid fa-code-pull-request"></i> Request</a>
+                    @endif
                 </td>
             </tr>
         @endforeach

@@ -26,6 +26,14 @@
   @include('layouts.menus.siswa')
       @endif
 
+    @if (Auth::user()->level == 'keuangan')
+  @include('layouts.menus.keuangan')
+      @endif
+
+    @if (Auth::user()->level == 'requester')
+  @include('layouts.menus.requester')
+      @endif
+
 <li class="nav-item">
               <a href="{{route('ubahpassword')}}" class="nav-link {{ Route::currentRouteName() == 'ubahpassword' ? 'active':''}}">
               <i class="fa-solid fa-key"></i>

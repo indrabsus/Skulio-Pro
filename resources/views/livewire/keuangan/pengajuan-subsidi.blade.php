@@ -40,7 +40,9 @@
             <th>Pengajuan Subsidi</th>
             <th>Tgl Pengajuan</th>
             <th>Tgl Proses</th>
+            @if (Auth::user()->level == 'admin' || Auth::user()->level == 'keuangan')
             <th>Aksi</th>
+            @endif
         </tr>
         <?php $no=1;?>
         @foreach ($data as $d)
@@ -52,8 +54,10 @@
                 <td>Rp.{{number_format($d->subsidi)}}</td>
                 <td>{{date('d F Y h:i', strtotime($d->created_at))}}</td>
                 <td>{{$d->created_at == $d->updated_at ? "Belum diproses" : date('d F Y h:i', strtotime($d->updated_at))}}</td>
+                @if (Auth::user()->level == 'admin' || Auth::user()->level == 'keuangan')
                 <td><button class="btn btn-{{$d->sts == 'n' ? 'success' : 'primary'}} btn-sm mb-1" data-toggle="modal" data-target="#k_proses" wire:click="k_proses({{ $d->id_req }})" {{$d->sts == 'n' ? '' : 'disabled'}}><i class="fa-solid fa-code-pull-request"></i> {{$d->sts == 'n' ? 'Proses' : 'Selesai'}}</button>
                 </td>
+                @endif
             </tr>
         @endforeach
     </table>

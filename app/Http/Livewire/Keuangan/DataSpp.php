@@ -9,6 +9,7 @@ use App\Models\SppLog;
 use App\Models\SppReq;
 use App\Models\User;
 use DB;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -70,6 +71,7 @@ class DataSpp extends Component
             'ref' => 'required',
             'nominal' => 'required',
         ]);
+        $bot = Config::where('id_config', 1)->first();
         $user = Spp::where('id_user', $this->ids)->first();
         $hitung = SppLog::where('no_ref', $this->noref.$this->ref)->count();
         $max = Month::max('kode');
@@ -84,9 +86,9 @@ class DataSpp extends Component
                 $baru = Spp::where('id_user', $this->ids)->update([
                     'kode' => $user->kode + 1
                 ]);
-                SppLog::create([
+                $new = SppLog::create([
                     'id_user' => $this->ids,
-                    'nominal' => $this->nominal,
+                    'nominal' => (int)$this->nominal,
                     'bayar' => 1, 
                     'no_ref' => $this->noref.$this->ref,
                     'dll' => $this->dll,
@@ -94,6 +96,10 @@ class DataSpp extends Component
                     'keterangan' => $this->blnnow,
                 ]);
                 $this->clearForm();
+                $nama = User::where('id', $this->ids)->first();
+                $nomi = (int)$new->nominal + (int)$new->dll - (int)$new->subsidi;
+                $text = $nama->name.' sudah membayar SPP bulan '.$this->blnnow.' Rp.'.number_format((int)$new->nominal).' dan biaya lainnya Rp.'.number_format($new->dll).' dan mendapatkan subsidi Rp.'.number_format($new->subsidi).' Total Rp.'.number_format($nomi);
+                Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatchBrowserEvent('closeModal');
             }

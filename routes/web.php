@@ -167,4 +167,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['cekrole:siswa']], function(){
         Route::get('siswa', Index::class)->name('indexsiswa');
     });
+    Route::group(['middleware' => ['cekrole:keuangan']], function(){
+        Route::get('keuangan', DataSpp::class)->name('indexkeuangan');
+        Route::get('keuangan/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidikeuangan');
+        Route::get('keuangan/spplog', SppLog::class)->name('spplogkeuangan');
+    });
+    Route::group(['middleware' => ['cekrole:requester']], function(){
+        Route::get('requester', DataSpp::class)->name('indexrequester');
+        Route::get('requester/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidirequester');
+    });
 });

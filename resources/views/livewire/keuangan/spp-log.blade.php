@@ -158,7 +158,7 @@
 
               <div class="form-group">
                 <label for="">Nominal</label>
-                <input type="text" wire:model="nominal" class="form-control">
+                <input type="number" wire:model="nominal" class="form-control">
                 <div class="text-danger">
                   @error('nominal')
                   {{$message}}
