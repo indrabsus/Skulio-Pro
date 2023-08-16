@@ -14,6 +14,35 @@
           </div>
     @endif
         <div class="row justify-content-end">
+          <div class="col-lg-4 mb-1">
+            <div class="input-group mb-3">
+              <select class="form-control" wire:model="thn">
+                <option value="">Pilih Tahun</option>
+                <option value="{{date('Y') - 1}}">{{date('Y') - 1}}</option>
+                <option value="{{date('Y')}}">{{date('Y')}}</option>
+                <option value="{{date('Y') + 1}}">{{date('Y') + 1}}</option>
+              </select>
+              <select class="form-control" wire:model="bln">
+                <option value="">Pilih Bulan</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+              </select>
+                <div class="input-group-append">
+                  <a href="{{route('spplogxls',['thn' => $thn, 'bln' => $bln])}}" class="input-group-text"><i class="fas fa-print"></i></a>
+                </div>
+              </div>
+        </div>
+
             <div class="col-lg-1 mb-1">
                 <select wire:model='result' class="form-control">
                     <option value="10">10</option>
@@ -37,7 +66,7 @@
             <th>Nama Siswa</th>
             <th>Kelas</th>
             <th>Nominal</th>
-            <th>Jumlah Bulan</th>
+            <th>Bulan</th>
             <th>Biaya Dll</th>
             <th>Subsidi</th>
             <th>Total</th>
@@ -52,13 +81,15 @@
                 <td>{{ ucwords($d->name) }}</td>
                 <td>{{$d->nama_grup}}</td>
                 <td>Rp.{{number_format($d->nominal)}}</td>
-                <td>{{$d->bayar}} Bulan</td>
+                <td>{{$d->keterangan}}</td>
                 <td>Rp.{{number_format($d->dll)}}</td>
                 <td>Rp.{{number_format($d->subsidi)}}</td>
                 <td>Rp. {{number_format(($d->bayar * $d->nominal) + $d->dll - $d->subsidi)}}</td>
                 <td>{{date('d/m/y h:i', strtotime($d->updated_at))}}</td>
                 <td>{{$d->no_ref}}</td>
-                <td><button class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#k_edit" wire:click="k_edit({{ $d->id_log }})">Edit</button>
+                <td>
+                  <button class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#k_edit" wire:click="k_edit({{ $d->id_log }})">Edit</button>
+                  <button class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_log }})">Hapus</button>
                 </td>
             </tr>
         @endforeach
@@ -122,23 +153,6 @@
                   <div class="form-group">
                     <input type="text" wire:model="angkatan" class="form-control" readonly>
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="">SPP</label>
-                <select wire:model="bayar" class="form-control">
-                  <option value="">Berapa bulan?</option>
-                  <option value="1">1 Bulan</option>
-                  <option value="2">2 Bulan</option>
-                  <option value="3">3 Bulan</option>
-                  <option value="4">4 Bulan</option>
-                  <option value="5">5 Bulan</option>
-                  <option value="6">6 Bulan</option>
-                </select>
-                <div class="text-danger">
-                  @error('bayar')
-                  {{$message}}
-                  @enderror
                 </div>
               </div>
 

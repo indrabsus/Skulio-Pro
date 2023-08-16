@@ -19,8 +19,6 @@
         <tr>
             <th>No</th>
             <th>Nama</th>
-            <th>Plus</th>
-            <th>Minus</th>
             <th>Total</th>
         </tr>
         <?php $no=1; ?>
@@ -28,8 +26,6 @@
             <tr>
                 <td>{{$no++}}</td>
             <td>{{$d->name}}</td>
-            <td>{{$d->plus}}</td>
-            <td>{{$d->minus}}</td>
             <td>{{$d->plus - $d->minus}}</td>
              </tr>
         @endforeach

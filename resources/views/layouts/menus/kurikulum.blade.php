@@ -14,11 +14,28 @@ Kelas
 </p>
 </a>
 </li>
+<li class="nav-item">
+  <a href="{{route('mapelkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkurikulum' ? 'active':''}}">
+    <i class="fa-solid fa-book"></i>
+    <p>
+      Mata Pelajaran
+    </p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{route('mapelkelaskurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelaskurikulum' ? 'active':''}}">
+    <i class="fa-solid fa-swatchbook"></i>
+    <p>
+      Mapel Kelas
+    </p>
+  </a>
+</li>
   <li class="nav-item">
     <a href="{{route('indexkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'indexkurikulum' ? 'active':''}}">
     <i class="fa-solid fa-calendar-days"></i>
       <p>
-        Agenda
+        Agenda Guru
       </p>
     </a>
   </li>
+  

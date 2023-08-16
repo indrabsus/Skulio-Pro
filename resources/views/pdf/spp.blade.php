@@ -59,7 +59,7 @@
             <tr>
                 <td>Bayar</td>
                 <td>:</td>
-                <td>{{ ucwords($data->bayar) }} Bulan</td>
+                <td>{{ $data->keterangan }}</td>
             </tr>
             <tr>
                 <td>Nominal</td>

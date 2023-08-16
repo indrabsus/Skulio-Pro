@@ -46,7 +46,8 @@ Route::get('/',[AuthController::class,'index'])->name('index');
 Route::any('proseslogin', [AuthController::class,'login'])->name('login');
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
-Route::get('export/{bln?}/{jbtn?}', [ExcelController::class, 'absen'])->name('absen');
+Route::get('exportabsen/{bln?}/{jbtn?}', [ExcelController::class, 'absen'])->name('absen');
+Route::get('exportspplog/{thn?}/{bln?}', [ExcelController::class, 'sppLog'])->name('spplogxls');
 
 //absen siswa
 Route::get('/absensiswa/{norfid}/bataraindra2020', [AbsenSiswa::class, 'absenSiswa'])->name('absensiswafix');
@@ -79,6 +80,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
         Route::get('admin/datasiswa', DataSiswa::class)->name('datasiswa');
         Route::get('admin/manajemen', Manajemen::class)->name('manajemen');
+
+        //Konfigurasi
+        Route::get('admin/konfig',[AdminController::class,'konfig'])->name('konfig');
+        Route::any('admin/updatekonfig',[AdminController::class,'updateKonfig'])->name('updatekonfig');
 
         //pembayaran
         Route::get('admin/logsaldo', LogSaldo::class)->name('logsaldo');
@@ -156,6 +161,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('kurikulum/kelasmgmt', KelasMgmt::class)->name('kelasmgmtkurikulum');
         Route::get('kurikulum/jurusan', Jurusan::class)->name('jurusankurikulum');
         Route::get('kurikulum/agenda', Agenda::class)->name('indexkurikulum');
+        Route::get('kurikulum/mapel', Mapel::class)->name('mapelkurikulum');
+        Route::get('kurikulum/mapelkelas', MapelKelas::class)->name('mapelkelaskurikulum');
     });
     Route::group(['middleware' => ['cekrole:siswa']], function(){
         Route::get('siswa', Index::class)->name('indexsiswa');

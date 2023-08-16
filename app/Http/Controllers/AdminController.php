@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -32,7 +33,23 @@ class AdminController extends Controller
             return redirect()->route('ubahpassword')->with('sukses', 'Pastikan akan mencatat password baru anda!');
         }
         
-
-        
-
+        public function konfig(){
+            $data = Config::where('id_config', 1)->first();
+            return view('admin.konfig', compact('data'));
+        }
+        public function updateKonfig(Request $request){
+            Config::where('id_config', 1)->update([
+                'instansi' => $request->instansi,
+                'long' => $request->long,
+                'lat' => $request->lat,
+                'token_telegram' => $request->token_telegram,
+                'chat_id_telegram' => $request->chat_id_telegram,
+                'x_spp' => $request->x_spp,
+                'xi_spp' => $request->xi_spp,
+                'xii_spp' => $request->xii_spp,
+                'daftar' => $request->daftar,
+                'ppdb' => $request->ppdb,
+            ]);
+            return redirect()->route('konfig')->with('sukses', 'Anda sudah update Konfigurasi!');
+        }
 }

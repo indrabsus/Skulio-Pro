@@ -36,6 +36,7 @@
             <th>No</th>
             <th>Nama Siswa</th>
             <th>Kelas</th>
+            <th>Bulan</th>
             <th>Pengajuan Subsidi</th>
             <th>Tgl Pengajuan</th>
             <th>Tgl Proses</th>
@@ -47,6 +48,7 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ ucwords($d->name) }}</td>
                 <td>{{$d->nama_grup}}</td>
+                <td>{{$d->bayar}}</td>
                 <td>Rp.{{number_format($d->subsidi)}}</td>
                 <td>{{date('d F Y h:i', strtotime($d->created_at))}}</td>
                 <td>{{$d->created_at == $d->updated_at ? "Belum diproses" : date('d F Y h:i', strtotime($d->updated_at))}}</td>
@@ -201,15 +203,7 @@
               </div>
               <div class="form-group">
                 <label for="">SPP</label>
-                <select wire:model="bayar" class="form-control">
-                  <option value="">Berapa bulan?</option>
-                  <option value="1">1 Bulan</option>
-                  <option value="2">2 Bulan</option>
-                  <option value="3">3 Bulan</option>
-                  <option value="4">4 Bulan</option>
-                  <option value="5">5 Bulan</option>
-                  <option value="6">6 Bulan</option>
-                </select>
+                <input type="text" class="form-control" wire:model="blnnow" readonly>
                 <div class="text-danger">
                   @error('bayar')
                   {{$message}}
@@ -263,7 +257,7 @@
                     <input type="text" wire:model="noref" class="form-control" readonly>
                   </div>
                   <div class="col-lg-4">
-                    <input type="number" wire:model="ref" class="form-control">
+                    <input type="number" wire:model="ref" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="text-danger">

@@ -29,7 +29,7 @@ class PdfController extends Controller
         $data = DB::table('spp_logs')
         ->leftJoin('users','users.id','spp_logs.id_user')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
-        ->select('no_ref','name','bayar','nama_grup','nominal','spp_logs.updated_at','dll','subsidi','id')
+        ->select('no_ref','name','bayar','nama_grup','nominal','spp_logs.updated_at','dll','subsidi','id','spp_logs.keterangan')
         ->where('id_log', $id)
         ->first();
         $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$data->id)->first();

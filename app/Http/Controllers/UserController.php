@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
-use App\Models\KelasSubject;
-use App\Models\PoinGroup;
 use App\Models\Temp;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,16 +82,15 @@ class UserController extends Controller
 
     public function kelas($id_ks){
         $detail = DB::table('kelas_subjects')
-        ->leftJoin('poin_groups','poin_groups.id_ks','kelas_subjects.id_ks')
-        ->leftJoin('users','users.id','kelas_subjects.id_user')
         ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
         ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
-        ->where('poin_groups.id_ks', $id_ks)->first();
+        ->where('id_ks', $id_ks)->first();
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->leftJoin('user_poins','user_poins.id_user','users.id')
-        ->where('users.id_grup',$detail->id_grup)
+        ->where('users.id_grup',$detail->id_kelas)
         ->get();
+       
         // $data = DB::table('user_poins')
         // ->leftJoin('users','users.id','user_poins.id_user')
         // ->where('user_poins.id_user', $detail->id_user)

@@ -199,15 +199,7 @@
               </div>
               <div class="form-group">
                 <label for="">SPP</label>
-                <select wire:model="bayar" class="form-control">
-                  <option value="">Berapa bulan?</option>
-                  <option value="1">1 Bulan</option>
-                  <option value="2">2 Bulan</option>
-                  <option value="3">3 Bulan</option>
-                  <option value="4">4 Bulan</option>
-                  <option value="5">5 Bulan</option>
-                  <option value="6">6 Bulan</option>
-                </select>
+                <input type="text" class="form-control" wire:model="blnnow" readonly>
                 <div class="text-danger">
                   @error('bayar')
                   {{$message}}
@@ -261,7 +253,7 @@
                     <input type="text" wire:model="noref" class="form-control" readonly>
                   </div>
                   <div class="col-lg-4">
-                    <input type="number" wire:model="ref" class="form-control">
+                    <input type="number" wire:model="ref" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="text-danger">
@@ -316,15 +308,7 @@
               </div>
               <div class="form-group">
                 <label for="">SPP</label>
-                <select wire:model="bayar" class="form-control">
-                  <option value="">Berapa bulan?</option>
-                  <option value="1">1 Bulan</option>
-                  <option value="2">2 Bulan</option>
-                  <option value="3">3 Bulan</option>
-                  <option value="4">4 Bulan</option>
-                  <option value="5">5 Bulan</option>
-                  <option value="6">6 Bulan</option>
-                </select>
+                <input type="text" class="form-control" wire:model="blnnow" readonly>
                 <div class="text-danger">
                   @error('bayar')
                   {{$message}}

@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 
 class PengajuanSubsidi extends Component
 {
-    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan;
+    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan, $blnnow;
     use WithPagination;
     public $dll = 0;
     public $subsidi = 0;
@@ -30,7 +30,7 @@ class PengajuanSubsidi extends Component
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('name', 'like','%'.$this->cari.'%')
         ->orderBy('id_req', 'desc')
-        ->select('id_req','name','nama_grup','subsidi','spp_reqs.updated_at','sts','spp_reqs.created_at')
+        ->select('id_req','name','nama_grup','subsidi','spp_reqs.updated_at','sts','spp_reqs.created_at','spp_reqs.bayar')
         ->paginate($this->result);
         return view('livewire.keuangan.pengajuan-subsidi', compact('data','nom'))
         ->extends('layouts.app')
@@ -58,7 +58,11 @@ class PengajuanSubsidi extends Component
         $this->noref = 'SPP'.date('dmy').$data->id;
         $this->subsidi = $data->subsidi;
         $this->bayar = $data->bayar;
+        $this->ref = SppLog::where('created_at', 'like','%'.date('Y-m-d', strtotime(now())).'%')->count() + 1;
         $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$data->id)->first();
+        $skrg = $spp->kode + 1;
+        $blnskrg = Month::where('kode', $skrg)->first();
+        $this->blnnow = $blnskrg->bulan.' '.$blnskrg->angkatan;
         $this->bulan = $spp->bulan;
         $this->angkatan = $spp->angkatan;
     }
@@ -87,14 +91,14 @@ class PengajuanSubsidi extends Component
                 SppLog::create([
                     'id_user' => $this->id_user,
                     'nominal' => $this->nominal,
-                    'bayar' => $this->bayar, 
+                    'bayar' => 1, 
                     'no_ref' => $this->noref.$this->ref,
                     'dll' => $this->dll,
                     'subsidi' => $this->subsidi,
-                    'keterangan' => $this->nama.' Membayar SPP '.$this->bayar." Bulan dengan nominal perbulan Rp.".number_format($this->nominal)." Total : Rp.".number_format($this->bayar * $this->nominal)." dan biaya lainnya Rp.".number_format($this->dll)." dengan subsidi Rp.".number_format($this->subsidi)." Total Rp.".number_format(($this->bayar * $this->nominal)+$this->dll - $this->subsidi),
+                    'keterangan' => $this->blnnow,
                 ]);
                 SppReq::where('id_req', $this->ids)->update([
-                    'bayar' => $this->bayar,
+                    'bayar' => $this->blnnow,
                     'subsidi' => $this->subsidi,
                     'sts' => 'y'
                 ]);

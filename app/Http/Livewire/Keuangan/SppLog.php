@@ -17,6 +17,8 @@ class SppLog extends Component
     public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan;
     use WithPagination;
     public $dll = 0;
+    public $bln = '';
+    public $thn = '';
     public $subsidi = 0;
     public $cari = '';
     public $result = 10;
@@ -30,7 +32,7 @@ class SppLog extends Component
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('name', 'like','%'.$this->cari.'%')
         ->orderBy('id_log', 'desc')
-        ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar')
+        ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar','keterangan')
         ->paginate($this->result);
         return view('livewire.keuangan.spp-log', compact('data','nom'))
         ->extends('layouts.app')
@@ -68,7 +70,6 @@ class SppLog extends Component
     
     public function update(){
         $this->validate([
-            'bayar' => 'required',
             'subsidi' => 'required',
             'dll' => 'required',
             'nominal' => 'required',
@@ -80,31 +81,29 @@ class SppLog extends Component
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
                 $this->dispatchBrowserEvent('closeModal');
             } else {
-                
-                $log = LogSpp::where('id_log', $this->ids)->first();
-                // if($this->bayar <> $log->bayar){
-                //     $hasil = $this->bayar - $log->bayar;
-                // } else {
-                //     $hasil = 0;
-                // }
-
-                
                 LogSpp::where('id_log', $this->ids)->update([
                     'nominal' => $this->nominal,
-                    'bayar' => $this->bayar ,
+                    'bayar' => 1,
                     'dll' => $this->dll,
                     'subsidi' => $this->subsidi,
                   ]);
-
-                  Spp::where('id_user', $this->id_user)->update([
-                    'kode' => $user->kode + ($this->bayar - $log->bayar)
-                ]);
-
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatchBrowserEvent('closeModal');
-            }
-           
+            } 
     }
-    
+    public function k_hapus($id){
+            $data = LogSpp::where('id_log',$id)->first();
+            $this->ids = $data->id_log;
+            $this->id_user = $data->id_user;
+        }
+        public function delete(){
+            $test = LogSpp::where('id_log', $this->ids)->delete();
+            $user = Spp::where('id_user', $this->id_user)->first();
+            Spp::where('id_user', $this->id_user)->update([
+                'kode' => $user->kode - 1
+            ]);
+            session()->flash('sukses', 'Data berhasil dihapus!');
+            $this->dispatchBrowserEvent('closeModal');
+        }
 }

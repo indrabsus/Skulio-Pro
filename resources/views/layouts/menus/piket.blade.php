@@ -15,7 +15,14 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-        
+          <li class="nav-item">
+            <a href="{{route('usermgmtpiket')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmtpiket' ? 'active':''}}">
+            <i class="fa-solid fa-briefcase"></i>
+              <p>
+                Staff Management
+              </p>
+            </a>
+          </li>
         <li class="nav-item">
     <a href="{{route('historypiket')}}" class="nav-link {{ Route::currentRouteName() == 'historypiket' ? 'active':''}}">
     <i class="fa-solid fa-clock-rotate-left"></i>

@@ -17,6 +17,7 @@ class DataSpp extends Component
     public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan, $kode;
     use WithPagination;
     public $dll = 0;
+    public $blnnow = 1;
     public $subsidi = 0;
     public $cari = '';
     public $result = 10;
@@ -53,25 +54,19 @@ class DataSpp extends Component
         $this->ids = $data->id;
         $this->nama = $data->name;
         $this->noref = 'SPP'.date('dmy').$data->id;
+        $this->ref = SppLog::where('created_at', 'like','%'.date('Y-m-d', strtotime(now())).'%')->count() + 1;
+        
 
         $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$id)->first();
+        $skrg = $spp->kode + 1;
+        $blnskrg = Month::where('kode', $skrg)->first();
+        $this->blnnow = $blnskrg->bulan.' '.$blnskrg->angkatan;
         $this->bulan = $spp->bulan;
         $this->angkatan = $spp->angkatan;
     }
 
-    public function k_req($id){
-        $data = User::where('id', $id)->first();
-        $this->ids = $data->id;
-        $this->nama = $data->name;
-
-        $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$id)->first();
-        $this->bulan = $spp->bulan;
-        $this->angkatan = $spp->angkatan;
-        $this->kode = $spp->kode;
-    }
     public function bayar(){
         $this->validate([
-            'bayar' => 'required',
             'ref' => 'required',
             'nominal' => 'required',
         ]);
@@ -82,21 +77,21 @@ class DataSpp extends Component
             session()->flash('gagal', 'Data Ganda!');
             $this->dispatchBrowserEvent('closeModal');
         } else {
-            if($user->kode + $this->bayar > $max) {
+            if($user->kode + 1 > $max) {
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
                 $this->dispatchBrowserEvent('closeModal');
             } else {
                 $baru = Spp::where('id_user', $this->ids)->update([
-                    'kode' => $user->kode + $this->bayar
+                    'kode' => $user->kode + 1
                 ]);
                 SppLog::create([
                     'id_user' => $this->ids,
                     'nominal' => $this->nominal,
-                    'bayar' => $this->bayar, 
+                    'bayar' => 1, 
                     'no_ref' => $this->noref.$this->ref,
                     'dll' => $this->dll,
                     'subsidi' => $this->subsidi,
-                    'keterangan' => "test",
+                    'keterangan' => $this->blnnow,
                 ]);
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
@@ -105,15 +100,29 @@ class DataSpp extends Component
             
         } 
     }
+
+    public function k_req($id){
+        $data = User::where('id', $id)->first();
+        $this->ids = $data->id;
+        $this->nama = $data->name;
+
+        $spp = DB::table('spps')->leftJoin('months','months.kode','spps.kode')->where('id_user',$id)->first();
+        $skrg = $spp->kode + 1;
+        $blnskrg = Month::where('kode', $skrg)->first();
+        $this->blnnow = $blnskrg->bulan.' '.$blnskrg->angkatan;
+        $this->bulan = $spp->bulan;
+        $this->angkatan = $spp->angkatan;
+        $this->kode = $spp->kode;
+    }
+    
     public function req(){
         $this->validate([
-            'bayar' => 'required',
             'subsidi' => 'required',
         ]);
         $user = Spp::where('id_user', $this->ids)->first();
         SppReq::create([
             'id_user' => $this->ids,
-            'bayar' => $this->bayar,
+            'bayar' => 1,
             'subsidi' => $this->subsidi,
             'sts' => 'n'
         ]);

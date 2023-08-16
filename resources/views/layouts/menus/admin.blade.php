@@ -261,3 +261,12 @@
 
           </ul>
         </li>
+
+        <li class="nav-item">
+          <a href="{{route('konfig')}}" class="nav-link {{ Route::currentRouteName() == 'konfig' ? 'active':''}}">
+            <i class="fa-solid fa-gears"></i>
+            <p>
+              Konfigurasi
+            </p>
+          </a>
+        </li>
