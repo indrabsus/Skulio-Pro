@@ -72,7 +72,7 @@
                 @endif
                 
                 @if(Auth::user()->level == 'admin')
-                <td>{{$d->kode}}</td>
+                <td><a href="http://skulio.my.id/poingrup/{{$d->kode}}/batara1001" target="_blank">{{$d->kode}}</a></td>
                 <td>{{$d->username}}</td>
                 <td>Rp. {{number_format($d->saldo)}}</td>
                 <td>
