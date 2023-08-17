@@ -89,6 +89,7 @@ class UserController extends Controller
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->leftJoin('user_poins','user_poins.id_user','users.id')
         ->where('users.id_grup',$detail->id_kelas)
+        ->where('user_poins.id_ks',$id_ks)
         ->get();
        
         // $data = DB::table('user_poins')

@@ -54,7 +54,9 @@
     <table class="table table-striped table-responsive-sm">
         <tr>
             <th>No</th>
+            @if (Auth::user()->level != 'siswa')
             <th>Nama Lengkap</th>
+                @endif
             @if (Auth::user()->level == 'admin')
             <th>Kelas</th>
             @endif
@@ -67,7 +69,9 @@
         @foreach ($data as $d)
             <tr>
                 <td>{{ $no++ }}</td>
+                @if (Auth::user()->level != 'siswa')
                 <td>{{ $d->name }}</td>
+                @endif
                 @if (Auth::user()->level == 'admin')
                 <td>{{ ucwords($d->nama_grup) }}</td>
                 @endif

@@ -47,8 +47,15 @@
             @endif
             
             <th>Mata Pelajaran</th>
+            @if (Auth::user()->level != 'siswa')
             <th>Kelas</th>
+            @endif
+            @if (Auth::user()->level == 'siswa')
+            <th>Poin</th>
+            @endif
+            @if (Auth::user()->level != 'siswa')
             <th>Aksi</th>
+            @endif
         </tr>
         <?php $no=1;?>
         @foreach ($data as $d)
@@ -63,23 +70,33 @@
             @endif
                 
                 <td>{{ ucwords($d->nama_mapel) }}</td>
+                @if (Auth::user()->level != 'siswa')
                 <td>{{ ucwords($d->nama_grup) }}</td>
-                <td>
+            @endif
+            @if (Auth::user()->level == 'siswa')
+            <td>{{$d->plus - $d->minus}}</td>
+            @endif
+                
             @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum')
+            <td>
                     @if ($d->name == NULL)  
                     <a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id_ks }})"><i class="fa fa-edit"></i> Edit</a>
                     @else
                     <a class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#set" wire:click="set({{ $d->id_ks }})"><i class="fa fa-edit"></i> Unset</a>
                     @endif
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_ks }})"><i class="fa fa-trash"></i></a>
-            
+                  </td>
             @else
+            @if (Auth::user()->level != 'siswa')
+            <td>
             <a href="{{route('kelasguru',['id_ks' => $d->id_ks])}}" class="btn btn-success btn-sm">Kelas</a>
-            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'plus', 'id_kelas' => $d->id_kelas])}}" class="btn btn-primary btn-sm">Poin +</a>
-            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'minus','id_kelas' => $d->id_kelas])}}" class="btn btn-danger btn-sm">Poin -</a>
+            @if (session('id_mesin'))
+            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'plus', 'id_kelas' => $d->id_kelas,'id_mesin' => $id_mesin])}}" class="btn btn-primary btn-sm">Poin +</a>
+            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'minus','id_kelas' => $d->id_kelas,'id_mesin' => $id_mesin])}}" class="btn btn-danger btn-sm">Poin -</a>
             @endif
-                    
-                </td>
+          </td>
+            @endif
+            @endif
             </tr>
         @endforeach
     </table>

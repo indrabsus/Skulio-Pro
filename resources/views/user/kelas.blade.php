@@ -20,6 +20,7 @@
             <th>No</th>
             <th>Nama</th>
             <th>Total</th>
+            <th>Detail</th>
         </tr>
         <?php $no=1; ?>
         @foreach ($data as $d)
@@ -27,6 +28,7 @@
                 <td>{{$no++}}</td>
             <td>{{$d->name}}</td>
             <td>{{$d->plus - $d->minus}}</td>
+            <td><a href="{{route('detailpoin',['id_ks' => $detail->id_ks, 'id_user' => $d->id])}}" class="btn btn-primary btn-sm">Detail</a></td>
              </tr>
         @endforeach
     </table>

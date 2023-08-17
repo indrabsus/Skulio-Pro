@@ -57,8 +57,8 @@ Route::get('/inputscan', [CrudSiswa::class, 'inputformrfid'])->name('inputscan')
 Route::get('/inputrfid/{norfid}/bataraindra2020',[CrudSiswa::class,'inputrfid'])->name('inputrfid');
 
 //RFID MODE POIN GRUP
-Route::get('poingrup/{norfid}/bataraindra2020', [PoinSiswa::class, 'poinGrupRfid'])->name('poingruprfid');
-Route::get('poingrupscan/{id_ks}/{sts}/{id_kelas}', [PoinSiswa::class, 'poinGrupScan'])->name('poingrupscan');
+Route::get('poingrup/{norfid}/{id_mesin}', [PoinSiswa::class, 'poinGrupRfid'])->name('poingruprfid');
+Route::get('poingrupscan/{id_ks}/{sts}/{id_kelas}/{id_mesin}', [PoinSiswa::class, 'poinGrupScan'])->name('poingrupscan');
 
 //RFID MODE POIN
 Route::get('/ubahmode/bataraindra2020',[PoinSiswa::class,'ubahmode'])->name('ubahmode');
@@ -73,6 +73,11 @@ Route::get('/topup', [TopUpBayar::class, 'topup'])->name('topup');
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/global/ubahpassword',[AdminController::class,'ubahPassword'])->name('ubahpassword');
     Route::any('/admin/updatepassword',[AdminController::class,'updatePassword'])->name('updatepassword');
+
+    //Print PDF
+    Route::get('/global/print',[PdfController::class, 'print'])->name('print');
+    Route::get('/global/invoicepembayaran/{id}',[PdfController::class, 'invoiceSaldo'])->name('invoicesaldo');
+    Route::get('/global/invoicespp/{id}',[PdfController::class, 'invoiceSpp'])->name('invoicespp');
 
     Route::group(['middleware' => ['cekrole:admin']], function(){
         // Admin Menu
@@ -123,10 +128,7 @@ Route::group(['middleware' => ['auth']], function(){
         //Log
         Route::get('admin/log', Log::class)->name('log');
 
-        //Print PDF
-        Route::get('/admin/print',[PdfController::class, 'print'])->name('print');
-        Route::get('/admin/invoicepembayaran/{id}',[PdfController::class, 'invoiceSaldo'])->name('invoicesaldo');
-        Route::get('/admin/invoicespp/{id}',[PdfController::class, 'invoiceSpp'])->name('invoicespp');
+        
         
         
     });
@@ -150,7 +152,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('user', [UserController::class,'index'])->name('indexuser');
         Route::get('user/kelas/{id_ks}', [UserController::class,'kelas'])->name('kelasguru');
         Route::get('user/detailpoin/{id_ks}/{id_user}', [UserController::class,'detailpoin'])->name('detailpoin');
-        Route::get('user/poingrup/{id_ks}/{sts}/{id_kelas}', [PoinSiswa::class,'poinGroup'])->name('poingrup');
+        Route::get('user/poingrup/{id_ks}/{sts}/{id_kelas}/{id_mesin?}', [PoinSiswa::class,'poinGroup'])->name('poingrup');
         Route::post('user/ayoabsen', [UserController::class,'ayoAbsen'])->name('ayoabsen');
         Route::get('user/history', History::class)->name('userhistory');
         Route::get('user/agenda', Agenda::class)->name('agendamgmtguru');
@@ -166,6 +168,8 @@ Route::group(['middleware' => ['auth']], function(){
     });
     Route::group(['middleware' => ['cekrole:siswa']], function(){
         Route::get('siswa', Index::class)->name('indexsiswa');
+        Route::get('siswa/history', HistorySiswa::class)->name('historysiswa2');
+        Route::get('siswa/mapelkelas', MapelKelas::class)->name('mapelkelassiswa');
     });
     Route::group(['middleware' => ['cekrole:keuangan']], function(){
         Route::get('keuangan', DataSpp::class)->name('indexkeuangan');
@@ -175,5 +179,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['cekrole:requester']], function(){
         Route::get('requester', DataSpp::class)->name('indexrequester');
         Route::get('requester/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidirequester');
+    });
+
+    Route::group(['middleware' => ['cekrole:kesiswaan']], function(){
+        Route::get('kesiswaan', DataSiswa::class)->name('indexkesiswaan');
+        Route::get('kesiswaan/poin',[PoinSiswa::class,'poin'])->name('poinkesiswaan');
+        Route::get('kesiswaan/log', Log::class)->name('logkesiswaan');
     });
 });

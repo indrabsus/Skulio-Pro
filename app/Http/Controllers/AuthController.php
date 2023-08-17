@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MesinRfid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +16,14 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
+        $verify = MesinRfid::where('kode_mesin', $request->id_mesin)->count();
+        
+        if($verify > 0){
+            session(['id_mesin' => $request->id_mesin]);
+        } else {
+            session(['id_mesin' => null]);
+        }
+        
         if(Auth::attempt($auth)){
             Auth::user();
             $role = Auth::user()->level;

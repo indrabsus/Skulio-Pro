@@ -10,6 +10,7 @@ class Index extends Component
 {
     public function render()
     {
+        $id_mesin = session('id_mesin');
         $karyawan = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('level', 'user')
@@ -18,7 +19,7 @@ class Index extends Component
         ->leftJoin('saldos','saldos.id_user','users.id')
         ->sum('saldo');
         $siswa = User::where('level', 'siswa')->count();
-        return view('livewire.admin.index',compact('karyawan','saldo','siswa'))
+        return view('livewire.admin.index',compact('karyawan','saldo','siswa','id_mesin'))
         ->extends('layouts.app')
         ->section('content');
     }

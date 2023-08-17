@@ -6,3 +6,19 @@
       </p>
     </a>
   </li>
+  <li class="nav-item">
+    <a href="{{route('mapelkelassiswa')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelassiswa' ? 'active':''}}">
+      <i class="fa-solid fa-swatchbook"></i>
+      <p>
+        Poin Mapel
+      </p>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="{{route('historysiswa2')}}" class="nav-link {{ Route::currentRouteName() == 'historysiswa2' ? 'active':''}}">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+      <p>
+        History Absen
+      </p>
+    </a>
+  </li>

@@ -62,11 +62,22 @@
             </div>
           </div>
         </div>
+        <div class="input-group mb-3" id="mesin">
+          <input type="text" class="form-control" placeholder="Masukan Kode Mesin" name="id_mesin">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-laptop-code"></span>
+            </div>
+          </div>
+        </div>
         <div class="row justify-content-center">
 
           <!-- /.col -->
-          <div class="col-6">
-            <a href="" id="reset" class="btn btn-danger btn-block" onclick="return false">Reset</a>
+          <div class="col-3">
+            <a href="" id="show" class="btn btn-danger" onclick="return false">Show</a>
+          </div>
+          <div class="col-3">
+            <a href="" id="hide" class="btn btn-danger" onclick="return false">Hide</a>
           </div>
           <div class="col-6">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
@@ -91,8 +102,17 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('adminv') }}/dist/js/adminlte.min.js"></script>
 <script>
-   $("#reset").click(function(){
-  $('input').val('')
+  $('#mesin').hide()
+  $('#hide').hide()
+   $("#show").click(function(){
+  $('#mesin').show()
+  $('#show').hide()
+  $('#hide').show()
+});
+   $("#hide").click(function(){
+  $('#mesin').hide()
+  $('#show').show()
+  $('#hide').hide()
 });
 </script>
 </body>

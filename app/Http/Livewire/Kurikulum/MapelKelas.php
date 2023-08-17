@@ -25,7 +25,7 @@ class MapelKelas extends Component
         $kelas = Group::where('kode_grup', '>=', 1000)->get();
         $mapel = Subject::all();
         $guru = User::where('kode','>=',1000)->where('kode','<',2000)->get();
-
+        $id_mesin = session('id_mesin');
         if(Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum'){
             $data = DB::table('kelas_subjects')
                 ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
@@ -34,7 +34,7 @@ class MapelKelas extends Component
                 ->where('nama_mapel', 'like','%'.$this->cari.'%')
                 ->orderBy('id_ks', 'desc')
                 ->paginate($this->result);
-        } else {
+        } elseif(Auth::user()->level == 'user') {
             $data = DB::table('kelas_subjects')
                 ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
                 ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
@@ -43,10 +43,20 @@ class MapelKelas extends Component
                 ->where('nama_mapel', 'like','%'.$this->cari.'%')
                 ->orderBy('id_ks', 'desc')
                 ->paginate($this->result);
+        } else {
+            $data = DB::table('kelas_subjects')
+                ->leftJoin('user_poins','user_poins.id_ks','kelas_subjects.id_ks')
+                ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')
+                ->leftJoin('users','users.id','kelas_subjects.id_user')
+                ->where('id_kelas', Auth::user()->id_grup)
+                ->where('user_poins.id_user', Auth::user()->id)
+                ->where('nama_mapel', 'like','%'.$this->cari.'%')
+                ->orderBy('user_poins.id_ks', 'desc')
+                ->paginate($this->result);
         }
 
         
-        return view('livewire.kurikulum.mapel-kelas', compact('data','kelas','mapel','guru'))
+        return view('livewire.kurikulum.mapel-kelas', compact('data','kelas','mapel','guru','id_mesin'))
         ->extends('layouts.app')
         ->section('content');
     }

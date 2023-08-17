@@ -85,29 +85,29 @@ class PoinSiswa extends Controller
         return view('admin.poin');
     }
 
-    public function poinGroup($id, $sts, $id_kelas){
-        return view('user.poingrup', compact('id','sts', 'id_kelas'));
+    public function poinGroup($id, $sts, $id_kelas, $id_mesin){
+        return view('user.poingrup', compact('id','sts', 'id_kelas','id_mesin'));
     }
-    public function poinGrupRfid($norfid){
+    public function poinGrupRfid($norfid, $id_mesin){
         $cek = User::where('kode', $norfid)->count();
         if($cek > 0){
-            PoinGrupTemp::create(['norfid' => $norfid]);
+            PoinGrupTemp::create(['norfid' => $norfid, 'id_mesin' => $id_mesin]);
             return "sukses";
         } else {
             return "gagal";
         }
         
     }
-    public function poinGrupScan($id, $sts, $id_kelas){
-        $hitung = PoinGrupTemp::count();
-        $kode = PoinGrupTemp::orderBy('created_at', 'desc')->first();
+    public function poinGrupScan($id, $sts, $id_kelas, $id_mesin){
+        $hitung = PoinGrupTemp::where('id_mesin', $id_mesin)->count();
+        $kode = PoinGrupTemp::where('id_mesin', $id_mesin)->orderBy('created_at', 'desc')->first();
         $user = [];
         $status = '';
         if($hitung > 0){
             $user = User::where('kode', $kode->norfid)->first();
             $cek = User::where('kode', $kode->norfid)->where('id_grup', $id_kelas)->count();
             $status = 'Siswa tidak terdaftar';
-            PoinGrupTemp::truncate();
+            PoinGrupTemp::where('id_mesin', $id_mesin)->delete();
             if($cek > 0){
                 PoinGroup::create([
                     'id_ks' => $id,
@@ -116,15 +116,18 @@ class PoinSiswa extends Controller
                 ]);
                 $status = $user->name.' mendapatkan nilai '.$sts.' 1';
         
-                PoinGrupTemp::truncate();
+                PoinGrupTemp::where('id_mesin', $id_mesin)->delete();
                 $plus = PoinGroup::where('id_ks', $id)
+                ->where('id_user', $user->id)
                 ->where('sts', 'plus')
                 ->count();
                 $minus = PoinGroup::where('id_ks', $id)
+                ->where('id_user', $user->id)
                 ->where('sts', 'minus')
                 ->count();
                 DB::table('user_poins')->updateOrInsert([
-                    'id_user' => $user->id
+                    'id_user' => $user->id,
+                    'id_ks' => $id
                 ],[
                     'plus' => $plus,
                     'minus' => $minus

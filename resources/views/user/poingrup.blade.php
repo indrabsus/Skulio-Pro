@@ -16,7 +16,7 @@
 <script>
                 $(document).ready(function(){
                     setInterval(function(){
-                        $("#cekkartu").load("{{route('poingrupscan',['id_ks' => $id, 'sts' => $sts, 'id_kelas' => $id_kelas])}}")
+                        $("#cekkartu").load("{{route('poingrupscan',['id_ks' => $id, 'sts' => $sts, 'id_kelas' => $id_kelas, 'id_mesin' => $id_mesin])}}")
                     },1000)
                 })
             </script>

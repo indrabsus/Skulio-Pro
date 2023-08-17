@@ -47,10 +47,12 @@
         @if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket')
         <th>Absen</th>
         @endif
+        @if(Auth::user()->level == 'admin' || Auth::user()->level == 'kesiswaan')
+        <th>Poin</th>
+        @endif
         @if(Auth::user()->level == 'admin')
         <th>No RFID</th>
         <th>Username</th>
-        <th>Poin</th>
         <th>Saldo</th>
         <th>Acc</th>
         <th>Aksi</th>
@@ -65,11 +67,13 @@
                 @if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket')
                 <td><a class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#absen" wire:click="absen({{ $d->id }})"><i class="fa-solid fa-square-pen"></i></i></a></td>
                 @endif
+                @if(Auth::user()->level == 'admin' || Auth::user()->level == 'kesiswaan')
+                <td>{{$d->poin}}</td>
+                @endif
                 
                 @if(Auth::user()->level == 'admin')
                 <td>{{$d->kode}}</td>
                 <td>{{$d->username}}</td>
-                <td>{{$d->poin}}</td>
                 <td>Rp. {{number_format($d->saldo)}}</td>
                 <td>
                   @if ($d->acc == 'y')
