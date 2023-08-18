@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Config;
+use App\Models\Group;
+use App\Models\PoinSikap;
+use App\Models\Saldo;
 use App\Models\Spp;
-use App\Models\SppLog;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -16,7 +18,8 @@ use Illuminate\Support\Facades\Auth;
 class DataSiswa extends Component
 {
     use WithPagination;
-    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan;
+    public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan,
+    $nis, $name, $jenkel, $id_grup, $nohp, $no_va;
     public $dll = 0;
     public $subsidi = 0;
     public $cari = '';
@@ -26,6 +29,7 @@ class DataSiswa extends Component
     public function render()
     {
         $set = new Controller;
+        $kelas = Group::where('kode_grup','>=',1000)->where('kode_grup','<',2000)->get();
         $nom = Config::where('id_config', 1)->first();
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
@@ -36,10 +40,61 @@ class DataSiswa extends Component
         ->where('name', 'like','%'.$this->cari.'%')
         ->orderBy('id', 'desc')
         ->paginate($this->result);
-        return view('livewire.admin.data-siswa', compact('data', 'nom'))
+        return view('livewire.admin.data-siswa', compact('data', 'nom','kelas'))
         ->extends('layouts.app')
         ->section('content');
     }
+    public function clearForm(){
+        $this->nis = '';
+        $this->name = '';
+        $this->jenkel = '';
+        $this->id_grup = '';
+        $this->nohp = '';
+        $this->no_va = '';
+        $this->ket = '';
+    }
+
+    public function insert(){
+        $this->validate([
+            'nis' => 'required|unique:data_siswas',
+            'name' => 'required',
+            'jenkel' => 'required',
+            'id_grup' => 'required',
+            'nohp' => 'required',
+        ]);
+        $konfig = Config::where('id_config', 1)->first();
+        $user = User::create([
+            'name' => ucwords($this->name),
+            'username' => rand(100,999).strtolower(substr(str_replace(' ','', $this->name), 0, 7)),
+            'password' => bcrypt($konfig->default_pass),
+            'level' => 'siswa',
+            'id_grup' => $this->id_grup,
+            'acc' => 'y'
+        ]);
+        $datasiswa = \App\Models\DataSiswa::create([
+            'nis' => $this->nis,
+            'id_user' => $user->id,
+            'jenkel' => $this->jenkel,
+            'nohp' => $this->nohp,
+            'no_va' => $this->no_va
+        ]);
+        $saldo = Saldo::create([
+            'id_user' => $user->id,
+            'saldo' => 0
+        ]);
+        $poin = PoinSikap::create([
+            'id_user' => $user->id,
+            'poin' => 50,
+        ]);
+        $spp = Spp::create([
+            'id_user' => $user->id,
+            'kode' => 0
+        ]);
+        $this->clearForm();
+        session()->flash('sukses', 'Data berhasil ditambahkan');
+        $this->dispatchBrowserEvent('closeModal');
+    }
+
     public function k_hapus($id){
         $data = User::where('id',$id)->first();
         $this->ids = $data->id;
@@ -128,10 +183,7 @@ class DataSiswa extends Component
         $hitung['absen'] = DB::table($table)->where($key, $value)->where('tanggal', date('Y/m/d', strtotime(now())))->count();
         return $hitung;
     }
-    public function clearForm()
-    {
-        $this->ket = '';
-    }
+   
 
     public function k_reset($id){
         $data = User::where('id',$id)->first();

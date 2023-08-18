@@ -22,6 +22,13 @@
   <link rel="stylesheet" href="{{ asset('adminv') }}/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
+  @if (session('status'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-check"></i> Berhasil!</h5>
+            {{ session('status') }}
+          </div>
+    @endif
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
@@ -29,13 +36,7 @@
       <a href="{{ url('/') }}" class="h1">Skulio<b> PRO</b></a>
     </div>
     <div class="card-body">
-        @if (session('status'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h5><i class="icon fas fa-check"></i> Berhasil!</h5>
-            {{ session('status') }}
-          </div>
-    @endif
+        
         @if (session('gagal'))
         <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

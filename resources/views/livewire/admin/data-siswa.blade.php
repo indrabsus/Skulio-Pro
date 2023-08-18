@@ -17,9 +17,13 @@
     <div class="row justify-content-between">
         @if(Auth::user()->level == 'admin')
         <div class="col-lg-3">
-          <a class="btn btn-primary btn-sm mb-3" href="{{route('addsiswa')}}"><i class="fa fa-plus"></i> Tambah</a>
+          <a class="btn btn-primary btn-sm mb-3" href="{{route('addsiswa')}}"><i class="fa-brands fa-nfc-symbol"></i> Tambah</a>
       </div>
+      <div class="col-lg-3">
+        <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
+    </div>
       @endif
+
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
                 <select wire:model='result' class="form-control">
@@ -94,7 +98,90 @@
 
             {{ $data->links() }}
 
-   
+            <div class="modal fade" id="add" wire:ignore.self>
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Add Data</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="">NIS</label>
+                      <input type="text" wire:model="nis" class="form-control">
+                      <div class="text-danger">
+                          @error('nis')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nama Lengkap</label>
+                      <input type="text" wire:model="name" class="form-control">
+                      <div class="text-danger">
+                          @error('name')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Jenis Kelamin</label>
+                      <select wire:model="jenkel" class="form-control">
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="l">Laki-laki</option>
+                        <option value="p">Perempuan</option>
+                    </select>
+                    <div class="text-danger">
+                        @error('jenkel')
+                            {{$message}}
+                        @enderror
+                    </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="id_kelas">Kelas</label>
+                      <select wire:model="id_grup" class="form-control">
+                          <option value="">Pilih Kelas</option>
+                          @foreach ($kelas as $k)
+                              <option value="{{ $k->id_grup }}">{{ $k->nama_grup }}</option>
+                          @endforeach
+                      </select>
+                      <div class="text-danger">
+                          @error('id_grup')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="nohp">No Handphone</label>
+                      <input type="number" class="form-control" placeholder="No Handphone" wire:model="nohp" >
+                      <div class="text-danger">
+                          @error('nohp')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="nohp">No Virtual Account</label>
+                      <input type="number" class="form-control" placeholder="Boleh dikosongkan" wire:model="no_va">
+                      <div class="text-danger">
+                          @error('no_va')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" wire:click="insert()">Save changes</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
 
       <div class="modal fade" id="absen" wire:ignore.self>
         <div class="modal-dialog">
@@ -193,6 +280,9 @@
         })
         window.addEventListener('closeModal', event => {
             $('#k_reset').modal('hide');
+        })
+        window.addEventListener('closeModal', event => {
+            $('#add').modal('hide');
         })
       </script>
 

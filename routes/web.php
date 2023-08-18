@@ -43,6 +43,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[AuthController::class,'index'])->name('index');
+Route::get('registrasi',[AuthController::class,'registrasi'])->name('registrasi');
+Route::any('prosesregis',[AuthController::class,'prosesregis'])->name('prosesregis');
 Route::any('proseslogin', [AuthController::class,'login'])->name('login');
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 

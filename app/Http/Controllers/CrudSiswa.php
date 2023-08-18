@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\DataSiswa;
 use App\Models\Group;
 use App\Models\PoinSikap;
@@ -21,7 +22,6 @@ class CrudSiswa extends Controller
     }
     public function insertSiswa(Request $request){
         $request->validate([
-            'kode' => 'required',
             'name' => 'required',
             'id_grup' => 'required',
             'jenkel' => 'required'
@@ -97,6 +97,7 @@ class CrudSiswa extends Controller
             'id_grup' => 'required',
             'jenkel' => 'required'
         ]);
+        $konfig = Config::where('id_config', 1)->first();
         $hitung = User::where('kode', $request->kode)
         ->where('level', 'siswa')
         ->count();
@@ -106,14 +107,15 @@ class CrudSiswa extends Controller
             if($request->kode == ''){
                 $user = User::where('id', $request->id)->update([
                     'name' => $request->name,
-                    'password' => bcrypt('sakuci'),
+                    'password' => bcrypt($konfig->default_pass),
                     'level' => 'siswa',
                     'id_grup' => $request->id_grup,
                 ]);
             } else {
+                
                 $user = User::where('id', $request->id)->update([
                     'name' => $request->name,
-                    'password' => bcrypt('sakuci'),
+                    'password' => bcrypt($konfig->default_pass),
                     'level' => 'siswa',
                     'id_grup' => $request->id_grup,
                     'kode' => $request->kode,
