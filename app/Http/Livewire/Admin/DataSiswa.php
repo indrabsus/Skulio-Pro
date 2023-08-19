@@ -227,7 +227,7 @@ class DataSiswa extends Component
             'no_va' => $this->no_va,
         ]);
         $this->clearForm();
-        session()->flash('sukses', 'Password berhasil direset');
+        session()->flash('sukses', 'Data berhasil diedit!');
         $this->dispatchBrowserEvent('closeModal');
     }
 }
