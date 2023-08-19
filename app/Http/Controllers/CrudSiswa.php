@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Config;
 use App\Models\DataSiswa;
 use App\Models\Group;
+use App\Models\PoinGrupTemp;
 use App\Models\PoinSikap;
 use App\Models\Saldo;
 use App\Models\Spp;
@@ -12,11 +13,12 @@ use App\Models\Temp;
 use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CrudSiswa extends Controller
 {
     public function addSiswa(){
-        Temp::truncate();
+        Temp::where('id_mesin', session('id_mesin'))->delete();
         $kelas = Group::where('kode_grup','>=', 1000)->get();
         return view('admin.addsiswa', compact('kelas'));
     }
@@ -55,21 +57,14 @@ class CrudSiswa extends Controller
                 'id_user' => $user->id,
                 'kode' => 0
             ]);
-            Temp::truncate();
+            Temp::where('id_mesin', session('id_mesin'))->delete();
             return redirect()->route('datasiswa')->with('sukses', 'Anda Berhasil Menambahkan Siswa');
         }
     }
-
-    public function inputrfid($norfid){
-        $simpan = Temp::create(['norfid' => $norfid]);
-        if($simpan){
-            echo "Berhasil";
-        } else {
-            echo "Gagal";
-        }
-    }
+    
     public function inputformrfid(){
-        $neww = Temp::orderBy('created_at','desc')->first();
+        $id_mesin = session('id_mesin');
+        $neww = Temp::where('id_mesin', $id_mesin)->orderBy('created_at','desc')->first();
     if($neww){
         $print = $neww->norfid;
     } else {
@@ -80,9 +75,10 @@ class CrudSiswa extends Controller
         'scan' => $print
     ]);
     }
+    
 
     public function editSiswa($id){
-        Temp::truncate();
+        Temp::where('id_mesin', session('id_mesin'))->delete();
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->leftJoin('data_siswas','data_siswas.id_user','users.id')
@@ -125,8 +121,12 @@ class CrudSiswa extends Controller
                 'jenkel' => $request->jenkel,
             ]);
             
-            Temp::truncate();
-            return redirect()->route('datasiswa')->with('sukses', 'Anda Berhasil Mengupdate Siswa');
+            Temp::where('id_mesin', session('id_mesin'))->delete();
+            if(Auth::user()->level == 'admin'){
+                return redirect()->route('datasiswa')->with('sukses', 'Anda Berhasil Mengupdate Siswa');
+            } else {
+                return redirect()->route('indexmanajemen')->with('sukses', 'Anda Berhasil Mengupdate Siswa');
+            }
         }
             
         }

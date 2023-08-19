@@ -26,7 +26,7 @@ class AuthController extends Controller
         $verify = MesinRfid::where('kode_mesin', $request->id_mesin)->count();
         
         if($verify > 0){
-            session(['id_mesin' => $request->id_mesin]);
+            session(['id_mesin' => $request->id_mesin, 'ver' => $verify]);
         } else {
             session(['id_mesin' => null]);
         }

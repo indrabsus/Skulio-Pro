@@ -88,17 +88,9 @@
                                 @enderror
                             </div>
                           </div>
-                          <div class="form-group">
-                            <label for="nohp">No Virtual Account</label>
-                            <input type="number" class="form-control" placeholder="Boleh dikosongkan" name="no_va" value="{{ old('no_va') }}">
-                            <div class="text-danger">
-                                @error('no_va')
-                                    {{$message}}
-                                @enderror
-                            </div>
-                          </div>
                           <div class="row">
                             <div class="col-8">
+                              <a href="{{route('index')}}">Kembali</a>
                             </div>
                             <!-- /.col -->
                             <div class="col-4">

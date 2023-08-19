@@ -16,7 +16,7 @@
     @endif
 
     <div class="container">
-        <form action="{{route('updatekonfig')}}" method="post">
+        <form action="{{route('updatekonfig')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-lg-6">
@@ -32,13 +32,17 @@
                         <label for="">Latitude</label>
                         <input type="text" class="form-control" name="lat" value="{{$data->lat}}">
                     </div>
+                    
                     <div class="form-group">
-                        <label for="">Token Telegram</label>
-                        <input type="text" class="form-control" name="token_telegram" value="{{$data->token_telegram}}">
+                        <label for="">Default Password</label>
+                        <input type="text" class="form-control" name="default_pass" value="{{$data->default_pass}}">
+                    </div>
+                    <div>
+                        <img src="{{asset('storage')}}/{{$data->logo}}" width="150px">
                     </div>
                     <div class="form-group">
-                        <label for="">Chat Id Grup Telegram</label>
-                        <input type="text" class="form-control" name="chat_id_telegram" value="{{$data->chat_id_telegram}}">
+                        <label for="">Logo</label>
+                        <input type="file" class="form-control" name="logo" value="{{$data->logo}}">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -61,6 +65,14 @@
                     <div class="form-group">
                         <label for="">Uang Masuk PPDB</label>
                         <input type="text" class="form-control" name="ppdb" value="{{$data->ppdb}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Token Telegram</label>
+                        <input type="text" class="form-control" name="token_telegram" value="{{$data->token_telegram}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Chat Id Grup Telegram</label>
+                        <input type="text" class="form-control" name="chat_id_telegram" value="{{$data->chat_id_telegram}}">
                     </div>
                 </div>
                 <button class="btn btn-primary btn-block" type="submit">Update</button>

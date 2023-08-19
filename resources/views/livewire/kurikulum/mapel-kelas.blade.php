@@ -91,8 +91,8 @@
             <td>
             <a href="{{route('kelasguru',['id_ks' => $d->id_ks])}}" class="btn btn-success btn-sm">Kelas</a>
             @if (session('id_mesin'))
-            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'plus', 'id_kelas' => $d->id_kelas,'id_mesin' => $id_mesin])}}" class="btn btn-primary btn-sm">Poin +</a>
-            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'minus','id_kelas' => $d->id_kelas,'id_mesin' => $id_mesin])}}" class="btn btn-danger btn-sm">Poin -</a>
+            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'plus', 'id_kelas' => $d->id_kelas])}}" class="btn btn-primary btn-sm">Poin +</a>
+            <a href="{{route('poingrup',['id_ks' => $d->id_ks, 'sts' => 'minus','id_kelas' => $d->id_kelas])}}" class="btn btn-danger btn-sm">Poin -</a>
             @endif
           </td>
             @endif

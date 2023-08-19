@@ -35,6 +35,7 @@ class DataSiswa extends Component
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->leftJoin('saldos','saldos.id_user','users.id')
         ->leftJoin('poin_sikaps','poin_sikaps.id_user','users.id')
+        ->leftJoin('data_siswas','data_siswas.id_user','users.id')
         ->where('kode_grup','>=', 1000)
         ->where('kode_grup','<', 2000)
         ->where('name', 'like','%'.$this->cari.'%')
@@ -193,6 +194,36 @@ class DataSiswa extends Component
         $kon = Config::where('id_config', 1)->first();
         User::where('id', $this->ids)->update([
             'password' => bcrypt($kon->default_pass)
+        ]);
+        $this->clearForm();
+        session()->flash('sukses', 'Password berhasil direset');
+        $this->dispatchBrowserEvent('closeModal');
+    }
+
+    public function edit($id){
+        $data = DB::table('users')
+        ->leftJoin('groups','groups.id_grup','users.id_grup')
+        ->leftJoin('data_siswas','data_siswas.id_user','users.id')
+        ->where('id',$id)
+        ->first();
+        $this->id_userku = $data->id;
+        $this->nis = $data->nis;
+        $this->name = $data->name;
+        $this->jenkel = $data->jenkel;
+        $this->id_grup = $data->id_grup;
+        $this->nohp = $data->nohp;
+        $this->no_va = $data->no_va;
+    }
+    public function update(){
+        User::where('id', $this->id_userku)->update([
+            'name' => $this->name,
+            'id_grup' => $this->id_grup,
+        ]);
+        \App\Models\DataSiswa::where('id_user', $this->id_userku)->update([
+            'nis' => $this->nis,
+            'jenkel' => $this->jenkel,
+            'nohp' => $this->nohp,
+            'no_va' => $this->no_va,
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Password berhasil direset');

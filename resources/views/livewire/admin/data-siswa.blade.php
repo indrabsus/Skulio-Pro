@@ -15,14 +15,18 @@
     @endif
 
     <div class="row justify-content-between">
-        @if(Auth::user()->level == 'admin')
-        <div class="col-lg-3">
-          <a class="btn btn-primary btn-sm mb-3" href="{{route('addsiswa')}}"><i class="fa-brands fa-nfc-symbol"></i> Tambah</a>
-      </div>
+      @if(Auth::user()->level == 'admin')
+      <div class="col-lg-3">
+        <a href="" class="btn btn-primary btn-sm mb-3" href="{{route('addsiswa')}}"><i class="fa-brands fa-nfc-symbol"></i> Tambah</a>
+    </div>
+    @endif
+      @if(Auth::user()->level == 'admin' || Auth::user()->level == 'manajemen')
       <div class="col-lg-3">
         <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
     </div>
-      @endif
+    
+    @endif
+      
 
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
@@ -48,6 +52,7 @@
         <th>No</th>
         <th>Nama Siswa</th>
         <th>Kelas</th>
+        <th>No Va</th>
         @if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket')
         <th>Absen</th>
         @endif
@@ -59,15 +64,16 @@
         <th>Username</th>
         <th>Saldo</th>
         <th>Acc</th>
-        <th>Aksi</th>
         @endif
+        <th>Aksi</th>
         </tr>
         <?php $no=1;?>
         @foreach ($data as $d)
             <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ ucwords($d->name) }}</td>
+                <td><a href="" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id }})">{{ ucwords($d->name) }}</a></td>
                 <td>{{$d->nama_grup}}</td>
+                <td>{{$d->no_va}}</td>
                 @if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket')
                 <td><a class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#absen" wire:click="absen({{ $d->id }})"><i class="fa-solid fa-square-pen"></i></i></a></td>
                 @endif
@@ -86,12 +92,16 @@
                   <a class="btn btn-danger btn-sm" wire:click="changeAcc({{$d->id}})"><i class="fa-solid fa-xmark"></i></a>
                   @endif
                 </td>
-                <td>
-                  <a class="btn btn-dark btn-sm mb-1" data-toggle="modal" data-target="#k_reset" wire:click="k_reset({{ $d->id }})"><i class="fa fa-cogs"></i> Reset</a>
-                  <a class="btn btn-success btn-sm mb-1" href="{{route('editsiswa',['id' => $d->id])}}"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id }})"><i class="fa fa-trash"></i></a>
-                </td>
                 @endif
+                <td>
+                  @if(Auth::user()->level == 'admin')
+                  <a class="btn btn-success btn-sm mb-1" href="{{route('editsiswa',['id' => $d->id])}}"><i class="fa fa-edit"></i></a>  
+                  @endif
+                  @if(Auth::user()->level == 'admin' || Auth::user()->level == 'manajemen')
+                  <a class="btn btn-dark btn-sm mb-1" data-toggle="modal" data-target="#k_reset" wire:click="k_reset({{ $d->id }})"><i class="fa fa-cogs"></i> Reset</a>
+                  <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id }})"><i class="fa fa-trash"></i></a>
+                  @endif
+                </td>
             </tr>
         @endforeach
     </table>
@@ -175,6 +185,91 @@
                   <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" wire:click="insert()">Save changes</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <div class="modal fade" id="edit" wire:ignore.self>
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Edit Data</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="">NIS</label>
+                      <input type="text" wire:model="nis" class="form-control">
+                      <div class="text-danger">
+                          @error('nis')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nama Lengkap</label>
+                      <input type="text" wire:model="name" class="form-control">
+                      <div class="text-danger">
+                          @error('name')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Jenis Kelamin</label>
+                      <select wire:model="jenkel" class="form-control">
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="l">Laki-laki</option>
+                        <option value="p">Perempuan</option>
+                    </select>
+                    <div class="text-danger">
+                        @error('jenkel')
+                            {{$message}}
+                        @enderror
+                    </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="id_kelas">Kelas</label>
+                      <select wire:model="id_grup" class="form-control">
+                          <option value="">Pilih Kelas</option>
+                          @foreach ($kelas as $k)
+                              <option value="{{ $k->id_grup }}">{{ $k->nama_grup }}</option>
+                          @endforeach
+                      </select>
+                      <div class="text-danger">
+                          @error('id_grup')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="nohp">No Handphone</label>
+                      <input type="number" class="form-control" placeholder="No Handphone" wire:model="nohp" >
+                      <div class="text-danger">
+                          @error('nohp')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="nohp">No Virtual Account</label>
+                      <input type="number" class="form-control" placeholder="Boleh dikosongkan" wire:model="no_va">
+                      <div class="text-danger">
+                          @error('no_va')
+                              {{$message}}
+                          @enderror
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" wire:click="update()">Save changes</button>
                   </div>
                 </div>
                 <!-- /.modal-content -->
@@ -283,6 +378,9 @@
         })
         window.addEventListener('closeModal', event => {
             $('#add').modal('hide');
+        })
+        window.addEventListener('closeModal', event => {
+            $('#edit').modal('hide');
         })
       </script>
 

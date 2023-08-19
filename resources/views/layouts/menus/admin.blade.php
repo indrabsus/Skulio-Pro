@@ -120,11 +120,13 @@
 
           </ul>
         </li>
+
+
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="fa-brands fa-nfc-directional"></i>
+            <i class="fa-solid fa-shield"></i>
             <p>
-              RFID
+              Kesiswaan
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
@@ -138,20 +140,34 @@
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="{{route('topupform')}}" class="nav-link {{ Route::currentRouteName() == 'topupform' ? 'active':''}}">
-                <i class="fa-regular fa-money-bill-1"></i>
-                <p>
-                  Top Up
-                </p>
-              </a>
-            </li>
 
             <li class="nav-item">
               <a href="{{route('log')}}" class="nav-link {{ Route::currentRouteName() == 'log' ? 'active':''}}">
                 <i class="fa-solid fa-timeline"></i>
                 <p>
-                  Log
+                  Log Poin
+                </p>
+              </a>
+            </li> 
+
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-brands fa-nfc-directional"></i>
+            <p>
+              Pembayaran
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a href="{{route('topupform')}}" class="nav-link {{ Route::currentRouteName() == 'topupform' ? 'active':''}}">
+                <i class="fa-regular fa-money-bill-1"></i>
+                <p>
+                  Top Up
                 </p>
               </a>
             </li>

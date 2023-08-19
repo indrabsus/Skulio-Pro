@@ -38,6 +38,10 @@
   @include('layouts.menus.kesiswaan')
       @endif
 
+    @if (Auth::user()->level == 'manajemen')
+  @include('layouts.menus.manajemen')
+      @endif
+
 <li class="nav-item">
               <a href="{{route('ubahpassword')}}" class="nav-link {{ Route::currentRouteName() == 'ubahpassword' ? 'active':''}}">
               <i class="fa-solid fa-key"></i>

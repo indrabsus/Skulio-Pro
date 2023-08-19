@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Config;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
@@ -45,10 +46,11 @@ class Manajemen extends Component
             'username' => 'required|alpha_dash|unique:users',
             'level' => 'required'
         ]);
+        $konfig = Config::where('id_config', 1)->first();
         User::create([
             'name' => ucwords($this->name),
             'username' => $this->username,
-            'password' => bcrypt('rahasia'),
+            'password' => bcrypt($konfig->default_pass),
             'level' => $this->level,
             'id_grup' => 5,
         ]);
@@ -96,8 +98,9 @@ class Manajemen extends Component
         $this->ids = $data->id;
     }
     public function do_reset(){
+        $konfig = Config::where('id_config', 1)->first();
         User::where('id', $this->ids)->update([
-            'password' => bcrypt('rahasia')
+            'password' => bcrypt($konfig->default_pass)
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Password berhasil direset');

@@ -129,7 +129,7 @@
 
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0
+      <b>Kode Mesin : {{session('ver') > 0 ? session('id_mesin') : 'No Data'}}</b>
     </div>
     <strong>Copyright &copy; {{ date('Y') }} - <a href="{{ url('/') }}">Skulio <strong>PRO</strong></a>.</strong> Created by Indra Batara, S.Pd
   </footer>

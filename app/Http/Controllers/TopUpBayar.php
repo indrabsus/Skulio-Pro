@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Log;
 use App\Models\Saldo;
 use App\Models\SaldoLog;
+use App\Models\Temp;
 use App\Models\TopupTemp;
 use App\Models\User;
 use DB;
@@ -12,19 +13,9 @@ use Illuminate\Http\Request;
 
 class TopUpBayar extends Controller
 {
-    public function topuprfid($norfid){
-        $cek = User::where('kode', $norfid)->count();
-
-        if($cek > 0){
-            TopupTemp::create(['norfid' => $norfid]);
-            return "sukses";
-        } else {
-            return "gagal";
-        }
-    }
 
     public function topup(){
-        $neww = TopupTemp::orderBy('created_at','desc')->first();
+        $neww = Temp::where('id_mesin', session('id_mesin'))->orderBy('created_at', 'desc')->first();
         $saldo = 0;
         if($neww){
             $data = DB::table('saldos')->leftJoin('users','users.id','saldos.id_user')->where('kode', $neww->norfid)->first();
@@ -48,7 +39,7 @@ class TopUpBayar extends Controller
     }
 
     public function topupform(){
-        TopupTemp::truncate();
+        Temp::where('id_mesin', session('id_mesin'))->delete();
         return view('admin.topup');
     }
 

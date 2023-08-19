@@ -7,7 +7,11 @@
             {{ session('gagal') }}
           </div>
     @endif
+@if (Auth::user()->level == 'admin')
 <form action="{{route('updatesiswa')}}" method="post">
+@else
+<form action="{{route('updatesiswamanajemen')}}" method="post">
+@endif
 @csrf
                 <div class="row">
                 <div class="col-lg-6">

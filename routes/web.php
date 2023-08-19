@@ -54,21 +54,17 @@ Route::get('exportspplog/{thn?}/{bln?}', [ExcelController::class, 'sppLog'])->na
 //absen siswa
 Route::get('/absensiswa/{norfid}/bataraindra2020', [AbsenSiswa::class, 'absenSiswa'])->name('absensiswafix');
 
+
+//RFID Global Scan
+Route::get('/rfid/{norfid}/{id_mesin}',[AdminController::class,'rfidglobal'])->name('rfidglobal');
 // Input RFID
 Route::get('/inputscan', [CrudSiswa::class, 'inputformrfid'])->name('inputscan');
-Route::get('/inputrfid/{norfid}/bataraindra2020',[CrudSiswa::class,'inputrfid'])->name('inputrfid');
-
 //RFID MODE POIN GRUP
-Route::get('poingrup/{norfid}/{id_mesin}', [PoinSiswa::class, 'poinGrupRfid'])->name('poingruprfid');
-Route::get('poingrupscan/{id_ks}/{sts}/{id_kelas}/{id_mesin}', [PoinSiswa::class, 'poinGrupScan'])->name('poingrupscan');
-
+Route::get('poingrupscan/{id_ks}/{sts}/{id_kelas}', [PoinSiswa::class, 'poinGrupScan'])->name('poingrupscan');
 //RFID MODE POIN
 Route::get('/ubahmode/bataraindra2020',[PoinSiswa::class,'ubahmode'])->name('ubahmode');
-Route::get('poin/{norfid}/bataraindra2020', [PoinSiswa::class, 'poinrfid'])->name('poinrfid');
 Route::get('poinscan', [PoinSiswa::class, 'poinscan'])->name('poinscan');
-
 //RFID Top Up
-Route::get('/topuprfid/{norfid}/bataraindra2020', [TopUpBayar::class, 'topuprfid'])->name('topuprfid');
 Route::get('/topup', [TopUpBayar::class, 'topup'])->name('topup');
 
 
@@ -120,8 +116,8 @@ Route::group(['middleware' => ['auth']], function(){
 
         //controller add siswa
         Route::get('/admin/addsiswa',[CrudSiswa::class,'addSiswa'])->name('addsiswa');
-        Route::get('/admin/editsiswa/{id}',[CrudSiswa::class,'editSiswa'])->name('editsiswa');
         Route::any('/admin/insertsiswa',[CrudSiswa::class,'insertSiswa'])->name('insertsiswa');
+        Route::get('/admin/editsiswa/{id}',[CrudSiswa::class,'editSiswa'])->name('editsiswa');
         Route::any('/admin/updatesiswa',[CrudSiswa::class,'updateSiswa'])->name('updatesiswa');
 
         //Poin Siswa
@@ -129,11 +125,9 @@ Route::group(['middleware' => ['auth']], function(){
 
         //Log
         Route::get('admin/log', Log::class)->name('log');
-
-        
-        
         
     });
+
     Route::group(['middleware' => ['cekrole:piket']], function(){
         Route::get('piket', AbsenAll::class)->name('indexpiket');
         Route::get('piket/usermgmt', UserMgmt::class)->name('usermgmtpiket');
@@ -141,20 +135,20 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('piket/persentase', Persentase::class)->name('persentasepiket');
         Route::get('piket/export/{bln?}/{jbtn?}', [AdminController::class, 'export'])->name('exportpiket');
     
-        //Absen RFID
-    Route::get('/piket/absensiswa',[AbsenSiswa::class,'absen'])->name('absensiswapiket');
-        //Data Siswa
-    Route::get('piket/datasiswa', DataSiswa::class)->name('datasiswapiket');
-        //Livewire Absen Siswa
-    Route::get('piket/persentasesiswa', PersentaseSiswa::class)->name('persentasesiswapiket');
-    Route::get('piket/historysiswa', HistorySiswa::class)->name('historysiswapiket');
+            //Absen RFID
+        Route::get('/piket/absensiswa',[AbsenSiswa::class,'absen'])->name('absensiswapiket');
+            //Data Siswa
+        Route::get('piket/datasiswa', DataSiswa::class)->name('datasiswapiket');
+            //Livewire Absen Siswa
+        Route::get('piket/persentasesiswa', PersentaseSiswa::class)->name('persentasesiswapiket');
+        Route::get('piket/historysiswa', HistorySiswa::class)->name('historysiswapiket');
     
     });
     Route::group(['middleware' => ['cekrole:user']], function(){
         Route::get('user', [UserController::class,'index'])->name('indexuser');
         Route::get('user/kelas/{id_ks}', [UserController::class,'kelas'])->name('kelasguru');
         Route::get('user/detailpoin/{id_ks}/{id_user}', [UserController::class,'detailpoin'])->name('detailpoin');
-        Route::get('user/poingrup/{id_ks}/{sts}/{id_kelas}/{id_mesin?}', [PoinSiswa::class,'poinGroup'])->name('poingrup');
+        Route::get('user/poingrup/{id_ks}/{sts}/{id_kelas}', [PoinSiswa::class,'poinGroup'])->name('poingrup');
         Route::post('user/ayoabsen', [UserController::class,'ayoAbsen'])->name('ayoabsen');
         Route::get('user/history', History::class)->name('userhistory');
         Route::get('user/agenda', Agenda::class)->name('agendamgmtguru');
@@ -187,5 +181,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('kesiswaan', DataSiswa::class)->name('indexkesiswaan');
         Route::get('kesiswaan/poin',[PoinSiswa::class,'poin'])->name('poinkesiswaan');
         Route::get('kesiswaan/log', Log::class)->name('logkesiswaan');
+    });
+
+    Route::group(['middleware' => ['cekrole:manajemen']], function(){
+        Route::get('manajemen', DataSiswa::class)->name('indexmanajemen');
     });
 });

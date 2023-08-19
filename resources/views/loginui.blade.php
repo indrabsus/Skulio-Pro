@@ -72,7 +72,6 @@
           </div>
         </div>
         <div class="row justify-content-center">
-
           <!-- /.col -->
           <div class="col-3">
             <a href="" id="show" class="btn btn-danger" onclick="return false">Show</a>
@@ -83,17 +82,19 @@
           <div class="col-6">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
-          </form>
-
-          <!-- /.col -->
-        </div>
-
-
+        </form>
+        <p class="mt-3">Belum Punya Akun? <a href="{{route('registrasi')}}">Daftar disini!</a></p>
+      </div>
     </div>
-    <!-- /.card-body -->
   </div>
+          <!-- /.col -->
+          
+     
+
+
+ 
   <!-- /.card -->
-</div>
+
 <!-- /.login-box -->
 
 <!-- jQuery -->
