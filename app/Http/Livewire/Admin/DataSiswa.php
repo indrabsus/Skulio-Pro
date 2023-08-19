@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Absen;
 use Illuminate\Support\Facades\Auth;
 
+
 class DataSiswa extends Component
 {
     use WithPagination;
