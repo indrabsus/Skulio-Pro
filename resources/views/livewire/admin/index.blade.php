@@ -1,10 +1,5 @@
 <div>
     <h3>Dashboard</h3>
-    @if(session('id_mesin'))
-    <h3>Id Mesin : {{$id_mesin}}</h3>
-    @else
-    <h3>Tidak ada Mesin Terdeteksi</h3>
-    @endif
     <hr>
 <div class="row">
           <div class="col-lg-6 col-6">

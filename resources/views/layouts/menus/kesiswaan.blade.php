@@ -6,7 +6,7 @@
       </p>
     </a>
     </li>
-
+    @if (session('id_mesin') != null)
     <li class="nav-item">
         <a href="{{route('poinkesiswaan')}}" class="nav-link {{ Route::currentRouteName() == 'poinkesiswaan' ? 'active':''}}">
           <i class="fa-solid fa-star-half-stroke"></i>
@@ -15,7 +15,7 @@
           </p>
         </a>
       </li>
-
+      @endif
       <li class="nav-item">
         <a href="{{route('logkesiswaan')}}" class="nav-link {{ Route::currentRouteName() == 'logkesiswaan' ? 'active':''}}">
           <i class="fa-solid fa-timeline"></i>

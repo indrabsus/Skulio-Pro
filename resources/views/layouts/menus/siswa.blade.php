@@ -6,6 +6,14 @@
       </p>
     </a>
   </li>
+<li class="nav-item">
+    <a href="{{route('siswadata')}}" class="nav-link {{ Route::currentRouteName() == 'siswadata' ? 'active':''}}">
+      <i class="fa-solid fa-file-shield"></i>
+      <p>
+        Data Siswa
+      </p>
+    </a>
+  </li>
   <li class="nav-item">
     <a href="{{route('mapelkelassiswa')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelassiswa' ? 'active':''}}">
       <i class="fa-solid fa-swatchbook"></i>

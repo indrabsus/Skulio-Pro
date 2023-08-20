@@ -1,12 +1,4 @@
-<li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="fa-solid fa-fingerprint"></i>
-      <p>
-        Presensi
-        <i class="fas fa-angle-left right"></i>
-      </p>
-    </a>
-    <ul class="nav nav-treeview">
+
     <li class="nav-item">
 <a href="{{route('indexuser')}}" class="nav-link {{ Route::currentRouteName() == 'indexuser' ? 'active':''}}">
 <i class="fa-solid fa-file-pen"></i>
@@ -24,8 +16,6 @@
 </a>
 </li>
 
-    </ul>
-  </li>
   @if (Auth::user()->kode >= 1000 && Auth::user()->kode < 2000)
   <li class="nav-item">
     <a href="{{route('agendamgmtguru')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmtguru' ? 'active':''}}">

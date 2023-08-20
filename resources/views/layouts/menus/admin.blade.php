@@ -131,6 +131,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            
             <li class="nav-item">
               <a href="{{route('poin')}}" class="nav-link {{ Route::currentRouteName() == 'poin' ? 'active':''}}">
                 <i class="fa-solid fa-star-half-stroke"></i>
@@ -138,7 +139,7 @@
                   Poin Siswa
                 </p>
               </a>
-            </li>
+            </li>  
 
 
             <li class="nav-item">
@@ -182,7 +183,36 @@
 
           </ul>
         </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-hard-drive"></i>
+            <p>
+              RFID Control
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
 
+            <li class="nav-item">
+              <a href="{{route('datamesin')}}" class="nav-link {{ Route::currentRouteName() == 'datamesin' ? 'active':''}}">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <p>
+                  Data Mesin
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('mesintoken')}}" class="nav-link {{ Route::currentRouteName() == 'mesintoken' ? 'active':''}}">
+                <i class="fa-solid fa-user-astronaut"></i>
+                <p>
+                  Mesin Token
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
 
 
         <li class="nav-item">

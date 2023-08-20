@@ -7,12 +7,15 @@ use App\Http\Controllers\CrudSiswa;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PoinSiswa;
+use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TopUpBayar;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\DataSiswa;
 use App\Http\Livewire\Admin\Index as AdminIndex;
 use App\Http\Livewire\Admin\LogSaldo;
 use App\Http\Livewire\Admin\Manajemen;
+use App\Http\Livewire\Admin\DataMesin;
+use App\Http\Livewire\Admin\TokenMesin;
 use App\Http\Livewire\Keuangan\DataSpp;
 use App\Http\Livewire\Keuangan\PengajuanSubsidi;
 use App\Http\Livewire\Keuangan\SppLog;
@@ -83,6 +86,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
         Route::get('admin/datasiswa', DataSiswa::class)->name('datasiswa');
         Route::get('admin/manajemen', Manajemen::class)->name('manajemen');
+        Route::get('admin/datamesin', DataMesin::class)->name('datamesin');
+        Route::get('admin/mesintoken', TokenMesin::class)->name('mesintoken');
 
         //Konfigurasi
         Route::get('admin/konfig',[AdminController::class,'konfig'])->name('konfig');
@@ -166,6 +171,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('siswa', Index::class)->name('indexsiswa');
         Route::get('siswa/history', HistorySiswa::class)->name('historysiswa2');
         Route::get('siswa/mapelkelas', MapelKelas::class)->name('mapelkelassiswa');
+        Route::get('siswa/data',[SiswaController::class,'siswaData'])->name('siswadata');
+        Route::post('siswa/updatedata',[SiswaController::class,'updateData'])->name('updatedata');
     });
     Route::group(['middleware' => ['cekrole:keuangan']], function(){
         Route::get('keuangan', DataSpp::class)->name('indexkeuangan');
@@ -185,5 +192,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::group(['middleware' => ['cekrole:manajemen']], function(){
         Route::get('manajemen', DataSiswa::class)->name('indexmanajemen');
+        Route::get('manajemen/datamesin', DataMesin::class)->name('datamesinmanajemen');
+        Route::get('manajemen/mesintoken', TokenMesin::class)->name('mesintokenmanajemen');
     });
 });

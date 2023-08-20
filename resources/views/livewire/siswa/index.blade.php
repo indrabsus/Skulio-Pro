@@ -60,4 +60,14 @@
           <!-- ./col -->
         </div>
         <!-- /.row -->
+        <div class="row">
+          <div class="col-lg-6">
+            <h4>Data Siswa</h4>
+            <table class="table table-sm">
+              <tr>
+                <td>Pembayaran SPP</td><td>:</td><td>{{$spp->bulan}} {{$spp->angkatan}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
 </div>

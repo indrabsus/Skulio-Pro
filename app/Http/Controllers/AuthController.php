@@ -6,6 +6,7 @@ use App\Models\Config;
 use App\Models\DataSiswa;
 use App\Models\Group;
 use App\Models\MesinRfid;
+use App\Models\MesinToken;
 use App\Models\PoinSikap;
 use App\Models\Saldo;
 use App\Models\Spp;
@@ -23,11 +24,25 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
-        $verify = MesinRfid::where('kode_mesin', $request->id_mesin)->count();
+        $cekuser = User::where('username', $request->username)->first();
+        $kes = MesinToken::where('id_user', $cekuser->id)->where('id_mesin', $request->id_mesin)->count();
+        if($kes > 0){
+            MesinToken::where('id_user', $cekuser->id)->where('id_mesin', $request->id_mesin)->delete();
+        }
+        $mesin = 0;
+        $cektoken = MesinToken::where('id_mesin', $request->id_mesin)->count();
+
+        if($cektoken > 0){
+            return redirect()->route('index')->with('gagal', 'Mesin sedang digunakan!');
+        } else {
+            
+            $verify = MesinRfid::where('kode_mesin', $request->id_mesin)->count();
         
         if($verify > 0){
+            $mesin = 1;
             session(['id_mesin' => $request->id_mesin, 'ver' => $verify]);
         } else {
+            $mesin = 0;
             session(['id_mesin' => null]);
         }
         
@@ -38,7 +53,15 @@ class AuthController extends Controller
                 return redirect()->route('index')->with('gagal', 'Akun anda belum diaktivasi, silakan hubungi Admin!');
                 Auth::logout();
             } else {
+                if($mesin == 1){
+                    MesinToken::create([
+                        'id_mesin' => $request->id_mesin,
+                        'id_user' => Auth::user()->id
+                ]);
                 return redirect()->route('index'.$role);
+                } else {
+                    return redirect()->route('index'.$role);
+                }
             }
             
 
@@ -46,10 +69,19 @@ class AuthController extends Controller
         else {
             return redirect()->route('index')->with('gagal', 'Username dan Password Salah!');
         }
+        }
+
     }
     public function logout(){
-        Auth::logout();
+        if(session('id_mesin') == null){
+            Auth::logout();
         return redirect()->route('index')->with('status', 'Anda berhasil logout');
+        } else {
+            MesinToken::where('id_mesin', session('id_mesin'))->delete();
+            Auth::logout();
+            return redirect()->route('index')->with('status', 'Anda berhasil logout');
+        }
+        
     }
 
     public function registrasi(){
