@@ -24,8 +24,13 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
-        $cekuser = User::where('username', $request->username)->first();
-        $kes = MesinToken::where('id_user', $cekuser->id)->where('id_mesin', $request->id_mesin)->count();
+        $kes = 0;
+        $cekhitung = User::where('username', $request->username)->count();
+        if($cekhitung > 0){
+            $cekuser = User::where('username', $request->username)->first();
+            $kes = MesinToken::where('id_user', $cekuser->id)->where('id_mesin', $request->id_mesin)->count();
+        }
+        
         if($kes > 0){
             MesinToken::where('id_user', $cekuser->id)->where('id_mesin', $request->id_mesin)->delete();
         }
