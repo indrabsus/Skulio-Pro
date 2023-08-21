@@ -30,6 +30,7 @@ class AbsenAll extends Component
         ->where('kode_grup', '!=', 2)
         ->where('kode_grup', '<', 1000)
         ->where('kode_grup', 'like','%'.$this->kategoris.'%')
+        ->orderBy('kode_grup', 'asc')
         ->get();
         return view('livewire.piket.absen-all', compact('konfig','nama','kategori'))
         ->extends('layouts.app')
