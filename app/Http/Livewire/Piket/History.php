@@ -22,7 +22,7 @@ class History extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $jbtan = Group::where('kode_grup',3)->get();
+        $jbtan = Group::where('kode_grup','>', 2)->where('kode_grup','<=', 10)->get();
         if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket'){
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
