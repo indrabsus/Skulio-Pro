@@ -23,6 +23,7 @@ class PersentaseExport implements FromView
                     ->leftJoin('groups','groups.id_grup','users.id_grup')
                     ->where('bulan', $this->bln)
                     ->where('nama_grup', $this->jbtn)
+                    ->orderBy('kode', 'asc')
                     ->get(),
             'max' => DB::table('hitung_absens')
             ->leftJoin('users','users.id','hitung_absens.id_user')
