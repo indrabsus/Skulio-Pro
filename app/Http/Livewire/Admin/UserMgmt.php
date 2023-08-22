@@ -4,9 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Config;
 use App\Models\Group;
-use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,6 +19,7 @@ class UserMgmt extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
+        $config = Config::where('id_config', 1)->first();
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('level','user')
@@ -29,7 +28,7 @@ class UserMgmt extends Component
         ->orderBy('kode', 'asc')
         ->paginate($this->result);
         $jbtn = Group::where('kode_grup', '>',2)->where('kode_grup','<',1000)->get();
-        return view('livewire.admin.user-mgmt', compact('data', 'jbtn'))
+        return view('livewire.admin.user-mgmt', compact('data', 'jbtn','config'))
         ->extends('layouts.app')
         ->section('content');
     }

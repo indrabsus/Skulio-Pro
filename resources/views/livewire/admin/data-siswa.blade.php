@@ -52,6 +52,7 @@
         <th>No</th>
         <th>Nama Siswa</th>
         <th>Kelas</th>
+        <th>Username</th>
         <th>No Va</th>
         @if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket')
         <th>Absen</th>
@@ -61,7 +62,6 @@
         @endif
         @if(Auth::user()->level == 'admin')
         <th>No RFID</th>
-        <th>Username</th>
         <th>Saldo</th>
         <th>Acc</th>
         @endif
@@ -73,6 +73,7 @@
                 <td>{{ $no++ }}</td>
                 <td><a href="" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->id }})">{{ ucwords($d->name) }}</a></td>
                 <td>{{$d->nama_grup}}</td>
+                <td>{{$d->username}}</td>
                 <td>{{$d->no_va}}</td>
                 @if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket')
                 <td><a class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#absen" wire:click="absen({{ $d->id }})"><i class="fa-solid fa-square-pen"></i></i></a></td>
@@ -83,7 +84,6 @@
                 
                 @if(Auth::user()->level == 'admin')
                 <td><a href="http://skulio.my.id/poingrup/{{$d->kode}}/batara1001" target="_blank">{{$d->kode}}</a></td>
-                <td>{{$d->username}}</td>
                 <td>Rp. {{number_format($d->saldo)}}</td>
                 <td>
                   @if ($d->acc == 'y')

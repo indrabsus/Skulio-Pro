@@ -220,7 +220,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <p>Dengan me Reset Password, user ini akan menggunakan password "rahasia" tanpa tanda kutip</p>
+                <p>Dengan me Reset Password, user ini akan menggunakan password "{{$config->default_pass}}" tanpa tanda kutip</p>
 
             </div>
             <div class="modal-footer justify-content-between">

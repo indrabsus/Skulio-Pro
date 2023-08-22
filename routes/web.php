@@ -163,9 +163,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['cekrole:kurikulum']], function(){
         Route::get('kurikulum/kelasmgmt', KelasMgmt::class)->name('kelasmgmtkurikulum');
         Route::get('kurikulum/jurusan', Jurusan::class)->name('jurusankurikulum');
-        Route::get('kurikulum/agenda', Agenda::class)->name('indexkurikulum');
         Route::get('kurikulum/mapel', Mapel::class)->name('mapelkurikulum');
         Route::get('kurikulum/mapelkelas', MapelKelas::class)->name('mapelkelaskurikulum');
+        Route::get('kurikulum/agenda', Agenda::class)->name('indexkurikulum');
     });
     Route::group(['middleware' => ['cekrole:siswa']], function(){
         Route::get('siswa', Index::class)->name('indexsiswa');
@@ -194,5 +194,12 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('manajemen', DataSiswa::class)->name('indexmanajemen');
         Route::get('manajemen/datamesin', DataMesin::class)->name('datamesinmanajemen');
         Route::get('manajemen/mesintoken', TokenMesin::class)->name('mesintokenmanajemen');
+        Route::get('kurikulum/kelasmgmt', KelasMgmt::class)->name('kelasmgmtkurikulum');
+        Route::get('kurikulum/jurusan', Jurusan::class)->name('jurusankurikulum');
+        Route::get('kurikulum/mapel', Mapel::class)->name('mapelkurikulum');
+        Route::get('kurikulum/mapelkelas', MapelKelas::class)->name('mapelkelaskurikulum');
+        
+        Route::get('admin/konfig',[AdminController::class,'konfig'])->name('konfig');
+        Route::any('admin/updatekonfig',[AdminController::class,'updateKonfig'])->name('updatekonfig');
     });
 });

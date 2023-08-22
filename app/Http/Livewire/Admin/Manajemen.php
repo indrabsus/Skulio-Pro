@@ -21,6 +21,7 @@ class Manajemen extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
+        $config = Config::where('id_config', 1)->first();
         $data = DB::table('users')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('level','<>','admin')
@@ -31,7 +32,7 @@ class Manajemen extends Component
         ->orderBy('kode', 'asc')
         ->paginate($this->result);
         $jbtn = Group::where('kode_grup', '>',2)->where('kode_grup','<',1000)->get();
-        return view('livewire.admin.manajemen', compact('data', 'jbtn'))
+        return view('livewire.admin.manajemen', compact('data', 'jbtn','config'))
         ->extends('layouts.app')
         ->section('content');
     }
