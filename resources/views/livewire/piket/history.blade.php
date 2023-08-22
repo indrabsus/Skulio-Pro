@@ -77,7 +77,7 @@
             </tr>
         @endforeach
     </table>
-
+    {{ $data->links() }}
 
 
       <script>
