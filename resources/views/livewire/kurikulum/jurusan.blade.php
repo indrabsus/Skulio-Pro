@@ -43,8 +43,10 @@
                 <td>{{ ucwords($d->keterangan) }}</td>
                 <td>{{$d->kode}}</td>
                 <td><a class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#edit" wire:click="edit({{ $d->kode }})"><i class="fa fa-edit"></i></a>
+                  @if(Auth::user()->level() == 'admin')
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->kode }})"><i class="fa fa-trash"></i></a>
-                </td>
+                  @endif
+                  </td>
             </tr>
         @endforeach
     </table>
