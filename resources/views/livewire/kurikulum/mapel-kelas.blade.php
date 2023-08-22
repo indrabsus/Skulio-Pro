@@ -84,7 +84,7 @@
                     @else
                     <a class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#set" wire:click="set({{ $d->id_ks }})"><i class="fa fa-edit"></i> Unset</a>
                     @endif
-                    @if(Auth::user()->level() == 'admin')
+                    @if(Auth::user()->level == 'admin')
                     <a class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_ks }})"><i class="fa fa-trash"></i></a>
                     @endif
                   </td>
