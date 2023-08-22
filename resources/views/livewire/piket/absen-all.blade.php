@@ -67,7 +67,25 @@
 
             </div>
         </div>
-        <table class="table table-sm">
+    </div>
+        <div class="col-lg-6">
+          <h3>Data Absen Terakhir</h3>
+          <table class="table table-sm">
+            <tr>
+              <th>Nama Guru</th>
+              <th>Keterangan</th>
+              <th>Waktu</th>
+            </tr>
+            @foreach ($latest as $d)
+                <tr>
+                  <td>{{$d->name}}</td>
+                  <td>{{$d->ket}}</td>
+                  <td>{{date('d/m/y h:i', strtotime($d->created_at))}}</td>
+                </tr>
+            @endforeach
+          </table>
+        </div>
+        {{-- <table class="table table-sm">
             <tr>
                 <td>Nama Instansi</td>
                 <td>:</td>
@@ -88,7 +106,8 @@
     <div class="col-lg-6">
 
         <iframe src="https://maps.google.com/maps?q={{ $konfig['lat'] }},{{ $konfig['long'] }}&z=15&output=embed" width="450px" height="300px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+    </div> --}}
+   
 </div>
 
   <script>

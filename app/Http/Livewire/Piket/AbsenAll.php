@@ -32,7 +32,10 @@ class AbsenAll extends Component
         ->where('kode_grup', 'like','%'.$this->kategoris.'%')
         ->orderBy('kode', 'asc')
         ->get();
-        return view('livewire.piket.absen-all', compact('konfig','nama','kategori'))
+        $latest = Absen::leftJoin('users','users.id','absens.id_user')->where('level', 'user')->orderBy('id_absen','desc')
+        ->select('name','ket','absens.created_at')
+        ->paginate(5);
+        return view('livewire.piket.absen-all', compact('konfig','nama','kategori','latest'))
         ->extends('layouts.app')
         ->section('content');
     }
