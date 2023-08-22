@@ -18,6 +18,7 @@ class PersentaseSiswa extends Component
     public $result = 10;
     public $role = '';
     public $bulan = '';
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
         $data = DB::table('hitung_absens')

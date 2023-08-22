@@ -19,6 +19,7 @@ class History extends Component
     public $result = 10;
     public $role = '';
     public $caritgl = '';
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
         $jbtan = Group::where('kode_grup',3)->get();

@@ -19,6 +19,7 @@ class HistorySiswa extends Component
     public $result = 10;
     public $role = '';
     public $caritgl = '';
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
         $jbtan = Group::where('kode_grup','>=',1000)->get();
