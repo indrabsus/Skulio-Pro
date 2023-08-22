@@ -31,7 +31,7 @@ class History extends Component
             ->where('name', 'like','%'.$this->cari.'%')
             ->where('nama_grup', 'like','%'.$this->role.'%')
             ->where('tanggal', 'like','%'.$this->caritgl.'%')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('absens.created_at', 'desc')
             ->paginate($this->result);
         } else {
             $data = DB::table('absens')
@@ -39,7 +39,7 @@ class History extends Component
             ->leftJoin('groups','groups.id_grup','users.id_grup')
             ->where('users.id', Auth::user()->id)
             ->where('tanggal', 'like','%'.$this->caritgl.'%')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('absens.created_at', 'desc')
             ->paginate($this->result);
         }
         
