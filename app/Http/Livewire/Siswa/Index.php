@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Siswa;
 
 use App\Models\Spp;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -20,7 +21,8 @@ class Index extends Component
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('users.id', Auth::user()->id)
         ->first();
-        return view('livewire.siswa.index', compact('user','spp'))
+        $logspp = User::leftJoin('spp_logs','spp_logs.id_user','users.id')->where('users.id', Auth::user()->id)->get();
+        return view('livewire.siswa.index', compact('user','spp','logspp'))
         ->extends('layouts.app')
         ->section('content');
     }

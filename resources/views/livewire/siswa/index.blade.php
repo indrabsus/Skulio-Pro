@@ -62,12 +62,23 @@
         <!-- /.row -->
         <div class="row">
           <div class="col-lg-6">
-            <h4>Data Siswa</h4>
-            <table class="table table-sm">
-              <tr>
-                <td>Pembayaran SPP</td><td>:</td><td>{{$spp->bulan}} {{$spp->angkatan}}</td>
-              </tr>
-            </table>
+            <h4>Data SPP</h4>
           </div>
         </div>
+        <table class="table table-striped">
+          <tr>
+            <th>Bulan</th>
+            <th>Biaya Lainnya</th>
+            <th>Subsidi</th>
+            <th>SPP</th>
+          </tr>
+          @foreach ($logspp as $l)
+              <tr>
+                <td>{{$l->keterangan}}</td>
+                <td>Rp.{{number_format($l->dll, 0,',','.')}}</td>
+                <td>Rp.{{number_format($l->subsidi, 0,',','.')}}</td>
+                <td>Rp.{{number_format($l->nominal, 0,',','.')}}</td>
+              </tr>
+          @endforeach
+        </table>
 </div>
