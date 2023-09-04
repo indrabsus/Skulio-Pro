@@ -26,7 +26,7 @@ class MapelKelas extends Component
         $mapel = Subject::all();
         $guru = User::where('kode','>=',1000)->where('kode','<',2000)->get();
         $id_mesin = session('id_mesin');
-        if(Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum'){
+        if(Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum'|| Auth::user()->level == 'manajemen'){
             $data = DB::table('kelas_subjects')
                 ->leftJoin('groups','groups.id_grup','kelas_subjects.id_kelas')
                 ->leftJoin('subjects','subjects.id_mapel','kelas_subjects.id_mapel')

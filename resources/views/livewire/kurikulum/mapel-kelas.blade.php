@@ -14,7 +14,7 @@
     </div>
     @endif
     <div class="row justify-content-between">
-      @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum')
+      @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum' || Auth::user()->level == 'manajemen')
       <div class="col-lg-3">
         <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
     </div>
@@ -42,7 +42,7 @@
     <table class="table table-striped">
         <tr>
             <th>No</th>
-            @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum')
+            @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum'|| Auth::user()->level == 'manajemen')
             <th>Nama</th>
             @endif
             
@@ -61,7 +61,7 @@
         @foreach ($data as $d)
             <tr>
                 <td>{{ $no++ }}</td>
-                @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum')
+                @if (Auth::user()->level == 'admin' || Auth::user()->level == 'kurikulum'|| Auth::user()->level == 'manajemen')
                 <td>@if ($d->name == NULL)
                   <span class="text-danger">Not SET</span>
               @else
