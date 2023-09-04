@@ -40,7 +40,7 @@ Kelas
     </li>
 
     <li class="nav-item">
-      <a wire:navigate href="#" class="nav-link">
+      <a href="#" class="nav-link">
         <i class="fa-solid fa-hard-drive"></i>
         <p>
           RFID Control
