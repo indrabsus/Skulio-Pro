@@ -12,7 +12,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -21,7 +21,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Mapel" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Mapel" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -63,7 +63,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama Mata Pelajaran</label>
-                <input type="text" wire:model="nama_mapel" class="form-control">
+                <input type="text" wire:model.live="nama_mapel" class="form-control">
                 <div class="text-danger">
                     @error('nama_mapel')
                         {{$message}}
@@ -95,7 +95,7 @@
             <div class="modal-body">
                 <div class="form-group">
                   <label for="">Nama Mata Pelajaran</label>
-                  <input type="text" wire:model="nama_mapel" class="form-control">
+                  <input type="text" wire:model.live="nama_mapel" class="form-control">
                   <div class="text-danger">
                       @error('nama_mapel')
                           {{$message}}

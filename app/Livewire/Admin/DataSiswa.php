@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\Config;
 use App\Models\Group;
@@ -94,7 +94,7 @@ class DataSiswa extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 
     public function k_hapus($id){
@@ -104,7 +104,7 @@ class DataSiswa extends Component
     public function delete(){
         User::where('id', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function changeAcc($id){
         $user = User::where('id', $id)->first();
@@ -198,7 +198,7 @@ class DataSiswa extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Password berhasil direset');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 
     public function edit($id){
@@ -228,6 +228,6 @@ class DataSiswa extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

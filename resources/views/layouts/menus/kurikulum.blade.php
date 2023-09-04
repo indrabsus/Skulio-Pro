@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="{{route('jurusankurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'jurusankurikulum' ? 'active':''}}">
+    <a wire:navigate href="{{route('jurusankurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'jurusankurikulum' ? 'active':''}}">
       <i class="fa-brands fa-squarespace"></i>
       <p>
         Jurusan
@@ -7,7 +7,7 @@
     </a>
   </li>
 <li class="nav-item">
-<a href="{{route('kelasmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmtkurikulum' ? 'active':''}}">
+<a wire:navigate href="{{route('kelasmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmtkurikulum' ? 'active':''}}">
 <i class="fa-solid fa-diagram-project"></i>
 <p>
 Kelas
@@ -15,7 +15,7 @@ Kelas
 </a>
 </li>
 <li class="nav-item">
-  <a href="{{route('mapelkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkurikulum' ? 'active':''}}">
+  <a wire:navigate href="{{route('mapelkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkurikulum' ? 'active':''}}">
     <i class="fa-solid fa-book"></i>
     <p>
       Mata Pelajaran
@@ -23,7 +23,7 @@ Kelas
   </a>
 </li>
 <li class="nav-item">
-  <a href="{{route('mapelkelaskurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelaskurikulum' ? 'active':''}}">
+  <a wire:navigate href="{{route('mapelkelaskurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelaskurikulum' ? 'active':''}}">
     <i class="fa-solid fa-swatchbook"></i>
     <p>
       Mapel Kelas
@@ -31,7 +31,7 @@ Kelas
   </a>
 </li>
   <li class="nav-item">
-    <a href="{{route('indexkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'indexkurikulum' ? 'active':''}}">
+    <a wire:navigate href="{{route('indexkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'indexkurikulum' ? 'active':''}}">
     <i class="fa-solid fa-calendar-days"></i>
       <p>
         Agenda Guru

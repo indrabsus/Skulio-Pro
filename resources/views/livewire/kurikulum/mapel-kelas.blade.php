@@ -22,7 +22,7 @@
         
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -31,7 +31,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Mapel" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Mapel" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -117,7 +117,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama Guru</label>
-                <select class="form-control" wire:model="id_user">
+                <select class="form-control" wire:model.live="id_user">
                     <option value="">Pilih Guru</option>
                     @foreach ($guru as $m)
                     <option value="{{$m->id}}">{{$m->name}}</option>
@@ -131,7 +131,7 @@
               </div>
               <div class="form-group">
                 <label for="">Mapel</label>
-                <select class="form-control" wire:model="id_mapel">
+                <select class="form-control" wire:model.live="id_mapel">
                     <option value="">Pilih Mapel</option>
                     @foreach ($mapel as $m)
                     <option value="{{$m->id_mapel}}">{{$m->nama_mapel}}</option>
@@ -145,7 +145,7 @@
               </div>
               <div class="form-group">
                 <label for="">Kelas</label>
-                <select class="form-control" wire:model="id_kelas">
+                <select class="form-control" wire:model.live="id_kelas">
                     <option value="">Pilih Kelas</option>
                     @foreach ($kelas as $m)
                     <option value="{{$m->id_grup}}">{{$m->nama_grup}}</option>
@@ -182,7 +182,7 @@
             <div class="modal-body">
                 <div class="form-group">
                   <label for="">Nama Guru</label>
-                  <select class="form-control" wire:model="id_user">
+                  <select class="form-control" wire:model.live="id_user">
                       <option value="">Pilih Guru</option>
                       @foreach ($guru as $m)
                       <option value="{{$m->id}}">{{$m->name}}</option>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">Mapel</label>
-                  <select class="form-control" wire:model="id_mapel" disabled>
+                  <select class="form-control" wire:model.live="id_mapel" disabled>
                       <option value="">Pilih Mapel</option>
                       @foreach ($mapel as $m)
                       <option value="{{$m->id_mapel}}">{{$m->nama_mapel}}</option>
@@ -210,7 +210,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">Kelas</label>
-                  <select class="form-control" wire:model="id_kelas" disabled>
+                  <select class="form-control" wire:model.live="id_kelas" disabled>
                       <option value="">Pilih Kelas</option>
                       @foreach ($kelas as $m)
                       <option value="{{$m->id_grup}}">{{$m->nama_grup}}</option>

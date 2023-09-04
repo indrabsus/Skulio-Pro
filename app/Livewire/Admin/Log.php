@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 use App\Models\Log as LogS;
 
 use DB;
@@ -35,7 +35,7 @@ class Log extends Component
             'keterangan' => $this->keterangan
         ]);
         session()->flash('sukses', 'Data berhasil diedit!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = LogS::where('id_log',$id)->first();
@@ -44,6 +44,6 @@ class Log extends Component
     public function delete(){
         LogS::where('id_log', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

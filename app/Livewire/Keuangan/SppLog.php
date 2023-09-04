@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Keuangan;
+namespace App\Livewire\Keuangan;
 
 use App\Models\Config;
 use App\Models\Month;
@@ -81,7 +81,7 @@ class SppLog extends Component
 
         if($user->kode + $this->bayar > $max) {
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             } else {
                 LogSpp::where('id_log', $this->ids)->update([
                     'nominal' => (int)$this->nominal,
@@ -96,7 +96,7 @@ class SppLog extends Component
                 Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             } 
     }
     public function k_hapus($id){
@@ -117,6 +117,6 @@ class SppLog extends Component
             $text = 'Hapus: Data pembayaran atas nama: '.$nama->name.' pada bulan '.$new->keterangan;
             Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
             session()->flash('sukses', 'Data berhasil dihapus!');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         }
 }

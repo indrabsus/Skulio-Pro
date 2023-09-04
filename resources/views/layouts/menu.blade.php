@@ -43,7 +43,7 @@
       @endif
 
 <li class="nav-item">
-              <a href="{{route('ubahpassword')}}" class="nav-link {{ Route::currentRouteName() == 'ubahpassword' ? 'active':''}}">
+              <a wire:navigate href="{{route('ubahpassword')}}" class="nav-link {{ Route::currentRouteName() == 'ubahpassword' ? 'active':''}}">
               <i class="fa-solid fa-key"></i>
                 <p>
                   Ganti Password
@@ -51,7 +51,7 @@
               </a>
             </li>
     <li class="nav-item">
-      <a href="{{route('logout')}}" class="nav-link">
+      <a wire:navigate href="{{route('logout')}}" class="nav-link">
         <i class="fas fa-sign-out-alt"></i>
         <p>
           Logout

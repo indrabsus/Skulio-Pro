@@ -15,7 +15,7 @@
     @endif
         <div class="row justify-content-end">
             <div class="col-lg-1 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -24,7 +24,7 @@
             </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -72,7 +72,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <input type="text" wire:model.live="nama_grup" class="form-control">
                 <div class="text-danger">
                     @error('nama_grup')
                         {{$message}}
@@ -81,7 +81,7 @@
               </div>
               <div class="form-group">
                 <label for="">Keterangan</label>
-                <select wire:model="kode_grup" class="form-control">
+                <select wire:model.live="kode_grup" class="form-control">
                   <option value="">Pilih Opsi</option>
                  
                 </select>
@@ -116,7 +116,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <input type="text" wire:model.live="nama_grup" class="form-control">
                 <div class="text-danger">
                     @error('nama_grup')
                         {{$message}}
@@ -125,7 +125,7 @@
               </div>
               <div class="form-group">
                 <label for="">Keterangan</label>
-                <select wire:model="kode_grup" class="form-control">
+                <select wire:model.live="kode_grup" class="form-control">
                   <option value="">Pilih Opsi</option>
                   
                 </select>
@@ -185,25 +185,25 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama</label>
-                <input type="text" wire:model="nama" class="form-control" readonly>
+                <input type="text" wire:model.live="nama" class="form-control" readonly>
               </div>
               <label for="">Pembayaran Terakhir</label>
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                    
-                    <input type="text" wire:model="bulan" class="form-control" readonly>
+                    <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="col-lg-8">
                   <div class="form-group">
-                    <input type="text" wire:model="angkatan" class="form-control" readonly>
+                    <input type="text" wire:model.live="angkatan" class="form-control" readonly>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="">SPP</label>
-                <input type="text" class="form-control" wire:model="blnnow" readonly>
+                <input type="text" class="form-control" wire:model.live="blnnow" readonly>
                 <div class="text-danger">
                   @error('bayar')
                   {{$message}}
@@ -213,7 +213,7 @@
 
               <div class="form-group">
                 <label for="">Nominal</label>
-                <select wire:model="nominal" class="form-control">
+                <select wire:model.live="nominal" class="form-control">
                   <option value="">Pilih Nominal</option>
                   <option value="{{$nom->x_spp}}">Kelas 1 Rp.{{ number_format($nom->x_spp) }}</option>
                   <option value="{{$nom->xi_spp}}">Kelas 2 Rp.{{ number_format($nom->xi_spp) }}</option>
@@ -230,7 +230,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <label for="">Biaya Lainnya</label>
-                    <input type="number" wire:model="dll" class="form-control">
+                    <input type="number" wire:model.live="dll" class="form-control">
                   </div>
                   <div class="text-danger">
                     @error('dll')
@@ -239,7 +239,7 @@
                   </div>
                   <div class="col-lg-6">
                     <label for="">Subsidi</label>
-                    <input type="number" wire:model="subsidi" class="form-control">
+                    <input type="number" wire:model.live="subsidi" class="form-control">
                   </div>
                   <div class="text-danger">
                     @error('subsidi')
@@ -254,10 +254,10 @@
                 <label for="">No Ref</label>
                 <div class="row">
                   <div class="col-lg-8">
-                    <input type="text" wire:model="noref" class="form-control" readonly>
+                    <input type="text" wire:model.live="noref" class="form-control" readonly>
                   </div>
                   <div class="col-lg-4">
-                    <input type="number" wire:model="ref" class="form-control" readonly>
+                    <input type="number" wire:model.live="ref" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="text-danger">
@@ -272,7 +272,7 @@
             
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" wire:click="bayar()">Save changes</button>
+              <button type="button" class="btn btn-primary" wire:click="bayar2()">Save changes</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -294,25 +294,25 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama</label>
-                <input type="text" wire:model="nama" class="form-control" readonly>
+                <input type="text" wire:model.live="nama" class="form-control" readonly>
               </div>
               <label for="">Pembayaran Terakhir</label>
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                    
-                    <input type="text" wire:model="bulan" class="form-control" readonly>
+                    <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="col-lg-8">
                   <div class="form-group">
-                    <input type="text" wire:model="angkatan" class="form-control" readonly>
+                    <input type="text" wire:model.live="angkatan" class="form-control" readonly>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="">SPP</label>
-                <input type="text" class="form-control" wire:model="blnnow" readonly>
+                <input type="text" class="form-control" wire:model.live="blnnow" readonly>
                 <div class="text-danger">
                   @error('bayar')
                   {{$message}}
@@ -323,7 +323,7 @@
               <div class="form-group">
                   <div class="col-lg-6">
                     <label for="">Subsidi</label>
-                    <input type="number" wire:model="subsidi" class="form-control">
+                    <input type="number" wire:model.live="subsidi" class="form-control">
                   </div>
                   <div class="text-danger">
                     @error('subsidi')

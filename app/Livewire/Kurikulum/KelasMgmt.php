@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Kurikulum;
+namespace App\Livewire\Kurikulum;
 
 use App\Models\Group;
 use App\Models\Jabatan;
@@ -50,7 +50,7 @@ class KelasMgmt extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function edit($id){
         $data = Group::where('id_grup',$id)->first();
@@ -74,7 +74,7 @@ class KelasMgmt extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = Group::where('id_grup',$id)->first();
@@ -83,6 +83,6 @@ class KelasMgmt extends Component
     public function delete(){
         Group::where('id_grup', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

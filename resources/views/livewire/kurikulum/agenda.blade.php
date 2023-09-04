@@ -20,7 +20,7 @@
         </div>
         @endif
         <div class="col-lg-1 mb-1">
-            <select wire:model='result' class="form-control">
+            <select wire:model.live='result' class="form-control">
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
@@ -28,11 +28,11 @@
             </select>
         </div>
         <div class="col-lg-2 mb-1">
-            <input type="date" wire:model="caritgl" class="form-control">
+            <input type="date" wire:model.live="caritgl" class="form-control">
         </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Kelas" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Kelas" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -84,7 +84,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Materi</label>
-                <input type="text" wire:model="materi" class="form-control">
+                <input type="text" wire:model.live="materi" class="form-control">
                 <div class="text-danger">
                     @error('materi')
                         {{$message}}
@@ -94,7 +94,7 @@
             
               <div class="form-group">
                 <label for="">Kelas</label>
-                <select wire:model="id_ks" class="form-control">
+                <select wire:model.live="id_ks" class="form-control">
                     <option value="">Pilih Mapel Kelas</option>
                     @foreach ($mapelkelas as $k)
                         <option value="{{$k->id_ks}}">{{$k->nama_grup}} - {{$k->nama_mapel}}</option>
@@ -112,7 +112,7 @@
                           <label for="">Jam ke</label>
                           <div class="row">
                             <div class="col-lg-6">
-                                <input type="number" wire:model="jam_awal" class="form-control">
+                                <input type="number" wire:model.live="jam_awal" class="form-control">
                                     <div class="text-danger">
                                         @error('jam_awal')
                                             {{$message}}
@@ -120,7 +120,7 @@
                                     </div>
                             </div>
                             <div class="col-lg-6">
-                                <input type="number" wire:model="jam_akhir" class="form-control">
+                                <input type="number" wire:model.live="jam_akhir" class="form-control">
                                     <div class="text-danger">
                                         @error('jam_akhir')
                                             {{$message}}
@@ -156,7 +156,7 @@
             <div class="modal-body">
                 <div class="form-group">
                   <label for="">Materi</label>
-                  <input type="text" wire:model="materi" class="form-control">
+                  <input type="text" wire:model.live="materi" class="form-control">
                   <div class="text-danger">
                       @error('materi')
                           {{$message}}
@@ -166,7 +166,7 @@
               
                 <div class="form-group">
                   <label for="">Kelas</label>
-                  <select wire:model="id_ks" class="form-control">
+                  <select wire:model.live="id_ks" class="form-control">
                       <option value="">Pilih Mapel Kelas</option>
                       @foreach ($mapelkelas as $k)
                           <option value="{{$k->id_ks}}">{{$k->nama_grup}} - {{$k->nama_mapel}}</option>
@@ -184,7 +184,7 @@
                             <label for="">Jam ke</label>
                             <div class="row">
                               <div class="col-lg-6">
-                                  <input type="number" wire:model="jam_awal" class="form-control">
+                                  <input type="number" wire:model.live="jam_awal" class="form-control">
                                       <div class="text-danger">
                                           @error('jam_awal')
                                               {{$message}}
@@ -192,7 +192,7 @@
                                       </div>
                               </div>
                               <div class="col-lg-6">
-                                  <input type="number" wire:model="jam_akhir" class="form-control">
+                                  <input type="number" wire:model.live="jam_akhir" class="form-control">
                                       <div class="text-danger">
                                           @error('jam_akhir')
                                               {{$message}}

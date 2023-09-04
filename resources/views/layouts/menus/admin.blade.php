@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
+    <a wire:navigate href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
     <i class="fa-solid fa-house"></i>
       <p>
         Dashboard
@@ -17,7 +17,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('manajemen')}}" class="nav-link {{ Route::currentRouteName() == 'manajemen' ? 'active':''}}">
+              <a wire:navigate href="{{route('manajemen')}}" class="nav-link {{ Route::currentRouteName() == 'manajemen' ? 'active':''}}">
                 <i class="fa-solid fa-paperclip"></i>
                 <p>
                   Manajemen
@@ -29,7 +29,7 @@
     
     
     <li class="nav-item">
-      <a href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
+      <a wire:navigate href="{{route('usermgmt')}}" class="nav-link {{ Route::currentRouteName() == 'usermgmt' ? 'active':''}}">
       <i class="fa-solid fa-briefcase"></i>
         <p>
           Staff Management
@@ -38,7 +38,7 @@
     </li>
     
     <li class="nav-item">
-<a href="{{route('datasiswa')}}" class="nav-link {{ Route::currentRouteName() == 'datasiswa' ? 'active':''}}">
+<a wire:navigate href="{{route('datasiswa')}}" class="nav-link {{ Route::currentRouteName() == 'datasiswa' ? 'active':''}}">
 <i class="fa-solid fa-children"></i>
   <p>
     Data Siswa
@@ -58,7 +58,7 @@
           <ul class="nav nav-treeview">
           
           <li class="nav-item">
-      <a href="{{route('absenkaryawan')}}" class="nav-link {{ Route::currentRouteName() == 'absenkaryawan' ? 'active':''}}">
+      <a wire:navigate href="{{route('absenkaryawan')}}" class="nav-link {{ Route::currentRouteName() == 'absenkaryawan' ? 'active':''}}">
       <i class="fa-solid fa-file-pen"></i>
         <p>
           Absen
@@ -69,7 +69,7 @@
     
     
     <li class="nav-item">
-      <a href="{{route('history')}}" class="nav-link {{ Route::currentRouteName() == 'history' ? 'active':''}}">
+      <a wire:navigate href="{{route('history')}}" class="nav-link {{ Route::currentRouteName() == 'history' ? 'active':''}}">
       <i class="fa-solid fa-clock-rotate-left"></i>
         <p>
           History
@@ -77,7 +77,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{route('persentase')}}" class="nav-link {{ Route::currentRouteName() == 'persentase' ? 'active':''}}">
+      <a wire:navigate href="{{route('persentase')}}" class="nav-link {{ Route::currentRouteName() == 'persentase' ? 'active':''}}">
       <i class="fa-solid fa-chart-line"></i>
         <p>
           Persentase
@@ -101,7 +101,7 @@
     
     
     <li class="nav-item">
-      <a href="{{route('historysiswa')}}" class="nav-link {{ Route::currentRouteName() == 'historysiswa' ? 'active':''}}">
+      <a wire:navigate href="{{route('historysiswa')}}" class="nav-link {{ Route::currentRouteName() == 'historysiswa' ? 'active':''}}">
       <i class="fa-solid fa-clock-rotate-left"></i>
         <p>
           History Siswa
@@ -109,7 +109,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{route('persentasesiswa')}}" class="nav-link {{ Route::currentRouteName() == 'persentasesiswa' ? 'active':''}}">
+      <a wire:navigate href="{{route('persentasesiswa')}}" class="nav-link {{ Route::currentRouteName() == 'persentasesiswa' ? 'active':''}}">
       <i class="fa-solid fa-chart-line"></i>
         <p>
           Persentase Siswa
@@ -133,7 +133,7 @@
           <ul class="nav nav-treeview">
             
             <li class="nav-item">
-              <a href="{{route('poin')}}" class="nav-link {{ Route::currentRouteName() == 'poin' ? 'active':''}}">
+              <a wire:navigate href="{{route('poin')}}" class="nav-link {{ Route::currentRouteName() == 'poin' ? 'active':''}}">
                 <i class="fa-solid fa-star-half-stroke"></i>
                 <p>
                   Poin Siswa
@@ -143,7 +143,7 @@
 
 
             <li class="nav-item">
-              <a href="{{route('log')}}" class="nav-link {{ Route::currentRouteName() == 'log' ? 'active':''}}">
+              <a wire:navigate href="{{route('log')}}" class="nav-link {{ Route::currentRouteName() == 'log' ? 'active':''}}">
                 <i class="fa-solid fa-timeline"></i>
                 <p>
                   Log Poin
@@ -165,7 +165,7 @@
           <ul class="nav nav-treeview">
 
             <li class="nav-item">
-              <a href="{{route('topupform')}}" class="nav-link {{ Route::currentRouteName() == 'topupform' ? 'active':''}}">
+              <a wire:navigate href="{{route('topupform')}}" class="nav-link {{ Route::currentRouteName() == 'topupform' ? 'active':''}}">
                 <i class="fa-regular fa-money-bill-1"></i>
                 <p>
                   Top Up
@@ -173,7 +173,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('logsaldo')}}" class="nav-link {{ Route::currentRouteName() == 'logsaldo' ? 'active':''}}">
+              <a wire:navigate href="{{route('logsaldo')}}" class="nav-link {{ Route::currentRouteName() == 'logsaldo' ? 'active':''}}">
                 <i class="fa-solid fa-timeline"></i>
                 <p>
                   Log Saldo
@@ -195,7 +195,7 @@
           <ul class="nav nav-treeview">
 
             <li class="nav-item">
-              <a href="{{route('datamesin')}}" class="nav-link {{ Route::currentRouteName() == 'datamesin' ? 'active':''}}">
+              <a wire:navigate href="{{route('datamesin')}}" class="nav-link {{ Route::currentRouteName() == 'datamesin' ? 'active':''}}">
                 <i class="fa-solid fa-magnifying-glass-chart"></i>
                 <p>
                   Data Mesin
@@ -203,7 +203,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('mesintoken')}}" class="nav-link {{ Route::currentRouteName() == 'mesintoken' ? 'active':''}}">
+              <a wire:navigate href="{{route('mesintoken')}}" class="nav-link {{ Route::currentRouteName() == 'mesintoken' ? 'active':''}}">
                 <i class="fa-solid fa-user-astronaut"></i>
                 <p>
                   Mesin Token
@@ -225,7 +225,7 @@
           </a>
           <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{route('agendamgmt')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmt' ? 'active':''}}">
+            <a wire:navigate href="{{route('agendamgmt')}}" class="nav-link {{ Route::currentRouteName() == 'agendamgmt' ? 'active':''}}">
             <i class="fa-solid fa-calendar-days"></i>
               <p>
                 Agenda
@@ -233,7 +233,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('jurusan')}}" class="nav-link {{ Route::currentRouteName() == 'jurusan' ? 'active':''}}">
+            <a wire:navigate href="{{route('jurusan')}}" class="nav-link {{ Route::currentRouteName() == 'jurusan' ? 'active':''}}">
               <i class="fa-brands fa-squarespace"></i>
               <p>
                 Jurusan
@@ -241,7 +241,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('kelasmgmt')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmt' ? 'active':''}}">
+            <a wire:navigate href="{{route('kelasmgmt')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmt' ? 'active':''}}">
             <i class="fa-solid fa-diagram-project"></i>
               <p>
                 Kelas
@@ -249,7 +249,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('mapel')}}" class="nav-link {{ Route::currentRouteName() == 'mapel' ? 'active':''}}">
+            <a wire:navigate href="{{route('mapel')}}" class="nav-link {{ Route::currentRouteName() == 'mapel' ? 'active':''}}">
               <i class="fa-solid fa-book"></i>
               <p>
                 Mata Pelajaran
@@ -257,7 +257,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('mapelkelas')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelas' ? 'active':''}}">
+            <a wire:navigate href="{{route('mapelkelas')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelas' ? 'active':''}}">
               <i class="fa-solid fa-swatchbook"></i>
               <p>
                 Mapel Kelas
@@ -276,7 +276,7 @@
           </a>
           <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{route('dataspp')}}" class="nav-link {{ Route::currentRouteName() == 'dataspp' ? 'active':''}}">
+            <a wire:navigate href="{{route('dataspp')}}" class="nav-link {{ Route::currentRouteName() == 'dataspp' ? 'active':''}}">
               <i class="fa-solid fa-hand-holding-dollar"></i>
               <p>
                 Data SPP
@@ -284,7 +284,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('pengajuansubsidi')}}" class="nav-link {{ Route::currentRouteName() == 'pengajuansubsidi' ? 'active':''}}">
+            <a wire:navigate href="{{route('pengajuansubsidi')}}" class="nav-link {{ Route::currentRouteName() == 'pengajuansubsidi' ? 'active':''}}">
               <i class="fa-solid fa-code-pull-request"></i>
               <p>
                   Pengajuan Subsidi
@@ -292,7 +292,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('spplog')}}" class="nav-link {{ Route::currentRouteName() == 'spplog' ? 'active':''}}">
+            <a wire:navigate href="{{route('spplog')}}" class="nav-link {{ Route::currentRouteName() == 'spplog' ? 'active':''}}">
               <i class="fa-solid fa-timeline"></i>
               <p>
                   Log SPP
@@ -306,7 +306,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="{{route('konfig')}}" class="nav-link {{ Route::currentRouteName() == 'konfig' ? 'active':''}}">
+          <a wire:navigate href="{{route('konfig')}}" class="nav-link {{ Route::currentRouteName() == 'konfig' ? 'active':''}}">
             <i class="fa-solid fa-gears"></i>
             <p>
               Konfigurasi

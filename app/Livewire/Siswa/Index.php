@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Siswa;
+namespace App\Livewire\Siswa;
 
 use App\Models\Spp;
 use App\Models\User;

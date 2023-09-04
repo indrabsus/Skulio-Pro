@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Kurikulum;
+namespace App\Livewire\Kurikulum;
 
 use App\Models\Group;
 use App\Models\KelasSubject;
@@ -77,7 +77,7 @@ class MapelKelas extends Component
 
         if($hitung > 0){
             session()->flash('gagal', 'Data Ganda');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         } else {
             KelasSubject::create([
                 'id_mapel' => $this->id_mapel,
@@ -86,7 +86,7 @@ class MapelKelas extends Component
             ]);
             $this->clearForm();
             session()->flash('sukses', 'Data berhasil ditambahkan');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         }
     }
     public function set($id){
@@ -100,7 +100,7 @@ class MapelKelas extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil di Unset');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 
     public function edit($id){
@@ -123,7 +123,7 @@ class MapelKelas extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = KelasSubject::where('id_ks',$id)->first();
@@ -132,6 +132,6 @@ class MapelKelas extends Component
     public function delete(){
         KelasSubject::where('id_ks', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

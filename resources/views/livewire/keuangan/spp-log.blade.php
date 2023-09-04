@@ -16,13 +16,13 @@
         <div class="row justify-content-end">
           <div class="col-lg-4 mb-1">
             <div class="input-group mb-3">
-              <select class="form-control" wire:model="thn">
+              <select class="form-control" wire:model.live="thn">
                 <option value="">Pilih Tahun</option>
                 <option value="{{date('Y') - 1}}">{{date('Y') - 1}}</option>
                 <option value="{{date('Y')}}">{{date('Y')}}</option>
                 <option value="{{date('Y') + 1}}">{{date('Y') + 1}}</option>
               </select>
-              <select class="form-control" wire:model="bln">
+              <select class="form-control" wire:model.live="bln">
                 <option value="">Pilih Bulan</option>
                 <option value="01">Januari</option>
                 <option value="02">Februari</option>
@@ -44,7 +44,7 @@
         </div>
 
             <div class="col-lg-1 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -139,26 +139,26 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama</label>
-                <input type="text" wire:model="nama" class="form-control" readonly>
+                <input type="text" wire:model.live="nama" class="form-control" readonly>
               </div>
               <label for="">Pembayaran Terakhir</label>
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                    
-                    <input type="text" wire:model="bulan" class="form-control" readonly>
+                    <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="col-lg-8">
                   <div class="form-group">
-                    <input type="text" wire:model="angkatan" class="form-control" readonly>
+                    <input type="text" wire:model.live="angkatan" class="form-control" readonly>
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="">Nominal</label>
-                <input type="number" wire:model="nominal" class="form-control">
+                <input type="number" wire:model.live="nominal" class="form-control">
                 <div class="text-danger">
                   @error('nominal')
                   {{$message}}
@@ -170,7 +170,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <label for="">Biaya Lainnya</label>
-                    <input type="number" wire:model="dll" class="form-control">
+                    <input type="number" wire:model.live="dll" class="form-control">
                   </div>
                   <div class="text-danger">
                     @error('dll')
@@ -179,7 +179,7 @@
                   </div>
                   <div class="col-lg-6">
                     <label for="">Subsidi</label>
-                    <input type="number" wire:model="subsidi" class="form-control">
+                    <input type="number" wire:model.live="subsidi" class="form-control">
                   </div>
                   <div class="text-danger">
                     @error('subsidi')
@@ -216,25 +216,25 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama</label>
-                <input type="text" wire:model="nama" class="form-control" readonly>
+                <input type="text" wire:model.live="nama" class="form-control" readonly>
               </div>
               <label for="">Pembayaran Terakhir</label>
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                    
-                    <input type="text" wire:model="bulan" class="form-control" readonly>
+                    <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
                 <div class="col-lg-8">
                   <div class="form-group">
-                    <input type="text" wire:model="angkatan" class="form-control" readonly>
+                    <input type="text" wire:model.live="angkatan" class="form-control" readonly>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="">SPP</label>
-                <select wire:model="bayar" class="form-control">
+                <select wire:model.live="bayar" class="form-control">
                   <option value="">Berapa bulan?</option>
                   <option value="1">1 Bulan</option>
                   <option value="2">2 Bulan</option>
@@ -253,7 +253,7 @@
               <div class="form-group">
                   <div class="col-lg-6">
                     <label for="">Subsidi</label>
-                    <input type="number" wire:model="subsidi" class="form-control">
+                    <input type="number" wire:model.live="subsidi" class="form-control">
                   </div>
                   <div class="text-danger">
                     @error('subsidi')

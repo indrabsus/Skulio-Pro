@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 use App\Models\Log as LogS;
 
 use App\Models\Saldo;
@@ -43,7 +43,7 @@ class LogSaldo extends Component
             'saldo' => $data->saldo - ($data2->total - $this->total)
         ]);
         session()->flash('sukses', 'Data berhasil diedit!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = LogS::where('id_log',$id)->first();
@@ -52,6 +52,6 @@ class LogSaldo extends Component
     public function delete(){
         LogS::where('id_log', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

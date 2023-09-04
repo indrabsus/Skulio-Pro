@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                         <label for="">Kategori :</label>
-                        <select wire:model="kategoris" class="form-control">
+                        <select wire:model.live="kategoris" class="form-control">
                             <option value="">Semua Kategori</option>
                             @foreach ($kategori as $d)
                                 <option value="{{ $d->kode_grup }}">{{ $d->nama_grup }}</option>
@@ -35,7 +35,7 @@
                     </div>
                 <div class="form-group">
                         <label for="">Nama :</label>
-                        <select wire:model="id_user" class="form-control">
+                        <select wire:model.live="id_user" class="form-control">
                             <option value="">Pilih Nama</option>
                             @foreach ($nama as $d)
                                 <option value="{{ $d->id }}">{{ $d->name }}</option>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Keterangan :</label>
-                        <select wire:model="ket" class="form-control">
+                        <select wire:model.live="ket" class="form-control">
                             <option value="">Keterangan</option>
                             <option value="hadir">Hadir</option>
                             <option value="izin">Izin</option>

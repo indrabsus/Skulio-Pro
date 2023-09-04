@@ -18,12 +18,12 @@
         
             <div class="col-lg-3 mb-1">
                 <div class="input mb-3">
-                    <input type="date" class="form-control" wire:model="caritgl">
+                    <input type="date" class="form-control" wire:model.live="caritgl">
                   </div>
             </div>
             @if (Auth::user()->level == 'admin')
             <div class="col-lg-2 mb-1">
-                <select wire:model='role' class="form-control">
+                <select wire:model.live='role' class="form-control">
                     <option value="">Pilih Kelas</option>
                    @foreach ($jbtan as $d)
                    <option value="{{$d->nama_grup}}">{{$d->nama_grup}}</option>
@@ -33,7 +33,7 @@
             </div>
             @endif
             <div class="col-lg-1 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -43,7 +43,7 @@
             @if (Auth::user()->level == 'admin')
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>

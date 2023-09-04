@@ -12,7 +12,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-2 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -21,7 +21,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -64,7 +64,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama Lengkap</label>
-                <input type="text" wire:model="name" class="form-control">
+                <input type="text" wire:model.live="name" class="form-control">
                 <div class="text-danger">
                     @error('name')
                         {{$message}}
@@ -73,7 +73,7 @@
               </div>
               <div class="form-group">
                 <label for="">Username</label>
-                <input type="text" wire:model="username" class="form-control">
+                <input type="text" wire:model.live="username" class="form-control">
                 <div class="text-danger">
                     @error('username')
                         {{$message}}
@@ -82,7 +82,7 @@
               </div>
               <div class="form-group">
                 <label for="">Level</label>
-                <input type="text" wire:model="level" class="form-control">
+                <input type="text" wire:model.live="level" class="form-control">
                 <div class="text-danger">
                     @error('level')
                         {{$message}}
@@ -114,7 +114,7 @@
             <div class="modal-body">
                 <div class="form-group">
                   <label for="">Nama Lengkap</label>
-                  <input type="text" wire:model="name" class="form-control">
+                  <input type="text" wire:model.live="name" class="form-control">
                   <div class="text-danger">
                       @error('name')
                           {{$message}}
@@ -123,7 +123,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">Username</label>
-                  <input type="text" wire:model="username" class="form-control" readonly>
+                  <input type="text" wire:model.live="username" class="form-control" readonly>
                   <div class="text-danger">
                       @error('username')
                           {{$message}}
@@ -132,7 +132,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">Level</label>
-                  <input type="text" wire:model="level" class="form-control">
+                  <input type="text" wire:model.live="level" class="form-control">
                   <div class="text-danger">
                       @error('level')
                           {{$message}}

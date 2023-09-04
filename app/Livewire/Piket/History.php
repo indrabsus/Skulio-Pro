@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Piket;
+namespace App\Livewire\Piket;
 
 use App\Models\Group;
 use App\Models\Jabatan;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class HistorySiswa extends Component
+class History extends Component
 {
     public $hash, $ids, $password, $k_password, $name, $oldPass;
     use WithPagination;
@@ -22,12 +22,12 @@ class HistorySiswa extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $jbtan = Group::where('kode_grup','>=',1000)->get();
+        $jbtan = Group::where('kode_grup','>', 2)->where('kode_grup','<=', 10)->get();
         if(Auth::user()->level == 'admin' || Auth::user()->level == 'piket'){
             $data = DB::table('absens')
             ->leftJoin('users','users.id', 'absens.id_user')
             ->leftJoin('groups','groups.id_grup','users.id_grup')
-            ->where('users.level', 'siswa')
+            ->where('users.level', 'user')
             ->where('name', 'like','%'.$this->cari.'%')
             ->where('nama_grup', 'like','%'.$this->role.'%')
             ->where('tanggal', 'like','%'.$this->caritgl.'%')
@@ -43,7 +43,7 @@ class HistorySiswa extends Component
             ->paginate($this->result);
         }
         
-        return view('livewire.piket.history-siswa', compact('data','jbtan'))
+        return view('livewire.piket.history', compact('data','jbtan'))
         ->extends('layouts.app')
         ->section('content');
     }
@@ -70,16 +70,16 @@ class HistorySiswa extends Component
                 ]);
                 session()->flash('sukses', 'Anda berhasil ubah password!');
                 $this->clearForm();
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             } else {
                 session()->flash('gagal', 'Password dan konfirmasi password harus sama!');
                 $this->clearForm();
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             }
         } else {
             session()->flash('gagal', 'Anda gagal memasukan Password Saat ini!');
             $this->clearForm();
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         }
     }
     public function clearForm()

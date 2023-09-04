@@ -1,5 +1,5 @@
 <li class="nav-item">
-  <a href="{{route('jurusankurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'jurusankurikulum' ? 'active':''}}">
+  <a wire:navigate href="{{route('jurusanmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'jurusanmanajemen' ? 'active':''}}">
     <i class="fa-brands fa-squarespace"></i>
     <p>
       Jurusan
@@ -7,7 +7,7 @@
   </a>
 </li>
 <li class="nav-item">
-<a href="{{route('kelasmgmtkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmtkurikulum' ? 'active':''}}">
+<a wire:navigate href="{{route('kelasmgmtmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'kelasmgmtmanajemen' ? 'active':''}}">
 <i class="fa-solid fa-diagram-project"></i>
 <p>
 Kelas
@@ -15,7 +15,7 @@ Kelas
 </a>
 </li>
 <li class="nav-item">
-<a href="{{route('mapelkurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkurikulum' ? 'active':''}}">
+<a wire:navigate href="{{route('mapelmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'mapelmanajemen' ? 'active':''}}">
   <i class="fa-solid fa-book"></i>
   <p>
     Mata Pelajaran
@@ -23,7 +23,7 @@ Kelas
 </a>
 </li>
 <li class="nav-item">
-<a href="{{route('mapelkelaskurikulum')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelaskurikulum' ? 'active':''}}">
+<a wire:navigate href="{{route('mapelkelasmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'mapelkelasmanajemen' ? 'active':''}}">
   <i class="fa-solid fa-swatchbook"></i>
   <p>
     Mapel Kelas
@@ -31,7 +31,7 @@ Kelas
 </a>
 </li>
 <li class="nav-item">
-    <a href="{{route('indexmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'indexmanajemen' ? 'active':''}}">
+    <a wire:navigate href="{{route('indexmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'indexmanajemen' ? 'active':''}}">
     <i class="fa-solid fa-children"></i>
       <p>
         Data Siswa
@@ -40,7 +40,7 @@ Kelas
     </li>
 
     <li class="nav-item">
-      <a href="#" class="nav-link">
+      <a wire:navigate href="#" class="nav-link">
         <i class="fa-solid fa-hard-drive"></i>
         <p>
           RFID Control
@@ -50,7 +50,7 @@ Kelas
       <ul class="nav nav-treeview">
 
         <li class="nav-item">
-          <a href="{{route('datamesinmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'datamesinmanajemen' ? 'active':''}}">
+          <a wire:navigate href="{{route('datamesinmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'datamesinmanajemen' ? 'active':''}}">
             <i class="fa-solid fa-magnifying-glass-chart"></i>
             <p>
               Data Mesin
@@ -58,7 +58,7 @@ Kelas
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('mesintokenmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'mesintokenmanajemen' ? 'active':''}}">
+          <a wire:navigate href="{{route('mesintokenmanajemen')}}" class="nav-link {{ Route::currentRouteName() == 'mesintokenmanajemen' ? 'active':''}}">
             <i class="fa-solid fa-user-astronaut"></i>
             <p>
               Mesin Token
@@ -69,7 +69,7 @@ Kelas
       </ul>
     </li>
     <li class="nav-item">
-      <a href="{{route('konfig')}}" class="nav-link {{ Route::currentRouteName() == 'konfig' ? 'active':''}}">
+      <a wire:navigate href="{{route('konfig')}}" class="nav-link {{ Route::currentRouteName() == 'konfig' ? 'active':''}}">
         <i class="fa-solid fa-gears"></i>
         <p>
           Konfigurasi

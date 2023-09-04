@@ -1,7 +1,7 @@
 <div>
         <div class="row justify-content-end">
             <div class="col-lg-1 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -11,14 +11,14 @@
         <div class="col-lg-4 mb-1">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <select wire:model="jbtn" class="form-control col-3">
+                    <select wire:model.live="jbtn" class="form-control col-3">
                         <option value="">Kelas</option>
                     @foreach ($jbtan as $d)
                         <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
                     @endforeach
                     </select>
 
-                    <select wire:model="bln" class="form-control col-4">
+                    <select wire:model.live="bln" class="form-control col-4">
                         <option value="">Bulan</option>
                         <option value="January">January</option>
                         <option value="February">February</option>
@@ -33,7 +33,7 @@
                         <option value="November">November</option>
                         <option value="December">December</option>
                     </select>
-                    <select wire:model="thn" class="form-control col-lg-3">
+                    <select wire:model.live="thn" class="form-control col-lg-3">
                         <option value="">Thn</option>
                         <option value="{{date('Y') - 1}}">{{date('Y') -1}}</option>
                         <option value="{{date('Y')}}">{{date('Y')}}</option>
@@ -51,14 +51,14 @@
         </div>
             <div class="col-lg-3 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="{{date('F Y', strtotime(now()))}}" wire:model="bulan">
+                    <input type="text" class="form-control" placeholder="{{date('F Y', strtotime(now()))}}" wire:model.live="bulan">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
                   </div>
             </div>
             <div class="col-lg-2 mb-1">
-                <select wire:model='role' class="form-control">
+                <select wire:model.live='role' class="form-control">
                 <option value="">Pilih Kelas</option>
                 @foreach ($jbtan as $d)
                         <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
@@ -68,7 +68,7 @@
 
             <div class="col-lg-2 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>

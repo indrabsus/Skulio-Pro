@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Kurikulum;
+namespace App\Livewire\Kurikulum;
 
 use App\Models\Group;
 use App\Models\Jabatan;
@@ -44,7 +44,7 @@ class Mapel extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function edit($id){
         $data = Subject::where('id_mapel',$id)->first();
@@ -64,7 +64,7 @@ class Mapel extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = Subject::where('id_mapel',$id)->first();
@@ -73,6 +73,6 @@ class Mapel extends Component
     public function delete(){
         Subject::where('id_mapel', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

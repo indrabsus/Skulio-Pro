@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Keuangan;
+namespace App\Livewire\Keuangan;
 
 use App\Models\Config;
 use App\Models\Month;
@@ -79,11 +79,11 @@ class PengajuanSubsidi extends Component
         $max = Month::max('kode');
         if($hitung > 0){
             session()->flash('gagal', 'Data Ganda!');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         } else {
             if($user->kode + $this->bayar > $max) {
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             } else {
                 Spp::where('id_user', $this->id_user)->update([
                     'kode' => $user->kode + $this->bayar
@@ -104,7 +104,7 @@ class PengajuanSubsidi extends Component
                 ]);
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             }
             
         } 

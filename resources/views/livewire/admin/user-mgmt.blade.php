@@ -12,7 +12,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-4 mb-1">
-                <select wire:model='role' class="form-control">
+                <select wire:model.live='role' class="form-control">
                     <option value="">Pilih Jabatan</option>
                     @foreach ($jbtn as $d)
                         <option value="{{ $d->nama_grup }}">{{ $d->nama_grup }}</option>
@@ -20,7 +20,7 @@
                 </select>
             </div>
             <div class="col-lg-2 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -76,7 +76,7 @@
                 <div class="col-4">
                     <div class="form-group">
                         <label for="">Kode</label>
-                        <input type="number" wire:model="kode" class="form-control">
+                        <input type="number" wire:model.live="kode" class="form-control">
                         <div class="text-danger">
                             @error('kode')
                                 {{$message}}
@@ -87,7 +87,7 @@
             </div>
               <div class="form-group">
                 <label for="">Nama Lengkap</label>
-                <input type="text" wire:model="name" class="form-control">
+                <input type="text" wire:model.live="name" class="form-control">
                 <div class="text-danger">
                     @error('name')
                         {{$message}}
@@ -96,7 +96,7 @@
               </div>
               <div class="form-group">
                 <label for="">Username</label>
-                <input type="text" wire:model="username" class="form-control">
+                <input type="text" wire:model.live="username" class="form-control">
                 <div class="text-danger">
                     @error('username')
                         {{$message}}
@@ -105,7 +105,7 @@
               </div>
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <select wire:model="id_grup" class="form-control">
+                <select wire:model.live="id_grup" class="form-control">
                     <option value="">Pilih Jabatan</option>
                     @foreach ($jbtn as $d)
                         <option value="{{ $d->id_grup }}">{{ $d->nama_grup }}</option>
@@ -142,7 +142,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Nama Lengkap</label>
-                <input type="text" wire:model="name" class="form-control">
+                <input type="text" wire:model.live="name" class="form-control">
                 <div class="text-danger">
                     @error('name')
                         {{$message}}
@@ -151,7 +151,7 @@
               </div>
               <div class="form-group">
                 <label for="">Username</label>
-                <input type="text" wire:model="username" class="form-control" disabled>
+                <input type="text" wire:model.live="username" class="form-control" disabled>
                 <div class="text-danger">
                     @error('username')
                         {{$message}}
@@ -160,7 +160,7 @@
               </div>
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <select wire:model="id_grup" class="form-control">
+                <select wire:model.live="id_grup" class="form-control">
                   <option value="">Pilih Jabatan</option>
                   @foreach ($jbtn as $d)
                       <option value="{{ $d->id_grup }}">{{ $d->nama_grup }}</option>

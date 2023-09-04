@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\Config;
 use App\Models\MesinRfid;
@@ -36,7 +36,7 @@ class DataMesin extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil ditambahkan');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function edit($id){
         $data = MesinRfid::where('id_mesin',$id)->first();
@@ -53,7 +53,7 @@ class DataMesin extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = MesinRfid::where('id_mesin',$id)->first();
@@ -62,6 +62,6 @@ class DataMesin extends Component
     public function delete(){
         MesinRfid::where('id_mesin', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

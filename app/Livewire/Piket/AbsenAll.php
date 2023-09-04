@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Piket;
+namespace App\Livewire\Piket;
 
 use App\Models\Absen;
 use App\Models\User;
@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use Livewire\WithPagination;
 
 
 class AbsenAll extends Component
 {
-
+    use WithPagination;
     public $ket, $id_user, $oldPass, $password, $k_password, $ids, $name, $hash;
     public $kategoris = '';
     public function render()
@@ -124,14 +125,14 @@ class AbsenAll extends Component
                     'password' => bcrypt($this->password)
                 ]);
                 session()->flash('sukses', 'Anda berhasil ubah password!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             } else {
                 session()->flash('gagal', 'Password dan konfirmasi password harus sama!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             }
         } else {
             session()->flash('gagal', 'Anda gagal memasukan Password Saat ini!');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         }
     }
 }

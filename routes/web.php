@@ -10,28 +10,28 @@ use App\Http\Controllers\PoinSiswa;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TopUpBayar;
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\Admin\DataSiswa;
-use App\Http\Livewire\Admin\Index as AdminIndex;
-use App\Http\Livewire\Admin\LogSaldo;
-use App\Http\Livewire\Admin\Manajemen;
-use App\Http\Livewire\Admin\DataMesin;
-use App\Http\Livewire\Admin\TokenMesin;
-use App\Http\Livewire\Keuangan\DataSpp;
-use App\Http\Livewire\Keuangan\PengajuanSubsidi;
-use App\Http\Livewire\Keuangan\SppLog;
-use App\Http\Livewire\Kurikulum\KelasMgmt;
-use App\Http\Livewire\Admin\Log;
-use App\Http\Livewire\Kurikulum\Jurusan;
-use App\Http\Livewire\Kurikulum\Mapel;
-use App\Http\Livewire\Kurikulum\MapelKelas;
-use App\Http\Livewire\Piket\AbsenAll;
-use App\Http\Livewire\Piket\History;
-use App\Http\Livewire\Piket\Persentase;
-use App\Http\Livewire\Admin\UserMgmt;
-use App\Http\Livewire\Kurikulum\Agenda;
-use App\Http\Livewire\Piket\HistorySiswa;
-use App\Http\Livewire\Piket\PersentaseSiswa;
-use App\Http\Livewire\Siswa\Index;
+use App\Livewire\Admin\DataSiswa;
+use App\Livewire\Admin\Index as AdminIndex;
+use App\Livewire\Admin\LogSaldo;
+use App\Livewire\Admin\Manajemen;
+use App\Livewire\Admin\DataMesin;
+use App\Livewire\Admin\TokenMesin;
+use App\Livewire\Keuangan\DataSpp;
+use App\Livewire\Keuangan\PengajuanSubsidi;
+use App\Livewire\Keuangan\SppLog;
+use App\Livewire\Kurikulum\KelasMgmt;
+use App\Livewire\Admin\Log;
+use App\Livewire\Kurikulum\Jurusan;
+use App\Livewire\Kurikulum\Mapel;
+use App\Livewire\Kurikulum\MapelKelas;
+use App\Livewire\Piket\AbsenAll;
+use App\Livewire\Piket\History;
+use App\Livewire\Piket\Persentase;
+use App\Livewire\Admin\UserMgmt;
+use App\Livewire\Kurikulum\Agenda;
+use App\Livewire\Piket\HistorySiswa;
+use App\Livewire\Piket\PersentaseSiswa;
+use App\Livewire\Siswa\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,7 +120,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::any('/admin/topupproses',[TopUpBayar::class,'topupProses'])->name('topupproses');
 
         //controller add siswa
-        Route::get('/admin/addsiswa',[CrudSiswa::class,'addSiswa'])->name('addsiswa');
+        Route::get('/admin/addsiswa',[CrudSiswa::class,'addSiswa'])->name('tambahsiswa');
         Route::any('/admin/insertsiswa',[CrudSiswa::class,'insertSiswa'])->name('insertsiswa');
         Route::get('/admin/editsiswa/{id}',[CrudSiswa::class,'editSiswa'])->name('editsiswa');
         Route::any('/admin/updatesiswa',[CrudSiswa::class,'updateSiswa'])->name('updatesiswa');
@@ -194,10 +194,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('manajemen', DataSiswa::class)->name('indexmanajemen');
         Route::get('manajemen/datamesin', DataMesin::class)->name('datamesinmanajemen');
         Route::get('manajemen/mesintoken', TokenMesin::class)->name('mesintokenmanajemen');
-        Route::get('kurikulum/kelasmgmt', KelasMgmt::class)->name('kelasmgmtkurikulum');
-        Route::get('kurikulum/jurusan', Jurusan::class)->name('jurusankurikulum');
-        Route::get('kurikulum/mapel', Mapel::class)->name('mapelkurikulum');
-        Route::get('kurikulum/mapelkelas', MapelKelas::class)->name('mapelkelaskurikulum');
+        Route::get('manajemen/kelasmgmt', KelasMgmt::class)->name('kelasmgmtmanajemen');
+        Route::get('manajemen/jurusan', Jurusan::class)->name('jurusanmanajemen');
+        Route::get('manajemen/mapel', Mapel::class)->name('mapelmanajemen');
+        Route::get('manajemen/mapelkelas', MapelKelas::class)->name('mapelkelasmanajemen');
         
         Route::get('admin/konfig',[AdminController::class,'konfig'])->name('konfig');
         Route::any('admin/updatekonfig',[AdminController::class,'updateKonfig'])->name('updatekonfig');

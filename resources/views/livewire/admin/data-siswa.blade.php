@@ -17,7 +17,7 @@
     <div class="row justify-content-between">
       @if(Auth::user()->level == 'admin')
       <div class="col-lg-3">
-        <a href="" class="btn btn-primary btn-sm mb-3" href="{{route('addsiswa')}}"><i class="fa-brands fa-nfc-symbol"></i> Tambah</a>
+        <a wire:navigate lass="btn btn-primary btn-sm mb-3" href="{{route('tambahsiswa')}}"><i class="fa-brands fa-nfc-symbol"></i> Tambah</a>
     </div>
     @endif
       @if(Auth::user()->level == 'admin' || Auth::user()->level == 'manajemen')
@@ -30,7 +30,7 @@
 
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -120,7 +120,7 @@
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="">NIS</label>
-                      <input type="text" wire:model="nis" class="form-control">
+                      <input type="text" wire:model.live="nis" class="form-control">
                       <div class="text-danger">
                           @error('nis')
                               {{$message}}
@@ -129,7 +129,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">Nama Lengkap</label>
-                      <input type="text" wire:model="name" class="form-control">
+                      <input type="text" wire:model.live="name" class="form-control">
                       <div class="text-danger">
                           @error('name')
                               {{$message}}
@@ -138,7 +138,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">Jenis Kelamin</label>
-                      <select wire:model="jenkel" class="form-control">
+                      <select wire:model.live="jenkel" class="form-control">
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="l">Laki-laki</option>
                         <option value="p">Perempuan</option>
@@ -151,7 +151,7 @@
                     </div>
                     <div class="form-group">
                       <label for="id_kelas">Kelas</label>
-                      <select wire:model="id_grup" class="form-control">
+                      <select wire:model.live="id_grup" class="form-control">
                           <option value="">Pilih Kelas</option>
                           @foreach ($kelas as $k)
                               <option value="{{ $k->id_grup }}">{{ $k->nama_grup }}</option>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="form-group">
                       <label for="nohp">No Handphone</label>
-                      <input type="number" class="form-control" placeholder="No Handphone" wire:model="nohp" >
+                      <input type="number" class="form-control" placeholder="No Handphone" wire:model.live="nohp" >
                       <div class="text-danger">
                           @error('nohp')
                               {{$message}}
@@ -174,7 +174,7 @@
                     </div>
                     <div class="form-group">
                       <label for="nohp">No Virtual Account</label>
-                      <input type="number" class="form-control" placeholder="Boleh dikosongkan" wire:model="no_va">
+                      <input type="number" class="form-control" placeholder="Boleh dikosongkan" wire:model.live="no_va">
                       <div class="text-danger">
                           @error('no_va')
                               {{$message}}
@@ -205,7 +205,7 @@
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="">NIS</label>
-                      <input type="text" wire:model="nis" class="form-control">
+                      <input type="text" wire:model.live="nis" class="form-control">
                       <div class="text-danger">
                           @error('nis')
                               {{$message}}
@@ -214,7 +214,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">Nama Lengkap</label>
-                      <input type="text" wire:model="name" class="form-control">
+                      <input type="text" wire:model.live="name" class="form-control">
                       <div class="text-danger">
                           @error('name')
                               {{$message}}
@@ -223,7 +223,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">Jenis Kelamin</label>
-                      <select wire:model="jenkel" class="form-control">
+                      <select wire:model.live="jenkel" class="form-control">
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="l">Laki-laki</option>
                         <option value="p">Perempuan</option>
@@ -236,7 +236,7 @@
                     </div>
                     <div class="form-group">
                       <label for="id_kelas">Kelas</label>
-                      <select wire:model="id_grup" class="form-control">
+                      <select wire:model.live="id_grup" class="form-control">
                           <option value="">Pilih Kelas</option>
                           @foreach ($kelas as $k)
                               <option value="{{ $k->id_grup }}">{{ $k->nama_grup }}</option>
@@ -250,7 +250,7 @@
                     </div>
                     <div class="form-group">
                       <label for="nohp">No Handphone</label>
-                      <input type="number" class="form-control" placeholder="No Handphone" wire:model="nohp" >
+                      <input type="number" class="form-control" placeholder="No Handphone" wire:model.live="nohp" >
                       <div class="text-danger">
                           @error('nohp')
                               {{$message}}
@@ -259,7 +259,7 @@
                     </div>
                     <div class="form-group">
                       <label for="nohp">No Virtual Account</label>
-                      <input type="number" class="form-control" placeholder="Boleh dikosongkan" wire:model="no_va">
+                      <input type="number" class="form-control" placeholder="Boleh dikosongkan" wire:model.live="no_va">
                       <div class="text-danger">
                           @error('no_va')
                               {{$message}}
@@ -290,7 +290,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Keterangan</label>
-                <select wire:model="ket" class="form-control">
+                <select wire:model.live="ket" class="form-control">
                   <option value="">Pilih Keterangan</option>
                   <option value="hadir">Hadir</option>
                   <option value="kegiatan">Kegiatan</option>

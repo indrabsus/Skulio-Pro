@@ -12,7 +12,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
-                <select wire:model='result' class="form-control">
+                <select wire:model.live='result' class="form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -21,7 +21,7 @@
             </div>
             <div class="col-lg-6 mb-1">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model="cari">
+                    <input type="text" class="form-control" placeholder="Cari Nama" wire:model.live="cari">
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
@@ -65,7 +65,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <input type="text" wire:model.live="nama_grup" class="form-control">
                 <div class="text-danger">
                     @error('nama_grup')
                         {{$message}}
@@ -74,7 +74,7 @@
               </div>
               <div class="form-group">
                 <label for="">Keterangan</label>
-                <select wire:model="kode_grup" class="form-control">
+                <select wire:model.live="kode_grup" class="form-control">
                   <option value="">Pilih Opsi</option>
                   @foreach ($role as $r)
                       <option value="{{$r->kode}}">{{$r->keterangan}}</option>
@@ -111,7 +111,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="">Jabatan</label>
-                <input type="text" wire:model="nama_grup" class="form-control">
+                <input type="text" wire:model.live="nama_grup" class="form-control">
                 <div class="text-danger">
                     @error('nama_grup')
                         {{$message}}
@@ -120,7 +120,7 @@
               </div>
               <div class="form-group">
                 <label for="">Keterangan</label>
-                <select wire:model="kode_grup" class="form-control">
+                <select wire:model.live="kode_grup" class="form-control">
                   <option value="">Pilih Opsi</option>
                   @foreach ($role as $r)
                       <option value="{{$r->kode}}">{{$r->keterangan}}</option>

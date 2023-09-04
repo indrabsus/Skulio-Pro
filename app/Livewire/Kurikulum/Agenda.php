@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Kurikulum;
+namespace App\Livewire\Kurikulum;
 
 use App\Models\Agenda as ModelsAgenda;
 use App\Models\Group;
@@ -54,7 +54,7 @@ class Agenda extends Component
 
         if($this->jam_akhir < $this->jam_awal){
             session()->flash('gagal', 'Salah Format Jam!');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         } else {
             ModelsAgenda::create([
                 'materi' => $this->materi,
@@ -65,7 +65,7 @@ class Agenda extends Component
             ]);
             $this->clearForm();
             session()->flash('sukses', 'Data berhasil ditambahkan');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         }
     }
     public function edit($id){
@@ -93,7 +93,7 @@ class Agenda extends Component
         ]);
         $this->clearForm();
         session()->flash('sukses', 'Data berhasil diedit');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
     public function k_hapus($id){
         $data = ModelsAgenda::where('id_agenda',$id)->first();
@@ -102,6 +102,6 @@ class Agenda extends Component
     public function delete(){
         ModelsAgenda::where('id_agenda', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

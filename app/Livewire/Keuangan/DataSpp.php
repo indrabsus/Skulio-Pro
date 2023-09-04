@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Keuangan;
+namespace App\Livewire\Keuangan;
 
 use App\Models\Config;
 use App\Models\Month;
@@ -46,7 +46,7 @@ class DataSpp extends Component
         $this->noref = '';
         $this->ref = '';
         $this->nominal = '';
-
+        $this->subsidi = '';
     }
     
 
@@ -66,7 +66,7 @@ class DataSpp extends Component
         $this->angkatan = $spp->angkatan;
     }
 
-    public function bayar(){
+    public function bayar2(){
         $this->validate([
             'ref' => 'required',
             'nominal' => 'required',
@@ -77,11 +77,11 @@ class DataSpp extends Component
         $max = Month::max('kode');
         if($hitung > 0){
             session()->flash('gagal', 'Data Ganda!');
-            $this->dispatchBrowserEvent('closeModal');
+            $this->dispatch('closeModal');
         } else {
             if($user->kode + 1 > $max) {
                 session()->flash('gagal', 'Pembayaran melebihi limit!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             } else {
                 $baru = Spp::where('id_user', $this->ids)->update([
                     'kode' => $user->kode + 1
@@ -101,7 +101,7 @@ class DataSpp extends Component
                 $text = $nama->name.' sudah membayar SPP bulan '.$this->blnnow.' Rp.'.number_format((int)$new->nominal).' dan biaya lainnya Rp.'.number_format($new->dll).' dan mendapatkan subsidi Rp.'.number_format($new->subsidi).' Total Rp.'.number_format($nomi);
                 Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 session()->flash('sukses', 'Data berhasil disimpan!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
             }
             
         } 
@@ -134,6 +134,6 @@ class DataSpp extends Component
         ]);
         $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
-                $this->dispatchBrowserEvent('closeModal');
+                $this->dispatch('closeModal');
     }
 }

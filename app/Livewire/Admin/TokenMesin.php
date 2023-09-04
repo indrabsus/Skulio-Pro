@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\MesinRfid;
 use App\Models\MesinToken;
@@ -31,6 +31,6 @@ class TokenMesin extends Component
     public function delete(){
         MesinToken::where('id_token', $this->ids)->delete();
         session()->flash('sukses', 'Data berhasil dihapus!');
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatch('closeModal');
     }
 }

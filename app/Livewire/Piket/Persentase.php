@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Piket;
+namespace App\Livewire\Piket;
 
 use App\Models\Group;
 use App\Models\Jabatan;
