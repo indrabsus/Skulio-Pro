@@ -79,10 +79,10 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/global/print',[PdfController::class, 'print'])->name('print');
     Route::get('/global/invoicepembayaran/{id}',[PdfController::class, 'invoiceSaldo'])->name('invoicesaldo');
     Route::get('/global/invoicespp/{id}',[PdfController::class, 'invoiceSpp'])->name('invoicespp');
-
+    Route::get('global', AdminIndex::class)->name('indexadmin');
     Route::group(['middleware' => ['cekrole:admin']], function(){
         // Admin Menu
-        Route::get('admin', AdminIndex::class)->name('indexadmin');
+        
         Route::get('admin/usermgmt', UserMgmt::class)->name('usermgmt');
         Route::get('admin/datasiswa', DataSiswa::class)->name('datasiswa');
         Route::get('admin/manajemen', Manajemen::class)->name('manajemen');

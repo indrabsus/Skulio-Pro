@@ -23,3 +23,11 @@
       </p>
     </a>
   </li>
+  <li class="nav-item">
+    <a wire:navigate href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
+    <i class="fa-solid fa-house"></i>
+      <p>
+        Laporan Keuangan
+      </p>
+    </a>
+  </li>

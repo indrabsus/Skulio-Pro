@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\SppLog;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -24,7 +25,10 @@ class SppExport implements FromView
             ->where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')
             ->orderBy('id_log', 'desc')
             ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar','keterangan')
-            ->get()
+            ->get(),
+            'spp' => SppLog::where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')->sum('nominal'),
+            'dll' => SppLog::where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')->sum('dll'),
+            'subsidi' => SppLog::where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')->sum('subsidi'),
         ]);
     }
 }

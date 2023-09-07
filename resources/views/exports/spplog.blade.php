@@ -23,15 +23,29 @@
             <tr>
                <td>{{ ucwords($d->name) }}</td>
                 <td>{{$d->nama_grup}}</td>
-                <td>Rp.{{number_format($d->nominal)}}</td>
+                <td>{{$d->nominal}}</td>
                 <td>{{$d->keterangan}}</td>
-                <td>Rp.{{number_format($d->dll)}}</td>
-                <td>Rp.{{number_format($d->subsidi)}}</td>
-                <td>Rp. {{number_format(($d->bayar * $d->nominal) + $d->dll - $d->subsidi)}}</td>
+                <td>{{$d->dll}}</td>
+                <td>{{$d->subsidi}}</td>
+                <td>{{($d->bayar * $d->nominal) + $d->dll - $d->subsidi}}</td>
                 <td>{{date('d/m/y h:i', strtotime($d->updated_at))}}</td>
                 <td>{{$d->no_ref}}</td>
             </tr>
         @endforeach
+        <tr></tr>
+        <tr>
+            <td>SPP</td><td>Rp. {{number_format($spp,0,',',',')}}</td> 
+        </tr>
+        <tr>
+            <td>Biaya Lainnya</td><td>Rp. {{number_format($dll,0,',',',')}}</td>
+        </tr>
+        <tr>
+            <td>Subsidi</td><td>Rp. {{number_format($subsidi,0,',',',')}}</td>
+        </tr>
+        <tr>
+            <td>Total Uang SPP</td><td>Rp. {{number_format($spp + $dll - $subsidi,0,',',',')}}</td>
+        </tr>
     </table>
+    
 </body>
 </html>
