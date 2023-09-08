@@ -86,15 +86,18 @@ class DataSpp extends Component
                 $baru = Spp::where('id_user', $this->ids)->update([
                     'kode' => $user->kode + 1
                 ]);
-                $new = SppLog::create([
-                    'id_user' => $this->ids,
-                    'nominal' => (int)$this->nominal,
-                    'bayar' => 1, 
-                    'no_ref' => $this->noref.$this->ref,
-                    'dll' => $this->dll,
-                    'subsidi' => $this->subsidi,
-                    'keterangan' => $this->blnnow,
-                ]);
+                if($baru){
+                    $new = SppLog::create([
+                        'id_user' => $this->ids,
+                        'nominal' => (int)$this->nominal,
+                        'bayar' => 1, 
+                        'no_ref' => $this->noref.$this->ref,
+                        'dll' => $this->dll,
+                        'subsidi' => $this->subsidi,
+                        'keterangan' => $this->blnnow,
+                    ]);
+                }
+                
                 $this->clearForm();
                 $nama = User::where('id', $this->ids)->first();
                 $nomi = (int)$new->nominal + (int)$new->dll - (int)$new->subsidi;

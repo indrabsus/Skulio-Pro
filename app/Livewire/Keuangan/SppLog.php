@@ -108,9 +108,12 @@ class SppLog extends Component
             $new = LogSpp::where('id_log', $this->ids)->first();
             $test = LogSpp::where('id_log', $this->ids)->delete();
             $user = Spp::where('id_user', $this->id_user)->first();
-            Spp::where('id_user', $this->id_user)->update([
-                'kode' => $user->kode - 1
-            ]);
+            if($test){
+                Spp::where('id_user', $this->id_user)->update([
+                    'kode' => $user->kode - 1
+                ]);
+            }
+            
             $nama = User::where('id', $this->id_user)->first();
             
             $bot = Config::where('id_config', 1)->first();
