@@ -43,7 +43,7 @@
         @foreach ($data as $d)
             <tr>
                 <td>{{ $no++ }}</td>
-                <td>{{ ucwords($d->name) }}</td>
+                <td><a href="" class="text-link" data-toggle="modal" data-target="#cek" wire:click="cek({{ $d->id_user }})">{{ ucwords($d->name) }}</a></td>
                 <td>{{$d->nama_grup}}</td>
                 <td>{{$d->bulan}} ({{$d->angkatan}})</td>
                 <td>
@@ -164,6 +164,47 @@
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" wire:click="delete()">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+
+      <div class="modal fade" id="cek" wire:ignore.self>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Cek Data</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                  <tr>
+                    <th>Nominal</th>
+                    <th>Biaya Lainnya</th>
+                    <th>Subsidi</th>
+                    <th>Bulan</th>
+                  </tr>
+                  @isset($cek2) 
+                  @foreach ($cek2 as $d)
+                      <tr>
+                        <td>Rp.{{number_format($d->nominal)}}</td>
+                        <td>Rp.{{number_format($d->dll)}}</td>
+                        <td>Rp.{{number_format($d->subsidi)}}</td>
+                        <td>{{$d->keterangan}}</td>
+                      </tr>
+                  @endforeach
+                  @endisset
+                </table>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
           <!-- /.modal-content -->

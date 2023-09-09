@@ -17,6 +17,7 @@ class DataSpp extends Component
 {
     public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan, $kode;
     use WithPagination;
+    public $cek2;
     public $dll = 0;
     public $blnnow = 1;
     public $subsidi = 0;
@@ -46,7 +47,7 @@ class DataSpp extends Component
         $this->noref = '';
         $this->ref = '';
         $this->nominal = '';
-        $this->subsidi = '';
+        $this->subsidi = 0;
     }
     
 
@@ -70,6 +71,8 @@ class DataSpp extends Component
         $this->validate([
             'ref' => 'required',
             'nominal' => 'required',
+            'subsidi' => 'required',
+            'dll' => 'required'
         ]);
         $bot = Config::where('id_config', 1)->first();
         $user = Spp::where('id_user', $this->ids)->first();
@@ -102,7 +105,7 @@ class DataSpp extends Component
                 $nama = User::where('id', $this->ids)->first();
                 $nomi = (int)$new->nominal + (int)$new->dll - (int)$new->subsidi;
                 $text = $nama->name.' sudah membayar SPP bulan '.$this->blnnow.' Rp.'.number_format((int)$new->nominal).' dan biaya lainnya Rp.'.number_format($new->dll).' dan mendapatkan subsidi Rp.'.number_format($new->subsidi).' Total Rp.'.number_format($nomi);
-                Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
+                // Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatch('closeModal');
             }
@@ -138,5 +141,9 @@ class DataSpp extends Component
         $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatch('closeModal');
+    }
+    public function cek($id){
+        $cek = DB::table('spp_logs')->where('id_user', $id)->orderBy('id_log', 'desc')->get();
+        $this->cek2 = $cek;
     }
 }
