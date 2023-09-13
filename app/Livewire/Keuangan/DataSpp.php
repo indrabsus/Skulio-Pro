@@ -105,7 +105,7 @@ class DataSpp extends Component
                 $nama = User::where('id', $this->ids)->first();
                 $nomi = (int)$new->nominal + (int)$new->dll - (int)$new->subsidi;
                 $text = $nama->name.' sudah membayar SPP bulan '.$this->blnnow.' Rp.'.number_format((int)$new->nominal).' dan biaya lainnya Rp.'.number_format($new->dll).' dan mendapatkan subsidi Rp.'.number_format($new->subsidi).' Total Rp.'.number_format($nomi);
-                // Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
+                Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatch('closeModal');
             }

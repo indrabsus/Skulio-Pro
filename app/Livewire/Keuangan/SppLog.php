@@ -93,7 +93,7 @@ class SppLog extends Component
                 $nama = User::where('id', $this->id_user)->first();
                 $nomi = $new->nominal + $new->dll - $new->subsidi;
                 $text = 'Edit: '.$nama->name.' sudah membayar SPP bulan '.$new->keterangan.' Rp.'.number_format($new->nominal).' dan biaya lainnya Rp.'.number_format($new->dll).' dan mendapatkan subsidi Rp.'.number_format($new->subsidi).' Total Rp.'.number_format($nomi);
-                // Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
+                Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatch('closeModal');
@@ -118,7 +118,7 @@ class SppLog extends Component
             
             $bot = Config::where('id_config', 1)->first();
             $text = 'Hapus: Data pembayaran atas nama: '.$nama->name.' pada bulan '.$new->keterangan;
-            // Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
+            Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
             session()->flash('sukses', 'Data berhasil dihapus!');
             $this->dispatch('closeModal');
         }
