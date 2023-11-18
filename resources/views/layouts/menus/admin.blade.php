@@ -299,6 +299,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a wire:navigate href="{{route('spplist')}}" class="nav-link {{ Route::currentRouteName() == 'spplist' ? 'active':''}}">
+              <i class="fa-solid fa-timeline"></i>
+              <p>
+                  SPP List
+              </p>
+            </a>
+          </li>
 
           
 

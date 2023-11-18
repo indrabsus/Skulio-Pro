@@ -24,6 +24,14 @@
     </a>
   </li>
   <li class="nav-item">
+    <a wire:navigate href="{{route('spplistkeuangan')}}" class="nav-link {{ Route::currentRouteName() == 'spplistkeuangan' ? 'active':''}}">
+      <i class="fa-solid fa-timeline"></i>
+      <p>
+          SPP List
+      </p>
+    </a>
+  </li>
+  <li class="nav-item">
     <a wire:navigate href="{{route('indexadmin')}}" class="nav-link {{ Route::currentRouteName() == 'indexadmin' ? 'active':''}}">
     <i class="fa-solid fa-house"></i>
       <p>

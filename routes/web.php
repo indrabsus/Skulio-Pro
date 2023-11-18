@@ -18,6 +18,7 @@ use App\Livewire\Admin\DataMesin;
 use App\Livewire\Admin\TokenMesin;
 use App\Livewire\Keuangan\DataSpp;
 use App\Livewire\Keuangan\PengajuanSubsidi;
+use App\Livewire\Keuangan\SppList;
 use App\Livewire\Keuangan\SppLog;
 use App\Livewire\Kurikulum\KelasMgmt;
 use App\Livewire\Admin\Log;
@@ -114,6 +115,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('admin/dataspp', DataSpp::class)->name('dataspp');
         Route::get('admin/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidi');
         Route::get('admin/spplog', SppLog::class)->name('spplog');
+        Route::get('admin/spplist', SppList::class)->name('spplist');
 
         //Top Up RFID
         Route::get('/admin/topupform',[TopUpBayar::class,'topupform'])->name('topupform');
@@ -178,6 +180,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('keuangan', DataSpp::class)->name('indexkeuangan');
         Route::get('keuangan/pengajuansubsidi', PengajuanSubsidi::class)->name('pengajuansubsidikeuangan');
         Route::get('keuangan/spplog', SppLog::class)->name('spplogkeuangan');
+        Route::get('keuangan/spplist', SppList::class)->name('spplistkeuangan');
     });
     Route::group(['middleware' => ['cekrole:requester']], function(){
         Route::get('requester', DataSpp::class)->name('indexrequester');
