@@ -34,30 +34,32 @@
         @php
             $log = App\Models\Month::orderBy('kode','asc')->where('kode','<>',0)->get();
         @endphp
-    <table class="table table-head-fixed text-nowrap">
-       <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama Siswa</th>
-            @foreach ($log as $l)
-                    <th>Bulan {{$l->kode}}</th>
-                @endforeach
-        </tr>
-       </thead>
-        <?php $no=1;?>
-        @foreach ($data as $d)
-            <tr>
-                <td>{{ $no++ }}</td>
-                <td>{{ ucwords($d->name) }}</td>
-                @php
-                    $spp = App\Models\SppLog::where('id_user', $d->id_user)->get();
-                @endphp
-                @foreach ($spp as $s)
-                    <td>{{$s->bayar == 1 ? 'v' : 'x'}}</td>
-                @endforeach
-            </tr>
-        @endforeach
-    </table>
+    <div class="table-responsive">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+             <tr>
+                 <th>No</th>
+                 <th>Nama Siswa</th>
+                 @foreach ($log as $l)
+                         <th>Bulan {{$l->kode}}</th>
+                     @endforeach
+             </tr>
+            </thead>
+             <?php $no=1;?>
+             @foreach ($data as $d)
+                 <tr>
+                     <td>{{ $no++ }}</td>
+                     <td>{{ ucwords($d->name) }}</td>
+                     @php
+                         $spp = App\Models\SppLog::where('id_user', $d->id_user)->get();
+                     @endphp
+                     @foreach ($spp as $s)
+                         <td>{{$s->bayar == 1 ? 'v' : 'x'}}</td>
+                     @endforeach
+                 </tr>
+             @endforeach
+         </table>
+    </div>
 
             {{ $data->links() }}
 
@@ -84,7 +86,7 @@
                 <label for="">Keterangan</label>
                 <select wire:model.live="kode_grup" class="form-control">
                   <option value="">Pilih Opsi</option>
-                 
+
                 </select>
                 <div class="text-danger">
                     @error('kode_grup')
@@ -128,7 +130,7 @@
                 <label for="">Keterangan</label>
                 <select wire:model.live="kode_grup" class="form-control">
                   <option value="">Pilih Opsi</option>
-                  
+
                 </select>
                 <div class="text-danger">
                     @error('kode_grup')
@@ -191,7 +193,7 @@
                     <th>Subsidi</th>
                     <th>Bulan</th>
                   </tr>
-                  @isset($cek2) 
+                  @isset($cek2)
                   @foreach ($cek2 as $d)
                       <tr>
                         <td>Rp.{{number_format($d->nominal)}}</td>
@@ -233,7 +235,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
-                   
+
                     <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
@@ -268,7 +270,7 @@
                 </div>
               </div>
               <div class="form-group">
-                
+
                 <div class="row">
                   <div class="col-lg-6">
                     <label for="">Biaya Lainnya</label>
@@ -289,7 +291,7 @@
                     @enderror
                   </div>
                 </div>
-                
+
               </div>
 
               <div class="form-group">
@@ -308,10 +310,10 @@
                   @enderror
                 </div>
               </div>
-              
-              
+
+
             </div>
-            
+
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" wire:click="bayar2()">Save changes</button>
@@ -342,7 +344,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
-                   
+
                     <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
@@ -372,12 +374,12 @@
                     {{$message}}
                     @enderror
                   </div>
-                
+
                 </div>
-              
-              
+
+
             </div>
-            
+
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" wire:click="req()">Save changes</button>

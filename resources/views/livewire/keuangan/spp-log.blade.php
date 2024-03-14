@@ -71,7 +71,7 @@
             <th>Subsidi</th>
             <th>Total</th>
             <th>Tanggal</th>
-            <th>No Ref</th>
+            <th>NIS</th>
             <th>Aksi</th>
         </tr>
         <?php $no=1;?>
@@ -86,7 +86,7 @@
                 <td>Rp.{{number_format($d->subsidi)}}</td>
                 <td>Rp. {{number_format(($d->bayar * $d->nominal) + $d->dll - $d->subsidi)}}</td>
                 <td>{{date('d/m/y h:i', strtotime($d->updated_at))}}</td>
-                <td>{{$d->no_ref}}</td>
+                <td>{{$d->nis}}</td>
                 <td>
                   <button class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#k_edit" wire:click="k_edit({{ $d->id_log }})">Edit</button>
                   <button class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#k_hapus" wire:click="k_hapus({{ $d->id_log }})">Hapus</button>
@@ -97,9 +97,9 @@
 
             {{ $data->links() }}
 
-    
 
-      
+
+
 
 
       <div class="modal fade" id="k_hapus" wire:ignore.self>
@@ -145,7 +145,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
-                   
+
                     <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
@@ -166,7 +166,7 @@
                 </div>
               </div>
               <div class="form-group">
-                
+
                 <div class="row">
                   <div class="col-lg-6">
                     <label for="">Biaya Lainnya</label>
@@ -187,11 +187,11 @@
                     @enderror
                   </div>
                 </div>
-                
+
               </div>
-              
+
             </div>
-            
+
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" wire:click="update()">Save changes</button>
@@ -222,7 +222,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
-                   
+
                     <input type="text" wire:model.live="bulan" class="form-control" readonly>
                   </div>
                 </div>
@@ -260,12 +260,12 @@
                     {{$message}}
                     @enderror
                   </div>
-                
+
                 </div>
-              
-              
+
+
             </div>
-            
+
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" wire:click="req()">Save changes</button>

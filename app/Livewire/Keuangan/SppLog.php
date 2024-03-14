@@ -30,10 +30,11 @@ class SppLog extends Component
         $nom = Config::where('id_config', 1)->first();
         $data = DB::table('spp_logs')
         ->leftJoin('users','users.id','spp_logs.id_user')
+        ->leftJoin('data_siswas','data_siswas.id_user','users.id')
         ->leftJoin('groups','groups.id_grup','users.id_grup')
         ->where('name', 'like','%'.$this->cari.'%')
         ->orderBy('id_log', 'desc')
-        ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar','keterangan')
+        ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar','keterangan','nis')
         ->paginate($this->result);
         return view('livewire.keuangan.spp-log', compact('data','nom'))
         ->extends('layouts.app')
@@ -49,7 +50,7 @@ class SppLog extends Component
         $this->nominal = '';
 
     }
-    
+
 
     public function k_edit($id){
         $data = DB::table('spp_logs')
@@ -68,7 +69,7 @@ class SppLog extends Component
         $this->angkatan = $spp->angkatan;
     }
 
-    
+
     public function update(){
         $this->validate([
             'subsidi' => 'required',
@@ -97,7 +98,7 @@ class SppLog extends Component
                 $this->clearForm();
                 session()->flash('sukses', 'Data berhasil disimpan!');
                 $this->dispatch('closeModal');
-            } 
+            }
     }
     public function k_hapus($id){
             $data = LogSpp::where('id_log',$id)->first();
@@ -113,9 +114,9 @@ class SppLog extends Component
                     'kode' => $user->kode - 1
                 ]);
             }
-            
+
             $nama = User::where('id', $this->id_user)->first();
-            
+
             $bot = Config::where('id_config', 1)->first();
             $text = 'Hapus: Data pembayaran atas nama: '.$nama->name.' pada bulan '.$new->keterangan;
             Http::get('https://api.telegram.org/bot'.$bot->token_telegram.'/sendMessage?chat_id='.$bot->chat_id_telegram.'&text='.$text);
