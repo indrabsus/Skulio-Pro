@@ -10,6 +10,7 @@
     <table>
         <tr>
             <th>Nama Siswa</th>
+            <th>NIS</th>
             <th>Kelas</th>
             <th>Nominal</th>
             <th>Bulan</th>
@@ -22,6 +23,7 @@
         @foreach ($data as $d)
             <tr>
                <td>{{ ucwords($d->name) }}</td>
+                <td>{{$d->nis}}</td>
                 <td>{{$d->nama_grup}}</td>
                 <td>{{$d->nominal}}</td>
                 <td>{{$d->keterangan}}</td>
@@ -34,7 +36,7 @@
         @endforeach
         <tr></tr>
         <tr>
-            <td>SPP</td><td>Rp. {{number_format($spp,0,',',',')}}</td> 
+            <td>SPP</td><td>Rp. {{number_format($spp,0,',',',')}}</td>
         </tr>
         <tr>
             <td>Biaya Lainnya</td><td>Rp. {{number_format($dll,0,',',',')}}</td>
@@ -46,6 +48,6 @@
             <td>Total Uang SPP</td><td>Rp. {{number_format($spp + $dll - $subsidi,0,',',',')}}</td>
         </tr>
     </table>
-    
+
 </body>
 </html>

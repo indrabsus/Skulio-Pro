@@ -24,9 +24,9 @@
       <div class="col-lg-3">
         <a class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> </i> Tambah</a>
     </div>
-    
+
     @endif
-      
+
 
         <div class="row justify-content-end">
             <div class="col-lg-3 mb-1">
@@ -81,7 +81,7 @@
                 @if(Auth::user()->level == 'admin' || Auth::user()->level == 'kesiswaan')
                 <td>{{$d->poin}}</td>
                 @endif
-                
+
                 @if(Auth::user()->level == 'admin')
                 <td><a href="http://skulio.my.id/poingrup/{{$d->kode}}/batara1001" target="_blank">{{$d->kode}}</a></td>
                 <td>Rp. {{number_format($d->saldo)}}</td>
@@ -95,7 +95,7 @@
                 @endif
                 <td>
                   @if(Auth::user()->level == 'admin')
-                  <a class="btn btn-success btn-sm mb-1" href="{{route('editsiswa',['id' => $d->id])}}"><i class="fa fa-edit"></i></a>  
+                  <a class="btn btn-success btn-sm mb-1" href="{{route('editsiswa',['id' => $d->id])}}"><i class="fa fa-edit"></i></a>
                   @endif
                   @if(Auth::user()->level == 'admin' || Auth::user()->level == 'manajemen')
                   <a class="btn btn-dark btn-sm mb-1" data-toggle="modal" data-target="#k_reset" wire:click="k_reset({{ $d->id }})"><i class="fa fa-cogs"></i> Reset</a>
@@ -340,7 +340,7 @@
       </div>
       <!-- /.modal -->
 
-     
+
       <div class="modal fade" id="k_reset" wire:ignore.self>
         <div class="modal-dialog">
           <div class="modal-content">

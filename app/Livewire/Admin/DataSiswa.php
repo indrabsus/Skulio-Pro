@@ -20,7 +20,7 @@ class DataSiswa extends Component
 {
     use WithPagination;
     public $ket, $bayar, $nama, $noref, $ref, $nominal, $ids, $id_user, $angkatan, $bulan,
-    $nis, $name, $jenkel, $id_grup, $nohp, $no_va;
+    $nis, $name, $jenkel, $id_grup, $nohp, $no_va, $id_userku;
     public $dll = 0;
     public $subsidi = 0;
     public $cari = '';
@@ -185,7 +185,7 @@ class DataSiswa extends Component
         $hitung['absen'] = DB::table($table)->where($key, $value)->where('tanggal', date('Y/m/d', strtotime(now())))->count();
         return $hitung;
     }
-   
+
 
     public function k_reset($id){
         $data = User::where('id',$id)->first();
@@ -207,7 +207,7 @@ class DataSiswa extends Component
         ->leftJoin('data_siswas','data_siswas.id_user','users.id')
         ->where('id',$id)
         ->first();
-        $this->id_userku = $data->id;
+        $this->id_userku = $id;
         $this->nis = $data->nis;
         $this->name = $data->name;
         $this->jenkel = $data->jenkel;

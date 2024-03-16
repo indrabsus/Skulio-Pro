@@ -21,10 +21,11 @@ class SppExport implements FromView
         return view('exports.spplog', [
             'data' => DB::table('spp_logs')
             ->leftJoin('users','users.id','spp_logs.id_user')
+            ->leftJoin('data_siswas','data_siswas.id_user','users.id')
             ->leftJoin('groups','groups.id_grup','users.id_grup')
             ->where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')
             ->orderBy('id_log', 'desc')
-            ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar','keterangan')
+            ->select('id_log','name','nama_grup','subsidi','nominal','spp_logs.updated_at','spp_logs.created_at','dll','no_ref','bayar','keterangan', 'nis')
             ->get(),
             'spp' => SppLog::where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')->sum('nominal'),
             'dll' => SppLog::where('spp_logs.updated_at', 'like','%'.$this->thn.'-'.$this->bln.'%')->sum('dll'),
